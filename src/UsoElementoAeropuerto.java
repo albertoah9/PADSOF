@@ -6,6 +6,7 @@ public class UsoElementoAeropuerto {
     private Aerolinea aerolinea;
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
+    
 
     /* Precios */
     private double costoVuelo;
