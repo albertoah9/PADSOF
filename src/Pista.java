@@ -1,6 +1,7 @@
 public abstract class Pista {
     private static int contador = 0;
-
+    
+    private Vuelo vueloAsignado;
     private int id;
     private double longitud;
     private double anchura;
@@ -36,6 +37,14 @@ public abstract class Pista {
 
     public void setPista(Pista pista) {
         this.pista = pista;
+    }
+
+    public boolean isOcupada(){
+        if(vueloAsignado != null && vueloAsignado.getEstado() == Vuelo.EstadoVuelo.ESPERANDO_PISTA){      
+            return true;
+        }else {
+            return false;
+        }
     }
         
 }
