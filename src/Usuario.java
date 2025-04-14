@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Usuario {
 	private ArrayList<Notificacion> notificaciones;

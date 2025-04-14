@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,7 +48,7 @@ public class GestorAeropuerto extends Usuario {
 	    switch (tipo.toLowerCase()) {
 	        case "operador":
 	            if (aerolinea != null) {
-	                nuevoUsuario = new OperadorAereo(nombre, contraseña, id, aerolinea);
+	                nuevoUsuario = new OperadorAereo(nombre, contraseña, aerolinea);
 	            } else {
 	                System.out.println("Error: Se necesita una aerolínea para asignar al operador.");
 	                return;
