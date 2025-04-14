@@ -1,6 +1,4 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +62,8 @@ public class Vuelo {
         this.pistaAsignada = false;
         this.vueloCercaDelAeropuerto = false;
         this.fechaHoraLlegada = fechaHoraLlegada;
-        this.fechaHoraSalida = fechaHoraSalida;     
+        this.fechaHoraSalida = fechaHoraSalida;  
+        this.observadores = new ArrayList<>();   
     }
 
     public LocalDateTime getFechaHora() {
