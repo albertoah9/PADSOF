@@ -1,5 +1,15 @@
 public class PistaAterrizaje extends Pista {
-    public PistaAterrizaje(int id, double longitud, double anchura) {
-        super(id, longitud, anchura);
+    private boolean zonaEsperandoAvion; 
+    public PistaAterrizaje(double longitud, double anchura) {
+        super(longitud, anchura);
+        this.zonaEsperandoAvion = false;
+    }
+
+    public boolean isZonaEsperandoAvion() {
+        return zonaEsperandoAvion;
+    }
+
+    public void setZonaEsperandoAvion(boolean zonaEsperandoAvion) {
+        this.zonaEsperandoAvion = zonaEsperandoAvion;
     }
 }

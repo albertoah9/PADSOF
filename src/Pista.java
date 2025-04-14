@@ -1,4 +1,4 @@
-public class Pista {
+public abstract class Pista {
     private static int contador = 0;
 
     private int id;
