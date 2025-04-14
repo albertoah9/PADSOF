@@ -147,6 +147,10 @@ public class GestorAeropuerto extends Usuario {
         preferenciasNotificaciones.add(preferencia);
     }
 
+    public boolean iniciarSesion(String contraseña) {
+        return this.contraseña.equals(contraseña); // Comparación directa
+    }
+
     @Override
     public void recibirNotificacion(Notificacion notificacion) {
         for (String preferencia : preferenciasNotificaciones) {

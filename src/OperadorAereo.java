@@ -1,6 +1,8 @@
 import java.util.List;  
 public class OperadorAereo extends Usuario {
     private Aerolinea aerolineaAsignada;
+    private boolean primeraVez = true;
+
 
     public OperadorAereo(String nombre, String contraseña, Aerolinea aerolineaAsignada) {
         super(nombre, contraseña, "Operador");
@@ -46,6 +48,15 @@ public class OperadorAereo extends Usuario {
         if(!notificacion.getDestinatarios().contains(this)){
             super.recibirNotificacion(notificacion);
         }
+    }
+
+    public boolean iniciarSesion(String contraseña) {
+        if (primeraVez) {
+            this.contraseña = contraseña;
+            primeraVez = false;
+            return true; 
+        }
+        return this.contraseña.equals(contraseña); 
     }
 
     @Override

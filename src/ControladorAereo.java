@@ -43,6 +43,10 @@ public class ControladorAereo extends Usuario {
         }
     }
 
+    public boolean iniciarSesion(String contraseña) {
+        return this.contraseña.equals(contraseña); // Comparación directa
+    }
+
     @Override
     public String toString() {
         return super.toString() + ", Terminal asignada: " + (terminalAsignada != null ? terminalAsignada.getId() : "Ninguna");

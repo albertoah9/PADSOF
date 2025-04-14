@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public abstract class Usuario {
 	private ArrayList<Notificacion> notificaciones;
 	private final int id;
-	private String contraseña;
+	protected String contraseña;
 	private String nombre;
 	private String rol;
 
@@ -68,6 +68,8 @@ public abstract class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public abstract boolean iniciarSesion(String contraseña);
 	
 	@Override
 	public String toString() {
