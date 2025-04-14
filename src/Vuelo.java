@@ -24,20 +24,18 @@ public class Vuelo {
     private boolean embarqueFinalizadoPorControlador;
     private boolean pistaAsignada;
     private boolean vueloCercaDelAeropuerto; 
-    
 
-    private LocalTime horaLlegada;
-    private LocalTime horaSalida;
-    private LocalTime horaActual;
-    private LocalTime horaEstadoEsperandoDespegue;
-    private LocalDateTime horaUltimaVerificacion;
-
+    private LocalDateTime fechaHoraLlegada;
+    private LocalDateTime fechaHoraSalida;
+    private LocalDateTime fechaHoraEstadoEsperandoDespegue;
+    private LocalDateTime fechaHoraUltimaVerificacion;
    
     private EstadoVuelo estado;
     private EstadoVuelo estadoAnterior;
 
+    private static int contador = 0;
 
-    private int id;
+    private final int id;
     private Terminal terminal;
     private Avion avion;
     private Pista pista;
@@ -51,8 +49,8 @@ public class Vuelo {
     private Hangar hangar;
     private List<Usuario> observadores;
 
-    public Vuelo(int id, LocalTime horaLlegada, LocalTime horaSalida, Terminal terminal, Avion avion, Pista pista, PuertaEmbarque puertaEmbarque, EstadoVuelo estado, Aeropuerto aeropuerto, TipoVuelo tipoVuelo, ClaseVuelo claseVuelo, Aerolinea aerolinea) {
-        this.id = id;
+    public Vuelo(int id, LocalDateTime fechaHoraLlegada, LocalDateTime fechaHoraSalida, Terminal terminal, Avion avion, Pista pista, PuertaEmbarque puertaEmbarque, EstadoVuelo estado, Aeropuerto aeropuerto, TipoVuelo tipoVuelo, ClaseVuelo claseVuelo, Aerolinea aerolinea) {
+        this.id = ++contador;
         this.terminal = terminal;
         this.avion = avion;
         this.pista = pista;
@@ -65,43 +63,33 @@ public class Vuelo {
         this.embarqueFinalizadoPorControlador = false;
         this.pistaAsignada = false;
         this.vueloCercaDelAeropuerto = false;
-        this.horaActual = LocalTime.now();
-        this.horaLlegada = horaLlegada;
-        this.horaSalida = horaSalida;        
+        this.fechaHoraLlegada = fechaHoraLlegada;
+        this.fechaHoraSalida = fechaHoraSalida;     
     }
 
-    
-
     public LocalDateTime getFechaHora() {
-        return LocalDateTime.of(LocalDate.now(), this.horaSalida);
+        return this.fechaHoraSalida;
     }
 
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public LocalTime getHoraActual() {
-        return horaActual;
-    }
-
-    public LocalTime getHoraSalida() {
-        return horaSalida;
+    public LocalDateTime getfechaHoraSalida() {
+        return fechaHoraSalida;
     }
    
-    public void setHoraSalida(LocalTime horaSalida) {
-        this.horaSalida = horaSalida;
+    public void setFechaHoraSalida(LocalDateTime fechaHoraSalida) {
+        this.fechaHoraSalida = fechaHoraSalida;
     }
 
-    public LocalTime getHoraLlegada() {
-        return horaLlegada;
+    public LocalDateTime getfechaHoraLlegada() {
+        return fechaHoraLlegada;
     }
 
     
-    public void setHoraLlegada(LocalTime horaLlegada) {
-        this.horaLlegada = horaLlegada;
+    public void setFechaHoraLlegada(LocalDateTime fechaHoraLlegada) {
+        this.fechaHoraLlegada = fechaHoraLlegada;
     }
 
 
@@ -206,7 +194,7 @@ public class Vuelo {
     //METODOS DE CAMBIOS DE ESTADO
     //RETREASADO VUELO SALIDA si la hora actual es mayor a la hora de la salida
    public boolean estaRetrasadoSalida() {
-        if (tipoVuelo == TipoVuelo.SALIDA && horaActual.isAfter(horaSalida)) {
+        if (tipoVuelo == TipoVuelo.SALIDA && LocalDateTime.now().isAfter(fechaHoraSalida)) {
             cambiarEstado(EstadoVuelo.RETRASADO); 
             return true;
         }
@@ -214,8 +202,7 @@ public class Vuelo {
     }
     //RETRASADO VUELO LLEGADA si la hora actual es mayor a la hora de llegada y no ha aterrizado
     public boolean estaRetrasadoLlegada() {
-        if (tipoVuelo == TipoVuelo.LLEGADA && horaActual.isAfter(horaLlegada) 
-            && (estado != EstadoVuelo.APARCADO && estado != EstadoVuelo.EN_HANGAR)) {
+        if (tipoVuelo == TipoVuelo.LLEGADA && LocalDateTime.now().isAfter(fechaHoraLlegada) && (estado != EstadoVuelo.APARCADO && estado != EstadoVuelo.EN_HANGAR)) {
             cambiarEstado(EstadoVuelo.RETRASADO);
             return true;
         }
@@ -225,7 +212,7 @@ public class Vuelo {
 
     //EN_HORA SALIDA si la hora actual es menor o igual a la hora de salida
     public boolean estaPuntualSalida() {
-    if (tipoVuelo == TipoVuelo.SALIDA && (horaActual.isBefore(horaSalida) || horaActual.equals(horaSalida))) {
+    if (tipoVuelo == TipoVuelo.SALIDA && (LocalDateTime.now().isBefore(fechaHoraSalida) || LocalDateTime.now().equals(fechaHoraSalida))) {
         cambiarEstado(EstadoVuelo.EN_HORA);
         return true;
     }
@@ -233,7 +220,7 @@ public class Vuelo {
 }
     //EN_HORA LLEGADA si la hora actual es menor o igual a la hora de llegada
     public boolean estaPuntualLlegada() {
-        if (tipoVuelo == TipoVuelo.LLEGADA && (horaActual.isBefore(horaLlegada) || horaActual.equals(horaLlegada))) {
+        if (tipoVuelo == TipoVuelo.LLEGADA && (LocalDateTime.now().isBefore(fechaHoraLlegada) || LocalDateTime.now().equals(fechaHoraLlegada))) {
             cambiarEstado(EstadoVuelo.EN_HORA);
             return true;
         }
@@ -258,7 +245,7 @@ public class Vuelo {
         if (this.estado == EstadoVuelo.ESPERANDO_PISTA && this.pistaAsignada) {
             this.estado = EstadoVuelo.ESPERADNO_DESPEGUE; 
             this.pistaAsignada = false;
-            this.horaEstadoEsperandoDespegue = LocalTime.now();
+            this.fechaHoraEstadoEsperandoDespegue = LocalDateTime.now();
             return true;
         }
         return false;  
@@ -268,16 +255,16 @@ public class Vuelo {
         this.pistaAsignada = true; // Pista asignada al vuelo
     }
 
-    //DESPEGADO
-    public boolean VueloDespegado(){
-            if (this.estado == EstadoVuelo.ESPERADNO_DESPEGUE) {
-            if (this.horaEstadoEsperandoDespegue != null && 
-                ChronoUnit.MINUTES.between(this.horaEstadoEsperandoDespegue, LocalDateTime.now()) >= 2) {
-                this.estado = EstadoVuelo.DESPEGADO; 
+    // DESPEGADO
+    public boolean VueloDespegado() {
+        if (this.estado == EstadoVuelo.ESPERADNO_DESPEGUE) {
+            if (this.fechaHoraEstadoEsperandoDespegue != null &&
+                ChronoUnit.MINUTES.between(this.fechaHoraEstadoEsperandoDespegue, LocalDateTime.now()) >= 2) {
+                this.estado = EstadoVuelo.DESPEGADO;
                 return true;
             }
         }
-        return false;  
+        return false;
     }
 
     
@@ -312,12 +299,12 @@ public class Vuelo {
         // Si es la primera vez, guardamos el estado actual y la hora
         if (estadoAnterior == null) {
             estadoAnterior = this.estado;
-            horaUltimaVerificacion = LocalDateTime.now();
+            fechaHoraUltimaVerificacion = LocalDateTime.now();
             return;
         }
 
         // Verificamos si pasaron al menos 2 minutos
-        long minutosPasados = ChronoUnit.MINUTES.between(horaUltimaVerificacion, LocalDateTime.now());
+        long minutosPasados = ChronoUnit.MINUTES.between(fechaHoraUltimaVerificacion, LocalDateTime.now());
 
         if (minutosPasados >= 2) {
             // Comprobamos si el estado actual es distinto al anterior
@@ -326,7 +313,7 @@ public class Vuelo {
                 notificar("El nuevo estado es: " + this.estado, controladorAereo);
                 
                 estadoAnterior = this.estado;
-                horaUltimaVerificacion = LocalDateTime.now();
+                fechaHoraUltimaVerificacion = LocalDateTime.now();
             }
         }
     }, 0, 1, TimeUnit.MINUTES);

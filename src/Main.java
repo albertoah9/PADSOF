@@ -22,8 +22,8 @@ public class Main {
       finger1.setPuertaEmbarque(puerta1);
 
       // Pistas
-      Pista pistaAterrizaje = new PistaAterrizaje(1, 3000.0, 45.0);
-      Pista pistaDespegue = new PistaDespegue(2, 3200.0, 50.0);
+      Pista pistaAterrizaje = new PistaAterrizaje(3000.0, 45.0);
+      Pista pistaDespegue = new PistaDespegue(3200.0, 50.0);
       aeropuerto.addPista(pistaAterrizaje);
       aeropuerto.addPista(pistaDespegue);
 

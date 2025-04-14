@@ -5,12 +5,10 @@ import java.util.Set;
 
 public class GestorAeropuerto extends Usuario {
 	
-	private ArrayList<Usuario> usuarios;
     private Set<String> preferenciasNotificaciones;
 	
 	public GestorAeropuerto(String nombre, String contraseña) {
 		super(nombre, contraseña, "Gestor");
-		this.usuarios = new ArrayList<>();  // List vacia para que el gestor gestione usuarios
         this.preferenciasNotificaciones = new HashSet<>(); // Set para preferencias de notificaciones
 	}
 	

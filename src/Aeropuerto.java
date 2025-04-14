@@ -17,6 +17,7 @@ public class Aeropuerto {
     private GestorAeropuerto gestor;
     private ArrayList<Hangar> hangares;
     private ArrayList<ZonaAparcamiento> aparcamientos;
+    private ArrayList<Usuario> usuarios;
     private Usuario usuarioActivo;
     private ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto;
 
@@ -108,7 +109,11 @@ public class Aeropuerto {
     }
 
     public void setCosteVuelo(double costeVuelo) {
-        this.costeVuelo = costeVuelo;
+        if(usuarioActivo instanceof GestorAeropuerto) {
+            this.costeVuelo = costeVuelo;
+        } else { 
+            System.err.println("Usuario con permisos insuficientes");
+        }
     }
 
     public Status iniciarSesion(String nombreUsuario, String contraseña) {
@@ -130,7 +135,6 @@ public class Aeropuerto {
 
         return Status.ERROR;
     }
-
 
     /* Métodos */
     public Status addPuertaEmbarque(PuertaEmbarque puerta) {
@@ -195,8 +199,6 @@ public class Aeropuerto {
         return usosElementosAeropuerto;
     }
 
-
-    /* Métodos */
     public ArrayList<UsoElementoAeropuerto> getUsosElementosAeropuertoElemento(ElementoAeropuerto elemento) {
         ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto = new ArrayList<>();
         for (UsoElementoAeropuerto uso : usosElementosAeropuerto) {
@@ -208,7 +210,7 @@ public class Aeropuerto {
         return usosElementosAeropuerto;
     }
 
-    // Asignar terminal a un vuelo
+    /* Asignar terminal a un vuelo */
     public void asignarTerminalAVuelo(Vuelo vuelo) {
         Terminal terminalAsignada = buscarTerminalDisponible();
         ArrayList<Usuario> usuariosDest = new ArrayList<>();
