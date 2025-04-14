@@ -45,7 +45,7 @@ public class SistemaDePago {
 
         try {
             // Intentamos realizar el cobro con los datos de la factura
-            TeleChargeAndPaySystem.charge(numeroDeTarjeta, factura.getFechaVencimiento(), factura.getMonto(), modoSeguro);
+            TeleChargeAndPaySystem.charge(numeroDeTarjeta, factura.getFechaVencimiento().toString(), factura.getMonto(), modoSeguro);
             
             // Si el pago es exitoso, marcamos la factura como pagada
             factura.marcarComoPagado();
