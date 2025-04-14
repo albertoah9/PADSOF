@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Terminal {
+public abstract class Terminal {
     private static int contador = 1;
     private int id;
     private ArrayList<ControladorAereo> controladores;
