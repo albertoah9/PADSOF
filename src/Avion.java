@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Avion {
+public abstract class Avion {
 
     private static int contador = 1;
 
