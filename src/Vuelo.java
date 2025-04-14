@@ -347,7 +347,7 @@ public class Vuelo {
             notificarEstado(); // Notifica al controlador aéreo del nuevo estado
         }
     }
-
+    
 
     private void notificarEstado() {
         if (this.controladorAereo != null) {
