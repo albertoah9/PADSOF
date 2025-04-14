@@ -32,7 +32,6 @@ public class Vuelo {
     private LocalTime horaEstadoEsperandoDespegue;
     private LocalDateTime horaUltimaVerificacion;
 
-
    
     private EstadoVuelo estado;
     private EstadoVuelo estadoAnterior;
@@ -68,8 +67,13 @@ public class Vuelo {
         this.vueloCercaDelAeropuerto = false;
         this.horaActual = LocalTime.now();
         this.horaLlegada = horaLlegada;
-        this.horaSalida = horaSalida;
-        
+        this.horaSalida = horaSalida;        
+    }
+
+    
+
+    public LocalDateTime getFechaHora() {
+        return LocalDateTime.of(LocalDate.now(), this.horaSalida);
     }
 
     public int getId() {
