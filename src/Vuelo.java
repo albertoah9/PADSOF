@@ -66,10 +66,6 @@ public class Vuelo {
         this.observadores = new ArrayList<>();   
     }
 
-    public LocalDateTime getFechaHora() {
-        return this.fechaHoraSalida;
-    }
-
     public int getId() {
         return id;
     }
@@ -85,12 +81,18 @@ public class Vuelo {
     public LocalDateTime getfechaHoraLlegada() {
         return fechaHoraLlegada;
     }
-
     
     public void setFechaHoraLlegada(LocalDateTime fechaHoraLlegada) {
         this.fechaHoraLlegada = fechaHoraLlegada;
     }
 
+    public LocalDateTime getFechaHora() {
+        if (this.getTipoVuelo() == TipoVuelo.SALIDA) {
+            return fechaHoraSalida;
+        } else {
+            return fechaHoraLlegada;
+        }
+    }
 
     public Terminal getTerminal() {
         return terminal;
@@ -124,10 +126,9 @@ public class Vuelo {
     public EstadoVuelo getEstado() {
         return estado;
     }
-    public void setEstado(EstadoVuelo nuevoEstado, Usuario usuario) {
+    public void setEstado(EstadoVuelo nuevoEstado) {
         this.estado = nuevoEstado;
         String mensaje = "Vuelo " + id + " ha cambiado de estado a: " + nuevoEstado;
-        notificar(mensaje, usuario);
     }
 
     public Aeropuerto getAeropuerto() {
@@ -140,6 +141,7 @@ public class Vuelo {
     public TipoVuelo getTipoVuelo() {
         return tipoVuelo;
     }
+    
     public void setTipoVuelo(TipoVuelo tipoVuelo) {
         this.tipoVuelo = tipoVuelo;
     }
@@ -191,7 +193,7 @@ public class Vuelo {
 
 
     //METODOS DE CAMBIOS DE ESTADO
-    //RETREASADO VUELO SALIDA si la hora actual es mayor a la hora de la salida
+    //RETRASADO VUELO SALIDA si la hora actual es mayor a la hora de la salida
    public boolean estaRetrasadoSalida() {
         if (tipoVuelo == TipoVuelo.SALIDA && LocalDateTime.now().isAfter(fechaHoraSalida)) {
             cambiarEstado(EstadoVuelo.RETRASADO); 
@@ -199,6 +201,7 @@ public class Vuelo {
         }
         return false;
     }
+
     //RETRASADO VUELO LLEGADA si la hora actual es mayor a la hora de llegada y no ha aterrizado
     public boolean estaRetrasadoLlegada() {
         if (tipoVuelo == TipoVuelo.LLEGADA && LocalDateTime.now().isAfter(fechaHoraLlegada) && (estado != EstadoVuelo.APARCADO && estado != EstadoVuelo.EN_HANGAR)) {
@@ -209,7 +212,7 @@ public class Vuelo {
     }
 
 
-    //EN_HORA SALIDA si la hora actual es menor o igual a la hora de salida
+    // EN_HORA SALIDA si la hora actual es menor o igual a la hora de salida
     public boolean estaPuntualSalida() {
     if (tipoVuelo == TipoVuelo.SALIDA && (LocalDateTime.now().isBefore(fechaHoraSalida) || LocalDateTime.now().equals(fechaHoraSalida))) {
         cambiarEstado(EstadoVuelo.EN_HORA);
@@ -217,7 +220,7 @@ public class Vuelo {
     }
     return false;
 }
-    //EN_HORA LLEGADA si la hora actual es menor o igual a la hora de llegada
+    // EN_HORA LLEGADA si la hora actual es menor o igual a la hora de llegada
     public boolean estaPuntualLlegada() {
         if (tipoVuelo == TipoVuelo.LLEGADA && (LocalDateTime.now().isBefore(fechaHoraLlegada) || LocalDateTime.now().equals(fechaHoraLlegada))) {
             cambiarEstado(EstadoVuelo.EN_HORA);
@@ -227,7 +230,7 @@ public class Vuelo {
     }
 
 
-    //ESPERANDO_PISTA si el controlador finaliza el embarque
+    // ESPERANDO_PISTA si el controlador finaliza el embarque
     public boolean VueloEsperaPista(){
         if (this.embarqueFinalizadoPorControlador && this.estado == EstadoVuelo.EMBARCANDO) {
             this.estado = EstadoVuelo.ESPERANDO_PISTA; 
@@ -235,7 +238,7 @@ public class Vuelo {
         }
         return false;  
     }
-    //Necesario para el anterior
+    // Necesario para el anterior
     public void controladorFinalizoEmbarque() {
         this.embarqueFinalizadoPorControlador = true;
     }
@@ -323,7 +326,7 @@ public class Vuelo {
     private void notificar(String mensaje, Usuario remitente) {
         for (Usuario usuario : observadores) {
             if (!usuario.equals(remitente)) {  // No notificar al usuario que hizo el cambio
-                Notificacion notificacion = new Notificacion(mensaje, this.hashCode(), List.of(usuario));
+                Notificacion notificacion = new Notificacion(mensaje, List.of(usuario));
                 usuario.recibirNotificacion(notificacion);
             }
         }

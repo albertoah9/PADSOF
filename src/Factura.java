@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 
 public class Factura {
-    private static int contador = 1;
+    private static int contador = 0;
 
     private final int id;
     private final LocalDateTime fechaEmision;  // Cambiado a String
@@ -14,8 +14,8 @@ public class Factura {
     }
 
     // Constructor para crear una factura solo con monto y fecha de vencimiento
-    private Factura(double monto) {
-        this.id = contador++;
+    public Factura(double monto) {
+        this.id = ++contador;
         this.fechaEmision = java.time.LocalDateTime.now();
         this.fechaVencimiento = java.time.LocalDateTime.now().plusDays(30);
         this.monto = monto;

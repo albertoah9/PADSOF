@@ -1,4 +1,5 @@
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,14 @@ public class Notificacion {
     private boolean leida;
     private String mensaje;
     private List<Usuario> destinatarios;
+	private LocalDate fecha;
+
+	private static int contador = 0;
 	
-	public Notificacion(String mensaje, int id, List<Usuario> destinatarios) {
+	public Notificacion(String mensaje, List<Usuario> destinatarios) {
+		this.id = ++contador;
+		this.fecha = LocalDate.now();
 		this.mensaje = mensaje;
-		this.id = id;
 		this.destinatarios = destinatarios;
 		this.activada = true;
 		this.leida = false;
@@ -19,10 +24,6 @@ public class Notificacion {
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public boolean isActivada() {
@@ -55,6 +56,14 @@ public class Notificacion {
 
 	public void setDestinatarios(List<Usuario> destinatarios) {
 		this.destinatarios = destinatarios;
+	}
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
 	}
 	
 	public void mostrarNotificacion() {

@@ -5,7 +5,7 @@ public class OperadorAereo extends Usuario {
 
 
     public OperadorAereo(String nombre, String contraseña, Aerolinea aerolineaAsignada) {
-        super(nombre, contraseña, "Operador");
+        super(nombre, contraseña);
         this.aerolineaAsignada = aerolineaAsignada;
         aerolineaAsignada.agregarObservador(this);
     }

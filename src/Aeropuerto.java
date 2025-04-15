@@ -41,6 +41,8 @@ public class Aeropuerto {
         this.facturas = new ArrayList<>();
         this.usosElementosAeropuerto = new ArrayList<>();
         this.gestor = new GestorAeropuerto("Gestor Aeropuerto", "gestor123");
+        this.usuarioActivo = null;
+        this.usuarios = new ArrayList<>();
     }
 
     // Getters y Setters
@@ -169,7 +171,7 @@ public class Aeropuerto {
             ArrayList<Usuario> usuariosDest = new ArrayList<>();
             usuariosDest.add(gestor);
             usuariosDest.add(usuarioActivo);
-            Notificacion notificacion = new Notificacion("Nuevo vuelo programado: ", vuelo.getId(), usuariosDest);
+            Notificacion notificacion = new Notificacion("Nuevo vuelo programado: " + vuelo.getId(), usuariosDest);
             this.notificaciones.add(notificacion);
             notificarUsuarios(notificacion, usuariosDest);        
         }
@@ -218,12 +220,12 @@ public class Aeropuerto {
         usuariosDest.add(usuarioActivo);
         if (terminalAsignada != null) {
             vuelo.setTerminal(terminalAsignada);
-            Notificacion notificacion = new Notificacion("Terminal asignada al vuelo: ", vuelo.getId(), usuariosDest);
+            Notificacion notificacion = new Notificacion("Terminal asignada al vuelo: " + vuelo.getId(), usuariosDest);
             notificaciones.add(notificacion);
             notificarUsuarios(notificacion, usuariosDest);
         } else {
             // No hay terminal disponible
-            Notificacion notificacion = new Notificacion("No hay terminal disponible para el vuelo: ", vuelo.getId(), usuariosDest);
+            Notificacion notificacion = new Notificacion("No hay terminal disponible para el vuelo: " + vuelo.getId(), usuariosDest);
             notificaciones.add(notificacion);
             notificarUsuarios(notificacion, usuariosDest);
         }
@@ -247,7 +249,7 @@ public class Aeropuerto {
         for (Pista pista : pistas) {
             if (pista.isOcupada()) {
                 vuelo.setPista(pista);
-                Notificacion notificacion = new Notificacion("Pista de aterrizaje asignada para el vuelo: ", vuelo.getId(), usuariosDest);
+                Notificacion notificacion = new Notificacion("Pista de aterrizaje asignada para el vuelo: " + vuelo.getId(), usuariosDest);
                 notificaciones.add(notificacion);
                 notificarUsuarios(notificacion, usuariosDest);
                 break;
@@ -268,7 +270,7 @@ public class Aeropuerto {
                 if (finger != null) {
                     vuelo.setFinger(finger);
                 }
-                Notificacion notificacion = new Notificacion("Puerta de embarque y finger asignados para el vuelo: ", vuelo.getId(), usuariosDest);
+                Notificacion notificacion = new Notificacion("Puerta de embarque y finger asignados para el vuelo: " + vuelo.getId(), usuariosDest);
                 notificaciones.add(notificacion);
                 notificarUsuarios(notificacion, usuariosDest);
                 break;
@@ -278,7 +280,7 @@ public class Aeropuerto {
 
     // Buscar finger disponible
     private Finger buscarFingerDisponible(Vuelo vuelo) {
-        if (vuelo.getPuertaEmbarque().getFinger().getEstadoFinger() == Finger.EstadoFinger.LIBRE) {
+        if (vuelo.getPuertaEmbarque().getFinger().isOcupado(vuelo.getFechaHora(), usosElementosAeropuerto)) {
             return vuelo.getPuertaEmbarque().getFinger();
         }
         return null; // No hay finger disponible
@@ -293,7 +295,7 @@ public class Aeropuerto {
             Hangar hangarDisponible = buscarHangarDisponible(vuelo.getFechaHora());
             if (hangarDisponible != null) {
                 vuelo.setHangar(hangarDisponible);
-                Notificacion notificacion = new Notificacion("Hangar asignado al vuelo: ", vuelo.getId(), usuariosDest);
+                Notificacion notificacion = new Notificacion("Hangar asignado al vuelo: " + vuelo.getId(), usuariosDest);
                 notificaciones.add(notificacion);
                 notificarUsuarios(notificacion, usuariosDest);
             }
@@ -340,7 +342,7 @@ public class Aeropuerto {
         usuariosDest.add(gestor);
         usuariosDest.add(usuarioActivo);
         usuariosDest.add(controladorAsignado);
-        Notificacion notificacion = new Notificacion("Controlador asignado al vuelo: ", vuelo.getId(), usuariosDest);
+        Notificacion notificacion = new Notificacion("Controlador asignado al vuelo: " + vuelo.getId(), usuariosDest);
         notificaciones.add(notificacion);
         notificarUsuarios(notificacion, usuariosDest);
     }
@@ -361,10 +363,152 @@ public class Aeropuerto {
                         vuelos.add(vuelo);
                     }
                 }
-                aerolinea.calcularCostoTotal(fechaInicio, fechaFin, usosAerolinea, vuelos, costeVuelo);
-                Factura factura = new Factura();
+                double coste = aerolinea.calcularCostoTotal(fechaInicio, fechaFin, usosAerolinea, vuelos, costeVuelo);
+                Factura factura = new Factura(coste);
+
+                aerolinea.añadirFactura(factura);
+                aerolinea.notificarCambio("Nueva factura pendiente de pago");
             }
+        } else {
+            throw new IllegalArgumentException("Error, el usuario no tiene permisos suficientes");
         }
     }
 
+    /* Métodos de usuarios Usuarios */
+
+    public void setUsuarios(ArrayList<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+	public void modificarUsuario(int idUsuario, String nuevoNombre, String nuevaContraseña) {
+	    Usuario usuarioAModificar = null;
+
+	    for (Usuario u : usuarios) {
+	        if (u.getId() == idUsuario) {
+	            usuarioAModificar = u;
+	            break;
+	        }
+	    }
+
+	    if (usuarioAModificar != null) {
+	        usuarioAModificar.setNombre(nuevoNombre); 
+	        usuarioAModificar.setContraseña(nuevaContraseña); 
+	        System.out.println("El usuario ha sido modificado con los siguientes valores:");
+	        System.out.println("Nuevo Nombre: " + nuevoNombre);
+	        System.out.println("Nueva Contraseña: " + nuevaContraseña);
+	    } else {
+	        System.out.println("Error: usuario no encontrado");
+	    }
+	}
+
+    public void añadirOperador(String nombre, String contraseña, Aerolinea aerolinea) {
+        if (usuarioActivo instanceof GestorAeropuerto) {
+            if (aerolinea == null) {
+                throw new IllegalArgumentException("Error, la aerolínea no puede ser nula");
+            }
+            
+            OperadorAereo nuevoOperador = new OperadorAereo(nombre, contraseña, aerolinea);
+
+            for (Usuario u : usuarios) {
+                if (u.getNombre().equals(nombre)) {
+                    throw new IllegalArgumentException("Error, este nombre ya está en uso");
+                }
+            }
+
+            usuarios.add(nuevoOperador);
+            aerolinea.agregarOperador(nuevoOperador);
+        } else {
+            throw new IllegalArgumentException("Error, el usuario no tiene permisos suficientes");
+        }
+
+    }
+	
+    public void añadirControlador(String nombre, String contraseña) {
+        ControladorAereo nuevoControlador = new ControladorAereo(nombre, contraseña, null);
+
+        for (Usuario u : usuarios) {
+            if (u.getNombre().equals(nombre)) {
+                throw new IllegalArgumentException("Error, este nombre ya está en uso");
+            }
+        }
+
+        usuarios.add(nuevoControlador);
+    }
+    
+    public void eliminarUsuario(int idUsuario) {
+        Usuario usuarioAEliminar = null;
+        for (Usuario u : usuarios) {
+            if (u.getId() == idUsuario) {
+                usuarioAEliminar = u;
+                break;
+            }
+        }
+
+        if (usuarioAEliminar != null) {
+            usuarios.remove(usuarioAEliminar);
+            System.out.println("Usuario con ID " + idUsuario + " eliminado correctamente.");
+        } else {
+            System.out.println("Error: Usuario no encontrado.");
+        }
+    }
+    
+    
+    public void verUsuarios() {
+        if (usuarios.isEmpty()) {
+            System.out.println("No hay usuarios registrados.");
+        } else {
+            System.out.println("Lista de usuarios registrados:");
+            for (Usuario usuario : usuarios) {
+                System.out.println(usuario);
+            }
+        }
+    }
+    
+    public Usuario buscarUsuario(int id) {
+        for (Usuario u : usuarios) {
+            if (u.getId() == id) {
+                return u;
+            }
+        }
+
+        return null;
+    }
+
+    public void cambiarTerminal(ControladorAereo controlador, Terminal nuevaTerminal) {
+        if (controlador != null && nuevaTerminal != null) {
+            controlador.cambiarTerminal(nuevaTerminal);
+            System.out.println("Controlador asignado a la terminal " + nuevaTerminal.getId());
+        } else {
+            throw new IllegalArgumentException("Error: Controlador no encontrado o terminal nula.");
+        }
+    }
+
+    public void cambiarAerolinea(OperadorAereo operador, Aerolinea nuevaAerolinea) {
+        if (operador != null && nuevaAerolinea != null) {
+            operador.cambiarAerolinea(nuevaAerolinea);
+            System.out.println("Operador asignado a la aerolínea " + nuevaAerolinea.getNombre());
+        } else {
+            throw new IllegalArgumentException("Error: Operador no encontrado o aerolínea nula.");
+        }
+    }
+
+    public void cambiarEstadoVuelo(int idVuelo, Aeropuerto aeropuerto, Vuelo.EstadoVuelo nuevoEstado, Usuario usuario) {
+        if (aeropuerto == null || nuevoEstado == null || idVuelo <= 0) {
+            System.out.println("Error: Los datos no pueden ser nulos o menor que 0.");
+            return;
+        }
+        Vuelo vuelo = aeropuerto.buscarVuelo(idVuelo);
+        if (vuelo != null) {
+            vuelo.setEstado(nuevoEstado);
+        } else {
+            System.out.println("Error: Vuelo no encontrado.");
+        }
+    }
+
+
 }
+

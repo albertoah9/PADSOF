@@ -5,16 +5,14 @@ public abstract class Usuario {
 	private final int id;
 	protected String contraseña;
 	private String nombre;
-	private String rol;
 
 	private static int contador = 0;
 	
 	/* Constructor */
-	public Usuario(String nombre, String contraseña, String rol) {
+	public Usuario(String nombre, String contraseña) {
 		this.id = ++contador;
 		this.nombre = nombre;
 		this.contraseña = contraseña;
-		this.rol = rol;
 		this.notificaciones = new ArrayList<>();
 	}
 	
@@ -39,14 +37,6 @@ public abstract class Usuario {
 	public void recibirNotificacion(Notificacion notificacion){
 		notificaciones.add(notificacion);
 		System.out.println("Nueva notificacion para " + nombre + ": " + notificacion.getMensaje());
-	}
-	
-	public String getRol() {
-		return rol;
-	}
-
-	public void setRol(String rol) {
-		this.rol = rol;
 	}
 
 	public int getId() {

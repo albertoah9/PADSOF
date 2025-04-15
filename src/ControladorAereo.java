@@ -7,8 +7,8 @@ public class ControladorAereo extends Usuario {
     private Map<Vuelo.EstadoVuelo, Integer> vuelosPorEstado;
 
 
-    public ControladorAereo(String nombre, String contraseña, int id, Terminal terminalAsignada) {
-        super(nombre, contraseña, "Controlador");
+    public ControladorAereo(String nombre, String contraseña, Terminal terminalAsignada) {
+        super(nombre, contraseña);
         this.terminalAsignada = null;// Se asigna con agregarControlador() en Terminal
         terminalAsignada.agregarObservador(this);
         vuelosPorEstado = new HashMap<>();

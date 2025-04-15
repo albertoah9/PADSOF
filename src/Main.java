@@ -32,8 +32,8 @@ public class Main {
       aeropuerto.setUsuarioActivo(gestor);
 
       // Controladores
-      ControladorAereo controlador1 = new ControladorAereo("Juan", "abcd", 2, tPasajeros);
-      ControladorAereo controlador2 = new ControladorAereo("Pedro", "abcd1234", 2, tCarga);
+      ControladorAereo controlador1 = new ControladorAereo("Juan", "abcd", tPasajeros);
+      ControladorAereo controlador2 = new ControladorAereo("Pedro", "abcd1234", tCarga);
 
       // Aerolíneas y operadores
       Aerolinea aerolinea1 = new Aerolinea("American Airways", "USA", "A1212459");
@@ -44,7 +44,7 @@ public class Main {
 
       // Vuelos
       Avion avion1 = new AvionPasajeros("Boeing", "737", "AA-123", 180, LocalDate.of(2025, 1, 26), LocalDate.of(2015, 3, 26), 120, aerolinea1);
-      Vuelo vuelo1 = new Vuelo(101, LocalDateTime.now(), tPasajeros, avion1, pistaDespegue, puerta1, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA, Vuelo.ClaseVuelo.PASAJEROS, aerolinea1);
+      Vuelo vuelo1 = new Vuelo(101, LocalDateTime.now(), LocalDateTime.now().plus(50, null), tPasajeros, avion1, pistaDespegue, puerta1, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA, Vuelo.ClaseVuelo.PASAJEROS, aerolinea1);
       aeropuerto.addVuelo(vuelo1);
 
       // Simulación de operaciones

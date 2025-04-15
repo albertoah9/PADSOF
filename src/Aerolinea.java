@@ -21,9 +21,13 @@ public class Aerolinea {
         this.observadores = new ArrayList<>();
 	}
 	
-    public List<Avion> getFlota() { return flota; }
+    public List<Avion> getFlota() { 
+        return flota; 
+    }
 
-    public List<Factura> getFacturas() { return facturas; }
+    public List<Factura> getFacturas() { 
+        return facturas; 
+    }
     
     public List<OperadorAereo> getOperadores() {
         return operadores;
@@ -76,7 +80,7 @@ public class Aerolinea {
     }
     
     public void eliminarAerolinea() {
-        facturas.clear();  // Elimina todas las facturas antes de eliminar la aerolínea
+        facturas.clear();
         System.out.println("Aerolinea " + nombre + " eliminada junto con sus facturas.");
     }
     
@@ -113,6 +117,14 @@ public class Aerolinea {
         return costoTotal;
     }
 
+    public void añadirFactura(Factura f) {
+        if (f == null || facturas.contains(f)) {
+            throw new IllegalArgumentException("Factura no válida o ya existe.");
+        } else {
+            facturas.add(f);
+        }
+    }
+
     public void agregarObservador(OperadorAereo operador) {
         if (!observadores.contains(operador)) {
             observadores.add(operador);
@@ -125,7 +137,7 @@ public class Aerolinea {
 
     public void notificarCambio(String mesage){
         for(OperadorAereo operador : observadores){
-            operador.recibirNotificacion(new Notificacion(mesage, 0, List.of(operador)));
+            operador.recibirNotificacion(new Notificacion(mesage, List.of(operador)));
         }
     }
     
