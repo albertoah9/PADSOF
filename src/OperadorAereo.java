@@ -33,12 +33,8 @@ public class OperadorAereo extends Usuario {
 
     public void cambiarEstadoVuelo(Vuelo vuelo, Vuelo.EstadoVuelo nuevoEstado) { // Notifica al cambiar estado
         if (vuelo != null && vuelo.getAerolinea() == this.aerolineaAsignada) {
-            vuelo.setEstado(nuevoEstado, this); // Pasamos 'this' como usuario que realiza el cambio
-            Notificacion notificacion = new Notificacion(
-               "El vuelo " + vuelo.getId() + " ha cambiado su estado a " + nuevoEstado, 
-                0, 
-                List.of(this)
-            );
+            vuelo.setEstado(nuevoEstado); // Pasamos 'this' como usuario que realiza el cambio
+            Notificacion notificacion = new Notificacion("El vuelo " + vuelo.getId() + " ha cambiado su estado a " + nuevoEstado, List.of(this));
             this.enviarNotificacion(notificacion);
         }
     }
