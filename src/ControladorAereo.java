@@ -43,6 +43,50 @@ public class ControladorAereo extends Usuario {
         }
     }
 
+
+    public void notificarCambioEstado(Vuelo vuelo) {
+        Vuelo.EstadoVuelo estadoActual = vuelo.getEstado();
+        
+        // Actualizar el contador de vuelos para ese estado
+        vuelosPorEstado.put(estadoActual, vuelosPorEstado.get(estadoActual) + 1);
+        
+        switch (estadoActual) {
+            case DESPEGADO:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " ha despegado exitosamente.");
+                break;
+            case RETRASADO:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " está retrasado.");
+                break;
+            case EN_HORA:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " está en hora.");
+                break;
+            case ESPERANDO_PISTA:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " está esperando pista.");
+                break;
+            case EN_PREPARACION:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " está en preparación.");
+                break;
+            case APARCADO:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " está aparcado.");
+                break;
+            case EN_HANGAR:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " está en el hangar.");
+                break;
+            case EMBARCANDO:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " está embarcando.");
+                break;
+            case ESPERANDO_ATERRIZAJE:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " está esperando aterrizaje.");
+                break;
+            default:
+                System.out.println("El vuelo con ID " + vuelo.getId() + " tiene un estado desconocido.");
+        }
+
+    
+    }
+
+    
+
     public boolean iniciarSesion(String contraseña) {
         return this.contraseña.equals(contraseña); // Comparación directa
     }
