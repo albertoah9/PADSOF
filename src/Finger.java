@@ -1,13 +1,15 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Finger extends ElementoAeropuerto {
     private double alturaMax;
-    private PuertaEmbarque puertaEmbarque;
+    private List<PuertaEmbarque> puertasEmbarque;
 
     
     public Finger (double alturaMax) {
         super();
         this.alturaMax = alturaMax;
-        this.puertaEmbarque = null;
+        this.puertasEmbarque = new ArrayList<>();
     }
 
     public double getAlturaMax() {
@@ -18,12 +20,22 @@ public class Finger extends ElementoAeropuerto {
         this.alturaMax = alturaMax;
     }
 
-    public PuertaEmbarque getPuertaEmbarque() {
-        return puertaEmbarque;
+    public List<PuertaEmbarque> getPuertasEmbarque() {
+        return puertasEmbarque;
     }
 
-    public void setPuertaEmbarque(PuertaEmbarque puertaEmbarque) {
-        this.puertaEmbarque = puertaEmbarque;
+    public void setPuertasEmbarque(List<PuertaEmbarque> puertas) {
+        this.puertasEmbarque = puertas;
+    }
+
+    public void agregarPuertaEmbarque(PuertaEmbarque puerta) {
+        if (!puertasEmbarque.contains(puerta)) {
+            puertasEmbarque.add(puerta);
+        }
+    }
+
+    public void eliminarPuertaEmbarque(PuertaEmbarque puerta) {
+        puertasEmbarque.remove(puerta);
     }
 
     
