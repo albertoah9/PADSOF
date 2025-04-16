@@ -9,6 +9,12 @@ public class OperadorAereo extends Usuario {
         aerolineaAsignada.agregarObservador(this);
     }
 
+    public OperadorAereo(String nombre, Aerolinea aerolineaAsignada) {
+        super(nombre, ""); // o puedes usar null si tu clase Usuario lo permite
+        this.aerolineaAsignada = aerolineaAsignada;
+        aerolineaAsignada.agregarObservador(this);
+    }
+
     public Aerolinea getAerolineaAsignada() {
         return aerolineaAsignada;
     }
