@@ -97,6 +97,10 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
     }
 
     public int getNumPlazas() {
+        return numPlazas;
+    }
+
+    public int setNumPlazas() {
         return plazas.size();
     }
 
