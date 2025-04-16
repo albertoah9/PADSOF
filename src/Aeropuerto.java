@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+//import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Aeropuerto {
@@ -233,8 +234,10 @@ public class Aeropuerto {
 
     // Buscar terminal disponible
     private Terminal buscarTerminalDisponible() {
+        LocalDateTime fechaConsulta = LocalDateTime.now();
+
         for (Terminal terminal : terminales) {
-            if (!terminal.isOcupada()) {
+            if (!terminal.isOcupada() && gestor.puedeConsultarTerminal(fechaConsulta)) {
                 return terminal;
             }
         }
@@ -479,9 +482,12 @@ public class Aeropuerto {
     }
 
     public void cambiarTerminal(ControladorAereo controlador, Terminal nuevaTerminal) {
+        LocalDateTime fechaConsulta = LocalDateTime.now();
         if (controlador != null && nuevaTerminal != null) {
+            if(gestor.puedeConsultarTerminal(fechaConsulta)){
             controlador.cambiarTerminal(nuevaTerminal);
             System.out.println("Controlador asignado a la terminal " + nuevaTerminal.getId());
+            }
         } else {
             throw new IllegalArgumentException("Error: Controlador no encontrado o terminal nula.");
         }
