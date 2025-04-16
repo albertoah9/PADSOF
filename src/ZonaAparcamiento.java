@@ -1,12 +1,12 @@
-import java.util.List;
+import java.util.*;
 
 public class ZonaAparcamiento extends ElementoAeropuerto {
-    
 
     /* Atributos */
     private double ancho;
     private double largo;
     private double costePorHora;
+    private int numPlazas;
 
     private List<PlazaAparcamiento> plazas;
 
@@ -14,24 +14,32 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
         super();
         this.ancho = ancho;
         this.largo = largo;
+        this.plazas = new ArrayList<>();
+        this.numPlazas = numPlazas;
+
+        for (int i=0; i<numPlazas; i++) {
+            plazas.add(new PlazaAparcamiento(ancho, largo));
+        }
     }
 
-    //CLASE INTERNA ----------------------------------------------
+    // Clase interna
     public class PlazaAparcamiento {
-        private String codigo;
+        private int id;
         private double ancho;
         private double largo;
         private boolean ocupada;
 
-        public PlazaAparcamiento(String codigo, double ancho, double largo) {
-            this.codigo = codigo;
+        private static int contador = 1;
+
+        public PlazaAparcamiento(double ancho, double largo) {
+            this.id = contador++;
             this.ancho = ancho;
             this.largo = largo;
             this.ocupada = false;
         }
 
-        public String getCodigo() {
-            return codigo;
+        public int getId() {
+            return id;
         }
 
         public double getAncho() {
@@ -60,11 +68,9 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
 
         @Override
         public String toString() {
-            return "Plaza " + codigo + " [" + ancho + "m x " + largo + "m] - " + (ocupada ? "Ocupada" : "Libre");
+            return "Plaza " + id + " [" + ancho + "m x " + largo + "m] - " + (ocupada ? "Ocupada" : "Libre");
         }
     }
-
-    //CLASE INTERNA ACABADA---------------------------------------
     
     public double getCostePorHora() {
         return costePorHora;
@@ -102,9 +108,10 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
         return plazas;
     }
 
-    //METODOS
-    public void agregarPlaza(String codigo, double ancho, double largo) {
-        plazas.add(new PlazaAparcamiento(codigo, ancho, largo));
+    // METODOS
+    public void agregarPlaza(double ancho, double largo) {
+        plazas.add(new PlazaAparcamiento(ancho, largo));
+        numPlazas+=1;
     }
 
 
@@ -112,18 +119,19 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
         return ancho * largo;
     }
 
-    public void ocuparPlaza(String codigo) {
+    public int ocuparPlaza() {
         for (PlazaAparcamiento plaza : plazas) {
-            if (plaza.getCodigo().equals(codigo) && !plaza.isOcupada()) {
+            if (!plaza.isOcupada()) {
                 plaza.ocupar();
-                return;
+                return plaza.getId();
             }
         }
+        return -1;
     }
 
-    public void liberarPlaza(String codigo) {
+    public void liberarPlaza(int id) {
         for (PlazaAparcamiento plaza : plazas) {
-            if (plaza.getCodigo().equals(codigo) && plaza.isOcupada()) {
+            if (plaza.getId() == id && plaza.isOcupada()) {
                 plaza.liberar();
                 return;
             }

@@ -13,13 +13,13 @@ public class Main {
 
       Finger finger1 = new Finger(3);
 
-      ZonaAparcamiento parking1 = new ZonaAparcamiento(135.25, 50.0, 5, ZonaAparcamiento.TipoZonaAparcamiento.PASAJEROS);
-      ZonaAparcamiento parking2 = new ZonaAparcamiento(35.25, 50.0, 7, ZonaAparcamiento.TipoZonaAparcamiento.MERCANCIAS);
+      ZonaAparcamiento parking1 = new ZonaAparcamiento(135.25, 50.0, 5);
+      ZonaAparcamiento parking2 = new ZonaAparcamiento(35.25, 50.0, 7);
       aeropuerto.addZonaAparcamiento(parking1);
       aeropuerto.addZonaAparcamiento(parking2);
 
       PuertaEmbarque puerta1 = new PuertaEmbarque(finger1, parking1, 1200, PuertaEmbarque.TipoPuerta.MERCANCIAS);
-      finger1.setPuertaEmbarque(puerta1);
+      finger1.agregarPuertaEmbarque(puerta1);
 
       // Pistas
       Pista pistaAterrizaje = new PistaAterrizaje(3000.0, 45.0);
