@@ -232,6 +232,8 @@ public class Aeropuerto {
         }
     }
 
+    
+
     // Buscar terminal disponible
     private Terminal buscarTerminalDisponible() {
         LocalDateTime fechaConsulta = LocalDateTime.now();
@@ -243,6 +245,8 @@ public class Aeropuerto {
         }
         return null; // No hay terminal disponible
     }
+
+   
 
     // Asignar pista de aterrizaje
     public void asignarPistaAterrizaje(Vuelo vuelo) {

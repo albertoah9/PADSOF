@@ -7,6 +7,7 @@ public class GestorAeropuerto extends Usuario {
     private Set<String> preferenciasNotificaciones;
     private int diasAnticipados = 30;
     private int horasVentanaTerminal = 48;
+    private int minutosDesocupacion = 30;
 	
 	public GestorAeropuerto(String nombre, String contraseña) {
 		super(nombre, contraseña);
@@ -33,6 +34,19 @@ public class GestorAeropuerto extends Usuario {
 
     public int getHorasVentanaTerminal() {
         return horasVentanaTerminal;
+    }
+
+    public int getMinutosDesocupacion() {
+        return minutosDesocupacion;
+    }
+
+    public boolean setMinutosDesocupacion(int nuevoMinuto) {
+        if (nuevoMinuto >= 1 && nuevoMinuto <= 60) { 
+            this.minutosDesocupacion = nuevoMinuto;
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public boolean setHorasVentanaTerminal(int nuevasHoras) {
