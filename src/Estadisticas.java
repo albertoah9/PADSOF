@@ -1,4 +1,3 @@
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,7 +10,7 @@ public class Estadisticas {
     private List<Vuelo> vuelos;
 
     public Estadisticas(List<Hangar> hangares, List<ZonaAparcamiento> zonasAparcamiento,
-                         List<PuertaEmbarque> puertasEmbarque, List<Finger> fingers, List<Vuelo> vuelos) {
+                        List<PuertaEmbarque> puertasEmbarque, List<Finger> fingers, List<Vuelo> vuelos) {
         this.hangares = hangares;
         this.zonasAparcamiento = zonasAparcamiento;
         this.puertasEmbarque = puertasEmbarque;
@@ -21,45 +20,55 @@ public class Estadisticas {
 
     // Estadísticas para el Gestor
     public int getUsoHangares() {
-        return (int) hangares.stream().count();
+        return hangares != null ? hangares.size() : 0;
     }
 
     public int getUsoZonasAparcamiento() {
-        return (int) zonasAparcamiento.stream().count();
+        return zonasAparcamiento != null ? zonasAparcamiento.size() : 0;
     }
 
     public int getUsoPuertasEmbarque() {
-        return (int) puertasEmbarque.stream().count();
+        return puertasEmbarque != null ? puertasEmbarque.size() : 0;
     }
 
     public int getUsoFingers() {
-        return (int) fingers.stream().count();
+        return fingers != null ? fingers.size() : 0;
     }
 
     // Estadísticas para el Operador
     public long getVuelosEnHora() {
-        return vuelos.stream().filter(v -> v.getEstado() == Vuelo.EstadoVuelo.EN_HORA).count();
+        return vuelos != null
+                ? vuelos.stream().filter(v -> v.getEstado() == Vuelo.EstadoVuelo.EN_HORA).count()
+                : 0;
     }
 
     public long getVuelosRetrasados() {
-        return vuelos.stream().filter(v -> v.getEstado() == Vuelo.EstadoVuelo.RETRASADO).count();
+        return vuelos != null
+                ? vuelos.stream().filter(v -> v.getEstado() == Vuelo.EstadoVuelo.RETRASADO).count()
+                : 0;
     }
 
     public Map<String, Long> getRetrasosPorMes() {
-        return vuelos.stream()
-                .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.RETRASADO)
-                .collect(Collectors.groupingBy(v -> v.getFechaSalida().getMonth().toString(), Collectors.counting()));
+        return vuelos != null
+                ? vuelos.stream()
+                    .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.RETRASADO)
+                    .collect(Collectors.groupingBy(
+                        v -> (String) v.getFechaSalida().getMonth().toString()
+                        Collectors.counting()))
+                : Map.of();
     }
 
     public Map<String, Long> getRetrasosPorFranjaHoraria() {
-        return vuelos.stream()
-                .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.RETRASADO)
-                .collect(Collectors.groupingBy(v -> {
-                    int hora = v.getHoraSalida().getHour();
-                    if (hora < 6) return "Madrugada";
-                    else if (hora < 12) return "Mañana";
-                    else if (hora < 18) return "Tarde";
-                    else return "Noche";
-                }, Collectors.counting()));
+        return vuelos != null
+                ? vuelos.stream()
+                    .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.RETRASADO)
+                    .collect(Collectors.groupingBy(v -> {
+                        int hora = v.getHoraSalida().getHour();
+                        if (hora < 6) return "Madrugada";
+                        else if (hora < 12) return "Mañana";
+                        else if (hora < 18) return "Tarde";
+                        else return "Noche";
+                    }, Collectors.counting()))
+                : Map.of();
     }
 }
