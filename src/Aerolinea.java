@@ -4,16 +4,14 @@ import java.util.List;
 
 public class Aerolinea {
 	private String nombre;
-	private String pais;
 	private String codigoAerolinea;
 	private List<Avion> flota;
 	private List<Factura> facturas;
 	private List<OperadorAereo> operadores;
     private List<OperadorAereo> observadores;
 	
-	public Aerolinea(String nombre, String pais, String codigoAerolinea) {
+	public Aerolinea(String nombre, String codigoAerolinea) {
 		this.nombre = nombre;
-		this.pais = pais;
 		this.codigoAerolinea = codigoAerolinea;
 		this.flota = new ArrayList<>();
 		this.facturas = new ArrayList<>();
@@ -39,14 +37,6 @@ public class Aerolinea {
 	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-	
-	public String getPais() {
-		return pais;
-	}
-	
-	public void setPais(String pais) {
-		this.pais = pais;
 	}
 	
 	public String getCodigoAerolinea() {
@@ -143,7 +133,7 @@ public class Aerolinea {
     
     @Override
     public String toString() {
-        return "Aerolinea [Nombre=" + nombre + ", País=" + pais + ", Código=" + codigoAerolinea +
+        return "Aerolinea [Nombre=" + nombre  + ", Código=" + codigoAerolinea +
                ", Flota de aviones=" + flota.size() + ", Operadores=" + operadores.size() + "]";
     }
 
