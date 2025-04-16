@@ -37,8 +37,8 @@ public class ControladorAereo extends Usuario {
 
     public void cambiarEstadoVuelo(Vuelo vuelo, Vuelo.EstadoVuelo nuevoEstado) { //notifica al cambiar estado
         if (vuelo != null) {
-            vuelo.setEstado(nuevoEstado, this);  // Pasamos 'this' como usuario
-            Notificacion notificacion = new Notificacion("El vuelo " + vuelo.getId() + " ha cambiado su estado a " + nuevoEstado, 0, List.of(this));
+            vuelo.setEstado(nuevoEstado); 
+            Notificacion notificacion = new Notificacion("El vuelo " + vuelo.getId() + " ha cambiado su estado a " + nuevoEstado,  List.of(this));
             this.enviarNotificacion(notificacion);
         }
     }
