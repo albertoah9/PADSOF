@@ -59,7 +59,7 @@ public abstract class Terminal {
 
     public void notificarCambio(String mensaje) {
         for (ControladorAereo controlador : observadores) {
-            controlador.recibirNotificacion(new Notificacion(mensaje, 0, List.of(controlador)));
+            controlador.recibirNotificacion(new Notificacion(mensaje, List.of(controlador)));
         }
     }
 

@@ -12,6 +12,7 @@ public class AvionPasajeros extends Avion {
     public int getCapacidad() {
         return capacidad;
     }
+    
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
