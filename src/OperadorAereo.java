@@ -1,7 +1,6 @@
 import java.util.List;  
 public class OperadorAereo extends Usuario {
     private Aerolinea aerolineaAsignada;
-    private boolean primeraVez = true;
 
 
     public OperadorAereo(String nombre, String contraseña, Aerolinea aerolineaAsignada) {
@@ -46,14 +45,7 @@ public class OperadorAereo extends Usuario {
         }
     }
 
-    public boolean iniciarSesion(String contraseña) {
-        if (primeraVez) {
-            this.contraseña = contraseña;
-            primeraVez = false;
-            return true; 
-        }
-        return this.contraseña.equals(contraseña); 
-    }
+
 
     @Override
     public String toString() {

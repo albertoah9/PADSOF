@@ -58,8 +58,6 @@ public abstract class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public abstract boolean iniciarSesion(String contraseña);
 	
 	@Override
 	public String toString() {

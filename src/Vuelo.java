@@ -18,10 +18,15 @@ public class Vuelo {
     public enum ClaseVuelo {
         MERCANCIAS, PASAJEROS
     }
+
+    public enum Periodicidad{
+        PUNTUAL, DIARIO, DIAS_SEMANA
+    }
     
     private boolean embarqueFinalizadoPorControlador;
     private boolean pistaAsignada;
-    private boolean vueloCercaDelAeropuerto; 
+    private boolean vueloCercaDelAeropuerto;
+    private boolean usaFinger;
 
     private LocalDateTime fechaHoraLlegada;
     private LocalDateTime fechaHoraSalida;
@@ -46,6 +51,7 @@ public class Vuelo {
     private ControladorAereo controladorAereo;
     private Hangar hangar;
     private List<Usuario> observadores;
+    private Periodicidad periodicidad;
 
     public Vuelo(int id, LocalDateTime fechaHoraLlegada, LocalDateTime fechaHoraSalida, Terminal terminal, Avion avion, Pista pista, PuertaEmbarque puertaEmbarque, EstadoVuelo estado, Aeropuerto aeropuerto, TipoVuelo tipoVuelo, ClaseVuelo claseVuelo, Aerolinea aerolinea) {
         this.id = ++contador;
@@ -64,6 +70,22 @@ public class Vuelo {
         this.fechaHoraLlegada = fechaHoraLlegada;
         this.fechaHoraSalida = fechaHoraSalida;  
         this.observadores = new ArrayList<>();   
+    }
+    
+    public Periodicidad getPeriodicidad() {
+        return periodicidad;
+    }
+    
+    public void setPeriodicidad(Periodicidad periodicidad) {
+        this.periodicidad = periodicidad;
+    }
+
+    public boolean isUsaFinger() {
+        return usaFinger;
+    }
+    
+    public void setUsaFinger(boolean usaFinger) {
+        this.usaFinger = usaFinger;
     }
 
     public int getId() {
@@ -128,7 +150,7 @@ public class Vuelo {
     }
     public void setEstado(EstadoVuelo nuevoEstado) {
         this.estado = nuevoEstado;
-        String mensaje = "Vuelo " + id + " ha cambiado de estado a: " + nuevoEstado;
+        //String mensaje = "Vuelo " + id + " ha cambiado de estado a: " + nuevoEstado;
     }
 
     public Aeropuerto getAeropuerto() {
