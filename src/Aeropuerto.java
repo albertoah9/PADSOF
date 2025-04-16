@@ -336,6 +336,58 @@ public class Aeropuerto {
         }
         return null; // Vuelo no encontrado
     }
+    //Buscar vuelo por aeropuerto
+    public ArrayList<Vuelo> buscarVuelosPorOrigen(String origen){
+        ArrayList<Vuelo> resultados = new ArrayList<>();
+        for (Vuelo vuelo : vuelos) {
+            if (vuelo.getOrigen().equalsIgnoreCase(origen)) {
+                resultados.add(vuelo);
+            }
+        }
+        return resultados;
+    }
+
+    public ArrayList<Vuelo> buscarVuelosPorDestino(String destino) {
+        ArrayList<Vuelo> resultados = new ArrayList<>();
+        for (Vuelo vuelo : vuelos) {
+            if (vuelo.getDestino().equalsIgnoreCase(destino)) {
+                resultados.add(vuelo);
+            }
+        }
+        return resultados;
+    }
+
+    //Buscar Vuelo por hora de salida
+    public ArrayList<Vuelo> buscarVuelosPorFechaSalida(LocalDateTime fechaSalida) {
+        ArrayList<Vuelo> resultados = new ArrayList<>();
+        for (Vuelo vuelo : vuelos) {
+            if (vuelo.getfechaHoraSalida().equals(fechaSalida)) {
+                resultados.add(vuelo);
+            }
+        }
+        return resultados;
+    }
+    //Buscar Vuelo por hora de llegada
+    public ArrayList<Vuelo> buscarVuelosPorFechaLlegada(LocalDateTime fechaLlegada) {
+        ArrayList<Vuelo> resultados = new ArrayList<>();
+        for (Vuelo vuelo : vuelos) {
+            if (vuelo.getfechaHoraLlegada() != null && vuelo.getfechaHoraLlegada().equals(fechaLlegada)) {
+                resultados.add(vuelo);
+            }
+        }
+        return resultados;
+    }
+    //Buscar Vuelo por terminal
+    public ArrayList<Vuelo> buscarVuelosPorTerminal(Terminal terminal) {
+        ArrayList<Vuelo> resultados = new ArrayList<>();
+        for (Vuelo vuelo : vuelos) {
+            if (vuelo.getTerminal() != null && vuelo.getTerminal().equals(terminal)) {
+                resultados.add(vuelo);
+            }
+        }
+        return resultados;
+    }
+    
 
     // Asignar controlador a vuelo
     public void asignarControladorAVuelo(Vuelo vuelo) {
