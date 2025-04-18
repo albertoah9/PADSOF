@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 
 public class Main {
    public static void main(String[] args) {
-      Aeropuerto aeropuerto = new Aeropuerto("Adolfo Suarez", "Madrid", "España", Ubi);
+      Aeropuerto aeropuerto = new Aeropuerto("Adolfo Suarez", "Madrid", "España", Aeropuerto.UbiRelCiudad.ESTE);
       
       // Elementos del aeropuerto
       Terminal tPasajeros = new TerminalPasajeros(1250);

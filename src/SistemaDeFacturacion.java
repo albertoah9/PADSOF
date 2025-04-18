@@ -1,4 +1,4 @@
-import es.uam.eps.padsof.invoices.*;
+/* import es.uam.eps.padsof.invoices.*;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -73,3 +73,4 @@ public class SistemaDeFacturacion {
         }
     }
 }
+*/

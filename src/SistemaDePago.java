@@ -1,4 +1,4 @@
-import java.util.HashMap;
+/* import java.util.HashMap;
 import java.util.Map;
 
 import es.uam.eps.padsof.telecard.FailedInternetConnectionException;
@@ -60,3 +60,5 @@ public class SistemaDePago {
         }
     }
 }
+
+*/
