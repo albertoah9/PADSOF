@@ -48,6 +48,7 @@ public class Estadisticas {
                 : 0;
     }
 
+/*
     public Map<String, Long> getRetrasosPorMes() {
         return vuelos != null
                 ? vuelos.stream()
@@ -57,13 +58,14 @@ public class Estadisticas {
                         Collectors.counting()))
                 : Map.of();
     }
+*/
 
     public Map<String, Long> getRetrasosPorFranjaHoraria() {
         return vuelos != null
                 ? vuelos.stream()
                     .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.RETRASADO)
                     .collect(Collectors.groupingBy(v -> {
-                        int hora = v.getHoraSalida().getHour();
+                        int hora = v.getFechaHora().getHour();
                         if (hora < 6) return "Madrugada";
                         else if (hora < 12) return "Mañana";
                         else if (hora < 18) return "Tarde";

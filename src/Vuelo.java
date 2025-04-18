@@ -55,7 +55,7 @@ public class Vuelo {
     private List<Usuario> observadores;
     private Periodicidad periodicidad;
 
-    public Vuelo(int id, String origen, String destino,LocalDateTime fechaHoraLlegada, LocalDateTime fechaHoraSalida, Terminal terminal, Avion avion, Pista pista, PuertaEmbarque puertaEmbarque, EstadoVuelo estado, Aeropuerto aeropuerto, TipoVuelo tipoVuelo, ClaseVuelo claseVuelo, Aerolinea aerolinea) {
+    public Vuelo(String origen, String destino,LocalDateTime fechaHoraLlegada, LocalDateTime fechaHoraSalida, Terminal terminal, Avion avion, Pista pista, PuertaEmbarque puertaEmbarque, EstadoVuelo estado, Aeropuerto aeropuerto, TipoVuelo tipoVuelo, ClaseVuelo claseVuelo, Aerolinea aerolinea) {
         this.id = ++contador;
         this.terminal = terminal;
         this.avion = avion;
@@ -74,7 +74,6 @@ public class Vuelo {
         this.observadores = new ArrayList<>();   
         this.origen = origen;
         this.destino = destino;
-
     }
     
     public String getOrigen() {

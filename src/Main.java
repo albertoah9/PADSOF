@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 
 public class Main {
    public static void main(String[] args) {
-      Aeropuerto aeropuerto = new Aeropuerto();
+      Aeropuerto aeropuerto = new Aeropuerto("Adolfo Suarez", "Madrid", "España", Ubi);
       
       // Elementos del aeropuerto
       Terminal tPasajeros = new TerminalPasajeros(1250);
@@ -36,15 +36,15 @@ public class Main {
       ControladorAereo controlador2 = new ControladorAereo("Pedro", "abcd1234", tCarga);
 
       // Aerolíneas y operadores
-      Aerolinea aerolinea1 = new Aerolinea("American Airways", "USA", "A1212459");
-      Aerolinea aerolinea2 = new Aerolinea("Qatar Airways", "Qatar", "T276582");
+      Aerolinea aerolinea1 = new Aerolinea("American Airways","A1212459");
+      Aerolinea aerolinea2 = new Aerolinea("Qatar Airways", "T276582");
 
       OperadorAereo operador1 = new OperadorAereo("Mike", "ggg222", aerolinea1);
       OperadorAereo operador2 = new OperadorAereo("Aron", "fgfgfg", aerolinea2);
 
       // Vuelos
       Avion avion1 = new AvionPasajeros("Boeing", "737", "AA-123", 180, LocalDate.of(2025, 1, 26), LocalDate.of(2015, 3, 26), 120, aerolinea1);
-      Vuelo vuelo1 = new Vuelo(101, LocalDateTime.now(), LocalDateTime.now().plus(50, null), tPasajeros, avion1, pistaDespegue, puerta1, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA, Vuelo.ClaseVuelo.PASAJEROS, aerolinea1);
+      Vuelo vuelo1 = new Vuelo("Madrid", "New York", LocalDateTime.now(), LocalDateTime.now().plus(50, null), tPasajeros, avion1, pistaDespegue, puerta1, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA, Vuelo.ClaseVuelo.PASAJEROS, aerolinea1);
       aeropuerto.addVuelo(vuelo1);
 
       // Simulación de operaciones

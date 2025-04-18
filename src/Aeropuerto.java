@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-//import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Aeropuerto {
@@ -10,7 +9,6 @@ public class Aeropuerto {
         NORTE, SUR, ESTE, OESTE
     }
 
-    private int id; 
     private String nombre;
     private String ciudad;
     private String pais;
@@ -37,7 +35,7 @@ public class Aeropuerto {
     private double costeVuelo = 35.0;
 
     // Constructor
-    public Aeropuerto(int id, String nombre, String ciudad, String pais, UbiRelCiudad ubiRelCiudad) {
+    public Aeropuerto(String nombre, String ciudad, String pais, UbiRelCiudad ubiRelCiudad) {
         this.puertasEmbarque = new ArrayList<>();
         this.terminales = new ArrayList<>();
         this.pistas = new ArrayList<>();
@@ -53,7 +51,6 @@ public class Aeropuerto {
         this.gestor = new GestorAeropuerto("Gestor Aeropuerto", "gestor123");
         this.usuarioActivo = null;
         this.usuarios = new ArrayList<>();
-        this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.pais = pais;
@@ -61,14 +58,6 @@ public class Aeropuerto {
     }
 
     // Getters y Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNombre() {
         return nombre;
     }
