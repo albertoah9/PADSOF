@@ -1,5 +1,8 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Aeropuerto {
     public enum Status {
@@ -618,6 +621,30 @@ public class Aeropuerto {
             vuelo.setEstado(nuevoEstado);
         } else {
             System.out.println("Error: Vuelo no encontrado.");
+        }
+    }
+
+    // Función de lectura de aeropuertos de un fichero externo
+    public void cargarAeropuertosDesdeArchivo(String nombreArchivo) {
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(",");
+                if (partes.length == 5) {
+                    int id = Integer.parseInt(partes[0]);
+                    String nombre = partes[1];
+                    String ciudad = partes[2];
+                    String pais = partes[3];
+                    AeropuertoDestino.UbiRelCiudad ubicacion = AeropuertoDestino.UbiRelCiudad.valueOf(partes[4]);
+
+                    AeropuertoDestino aeropuerto = new AeropuertoDestino(id, nombre, ciudad, pais, ubicacion);
+                    aeropuertosDestino.add(aeropuerto);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error en los datos del archivo: " + e.getMessage());
         }
     }
 

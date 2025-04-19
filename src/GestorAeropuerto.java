@@ -12,7 +12,7 @@ public class GestorAeropuerto extends Usuario {
 	public GestorAeropuerto(String nombre, String contraseña) {
 		super(nombre, contraseña);
         this.preferenciasNotificaciones = new HashSet<>(); // Set para preferencias de notificaciones
-	}   
+	}
     
     public int getDiasAnticipacionMinima() {
         return diasAnticipados;
