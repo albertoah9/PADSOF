@@ -1,5 +1,10 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import notificaciones.Notificacion;
+import usuarios.OperadorAereo;
+import usuarios.Usuario;
+
 import java.util.ArrayList;
 import java.util.List;
 
