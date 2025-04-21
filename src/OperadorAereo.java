@@ -1,4 +1,6 @@
-import java.util.List;  
+
+import java.util.List;
+
 public class OperadorAereo extends Usuario {
     private Aerolinea aerolineaAsignada;
 

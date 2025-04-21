@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+
 public class GestorAeropuerto extends Usuario {
     private Set<String> preferenciasNotificaciones;
     private int diasAnticipados = 30;

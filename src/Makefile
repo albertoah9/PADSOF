@@ -24,4 +24,4 @@ run: all
 	$(JAVA) -cp $(BIN_DIR) $(MAIN_CLASS)
 
 clean:
-	rm -rf $(BIN_DIR)
+	rm -rf $(BIN_DIR) *.class

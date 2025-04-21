@@ -1,10 +1,15 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Main {
    public static void main(String[] args) {
       Aeropuerto aeropuerto = new Aeropuerto("Adolfo Suarez", "Madrid", "España", Aeropuerto.UbiRelCiudad.ESTE);
       
+      // Gestor
+      GestorAeropuerto gestor = new GestorAeropuerto("María", "1234");
+      aeropuerto.setUsuarioActivo(gestor);
+
       // Elementos del aeropuerto
       Terminal tPasajeros = new TerminalPasajeros(1250);
       aeropuerto.addTerminal(tPasajeros);
@@ -27,10 +32,6 @@ public class Main {
       aeropuerto.addPista(pistaAterrizaje);
       aeropuerto.addPista(pistaDespegue);
 
-      // Gestor
-      GestorAeropuerto gestor = new GestorAeropuerto("María", "1234");
-      aeropuerto.setUsuarioActivo(gestor);
-
       // Controladores
       ControladorAereo controlador1 = new ControladorAereo("Juan", "abcd", tPasajeros);
       ControladorAereo controlador2 = new ControladorAereo("Pedro", "abcd1234", tCarga);
@@ -44,7 +45,7 @@ public class Main {
 
       // Vuelos
       Avion avion1 = new AvionPasajeros("Boeing", "737", "AA-123", 180, LocalDate.of(2025, 1, 26), LocalDate.of(2015, 3, 26), 120, aerolinea1);
-      Vuelo vuelo1 = new Vuelo("Madrid", "New York", LocalDateTime.now(), LocalDateTime.now().plus(50, null), tPasajeros, avion1, pistaDespegue, puerta1, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA, Vuelo.ClaseVuelo.PASAJEROS, aerolinea1);
+      Vuelo vuelo1 = new Vuelo("Madrid", "New York", LocalDateTime.now(), LocalDateTime.now().plus(50, ChronoUnit.MINUTES), tPasajeros, avion1, pistaDespegue, puerta1, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA, Vuelo.ClaseVuelo.PASAJEROS, aerolinea1);
       aeropuerto.addVuelo(vuelo1);
 
       // Simulación de operaciones
