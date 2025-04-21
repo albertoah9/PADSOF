@@ -6,7 +6,6 @@ import java.util.Set;
 
 public class GestorAeropuerto extends Usuario {
     private Set<String> preferenciasNotificaciones;
-    private int diasAnticipados = 30;
     private int horasVentanaTerminal = 48;
     private int minutosDesocupacion = 30;
 	
@@ -14,20 +13,6 @@ public class GestorAeropuerto extends Usuario {
 		super(nombre, contraseña);
         this.preferenciasNotificaciones = new HashSet<>(); // Set para preferencias de notificaciones
 	}
-    
-    public int getDiasAnticipacionMinima() {
-        return diasAnticipados;
-    }
-
-    public boolean setDiasAnticipacionMinima(int nuevosDias) {
-        if (nuevosDias >= 1 && nuevosDias <= 365) {
-            this.diasAnticipados = nuevosDias;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
     public void agregarPreferenciaNotificacion(String preferencia) {
         preferenciasNotificaciones.add(preferencia);
@@ -59,17 +44,6 @@ public class GestorAeropuerto extends Usuario {
         }
     }
 
-    public int getDiasAnticipados() {
-        return diasAnticipados;
-    }
-
-    public boolean puedeCrearVuelo(LocalDateTime fechaHoraVuelo){
-        LocalDateTime hoy = LocalDateTime.now();
-        LocalDateTime fechaMinima = hoy.plusDays(diasAnticipados);
-
-        return fechaHoraVuelo.isAfter(fechaMinima);
-    }
-
     public boolean puedeConsultarTerminal(LocalDateTime fechaConsulta) {
         LocalDateTime ahora = LocalDateTime.now();
         LocalDateTime limiteInferior = ahora.minusHours(horasVentanaTerminal);
@@ -77,7 +51,6 @@ public class GestorAeropuerto extends Usuario {
     
         return !fechaConsulta.isBefore(limiteInferior) && !fechaConsulta.isAfter(limiteSuperior);
     }
-
 
     @Override
     public void recibirNotificacion(Notificacion notificacion) {

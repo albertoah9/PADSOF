@@ -46,7 +46,6 @@ public class OperadorAereo extends Usuario {
         }
     }
     
-
     public void recibirNotificacion(Notificacion notificacion){
         if(!notificacion.getDestinatarios().contains(this)){
             super.recibirNotificacion(notificacion);

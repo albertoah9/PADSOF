@@ -32,6 +32,11 @@ public class Aeropuerto {
     private Usuario usuarioActivo;
     private ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto;
 
+
+    private int diasAnticipacionMinima = 30;
+
+
+
     // CAMBIAR POR SISTEMA DE PAGO
     private ArrayList<Factura> facturas;
 
@@ -58,6 +63,14 @@ public class Aeropuerto {
         this.ciudad = ciudad;
         this.pais = pais;
         this.ubiRelCiudad = ubiRelCiudad;
+    }
+
+    public int getDiasAnticipacionMinima() {
+        return diasAnticipacionMinima;
+    }
+
+    public void setDiasAnticipacionMinima(int dias) {
+        diasAnticipacionMinima = dias;
     }
 
     // Getters y Setters
@@ -219,8 +232,13 @@ public class Aeropuerto {
         this.aeropuertosDestino.add(aeropuertoDestino);
     }
 
-    public void addVuelo(Vuelo vuelo) {
+    public void addVuelo(Vuelo vuelo) throws IllegalArgumentException{
         if (usuarioActivo instanceof OperadorAereo) {
+            // DIferencia en dias respecto a diasAnticipacion Minima
+            if (vuelo.getFechaHora().isBefore(LocalDateTime.now().plusDays(diasAnticipacionMinima))) {
+                throw new IllegalArgumentException("Error, la fecha de salida no puede ser menor a " + diasAnticipacionMinima + " días");
+            }
+
             this.vuelos.add(vuelo);
             ArrayList<Usuario> usuariosDest = new ArrayList<>();
             usuariosDest.add(gestor);
@@ -517,26 +535,23 @@ public class Aeropuerto {
 	    }
 	}
 
-    public void añadirOperador(String nombre, String contraseña, Aerolinea aerolinea) {
+    public void añadirOperador(OperadorAereo operador, Aerolinea aerolinea) {
         if (usuarioActivo instanceof GestorAeropuerto) {
             if (aerolinea == null) {
                 throw new IllegalArgumentException("Error, la aerolínea no puede ser nula");
             }
             
-            OperadorAereo nuevoOperador = new OperadorAereo(nombre, contraseña, aerolinea);
-
             for (Usuario u : usuarios) {
-                if (u.getNombre().equals(nombre)) {
+                if (u.getNombre().equals(operador.getNombre())) {
                     throw new IllegalArgumentException("Error, este nombre ya está en uso");
                 }
             }
 
-            usuarios.add(nuevoOperador);
-            aerolinea.agregarOperador(nuevoOperador);
+            usuarios.add(operador);
+            aerolinea.agregarOperador(operador);
         } else {
             throw new IllegalArgumentException("Error, el usuario no tiene permisos suficientes");
         }
-
     }
 	
     public void añadirControlador(String nombre, String contraseña) {
