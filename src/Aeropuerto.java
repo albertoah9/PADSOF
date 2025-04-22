@@ -514,7 +514,7 @@ public class Aeropuerto {
         return usuarios;
     }
 
-	public void modificarUsuario(int idUsuario, String nuevoNombre, String nuevaContraseña) {
+	public boolean modificarUsuario(int idUsuario, String nuevoNombre, String nuevaContraseña) {
 	    Usuario usuarioAModificar = null;
 
 	    for (Usuario u : usuarios) {
@@ -530,8 +530,10 @@ public class Aeropuerto {
 	        System.out.println("El usuario ha sido modificado con los siguientes valores:");
 	        System.out.println("Nuevo Nombre: " + nuevoNombre);
 	        System.out.println("Nueva Contraseña: " + nuevaContraseña);
+            return true;
 	    } else {
 	        System.out.println("Error: usuario no encontrado");
+            return false;
 	    }
 	}
 
