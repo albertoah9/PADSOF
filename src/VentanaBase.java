@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 public abstract class VentanaBase extends JFrame {
 
     protected JPanel panelContenido;
-    protected JPanel panelLateral;
     protected JButton btnOverview;
     protected JPanel subMenuOverview;
 
@@ -67,11 +66,6 @@ public abstract class VentanaBase extends JFrame {
         panelContenido.add(Box.createRigidArea(new Dimension(0, 20)));
         panelContenido.add(horaActual);
 
-        // PANEL LATERAL
-        panelLateral = new JPanel();
-        panelLateral.setLayout(new BoxLayout(panelLateral, BoxLayout.Y_AXIS));
-        panelLateral.setPreferredSize(new Dimension(250, getHeight()));
-
         // ----- BOTÓN OVERVIEW -----
         btnOverview = new JButton("Overview");
         btnOverview.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -122,20 +116,26 @@ public abstract class VentanaBase extends JFrame {
         subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
         subMenuOverview.add(btnEstado);
 
-        // AÑADIR TODO AL PANEL LATERAL
-        panelLateral.add(Box.createVerticalStrut(10));
-        panelLateral.add(btnOverview);
-        panelLateral.add(subMenuOverview);
-
-
         // ------------------------
         // AÑADIR TODO AL FRAME
         // ------------------------
         add(panelSuperior, BorderLayout.NORTH);
-        add(panelLateral, BorderLayout.WEST);
         add(panelContenido, BorderLayout.CENTER);
 
         setVisible(true);
+    }
+
+    protected JPanel construirpanelLateral(){
+        JPanel panelLateral;
+        // PANEL LATERAL
+        panelLateral = new JPanel();
+        panelLateral.setLayout(new BoxLayout(panelLateral, BoxLayout.Y_AXIS));
+        panelLateral.setPreferredSize(new Dimension(250, getHeight()));
+        // AÑADIR TODO AL PANEL LATERAL
+        panelLateral.add(Box.createVerticalStrut(10));
+        panelLateral.add(btnOverview);
+        panelLateral.add(subMenuOverview);
+        return panelLateral;
     }
 
     /*protected void inicializarMenu() {

@@ -155,6 +155,8 @@ public class VentanaGestor extends VentanaBase {
         this.gestor = gestor;
 
         // Aquí puedes añadir funcionalidades específicas del gestor
+        JPanel panelLateral = construirpanelLateral();
+        add(panelLateral, BorderLayout.WEST);
     }
 }
 
