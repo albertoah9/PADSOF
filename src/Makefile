@@ -25,3 +25,4 @@ run: all
 
 clean:
 	rm -rf $(BIN_DIR) *.class
+	rm -rf *.class
