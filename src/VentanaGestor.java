@@ -154,9 +154,61 @@ public class VentanaGestor extends VentanaBase {
         super(gestor.getNombre());
         this.gestor = gestor;
 
-        // Aquí puedes añadir funcionalidades específicas del gestor
-        JPanel panelLateral = construirpanelLateral();
-        add(panelLateral, BorderLayout.WEST);
+        crearBotonesMenuLateral();
+    }
+
+    private void crearBotonesMenuLateral() {
+        // ----- BOTÓN OVERVIEW -----
+        btnOverview = new JButton("Overview");
+        btnOverview.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnOverview.addActionListener(e -> toggleSubMenu(subMenuOverview));
+    
+        subMenuOverview = new JPanel();
+        subMenuOverview.setLayout(new BoxLayout(subMenuOverview, BoxLayout.Y_AXIS));
+        subMenuOverview.setVisible(false);
+    
+        JButton btnGraficos = new JButton("Gráficos");
+        btnGraficos.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
+        JButton btnOrdenPago = new JButton("Orden de Pago");
+        btnOrdenPago.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
+        JPanel subMenuOrdenPago = new JPanel();
+        subMenuOrdenPago.setLayout(new BoxLayout(subMenuOrdenPago, BoxLayout.Y_AXIS));
+        subMenuOrdenPago.setVisible(false);
+    
+        JButton btnFacturasPorPagar = new JButton("Facturas por pagar");
+        btnFacturasPorPagar.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
+        JButton btnBusquedaFactura = new JButton("Búsqueda de factura");
+        btnBusquedaFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
+        subMenuOrdenPago.add(btnFacturasPorPagar);
+        subMenuOrdenPago.add(btnBusquedaFactura);
+    
+        btnOrdenPago.addActionListener(e -> toggleSubMenu(subMenuOrdenPago));
+    
+        subMenuOverview.add(btnGraficos);
+        subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
+        subMenuOverview.add(btnOrdenPago);
+        subMenuOverview.add(subMenuOrdenPago);
+    
+        JButton btnGestiones = new JButton("Gestiones y asignaciones");
+        btnGestiones.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton btnEstado = new JButton("Estado");
+        btnEstado.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
+        subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
+        subMenuOverview.add(btnGestiones);
+        subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
+        subMenuOverview.add(btnEstado);
+    
+        // Finalmente añades al panel lateral
+        panelLateral.add(Box.createVerticalStrut(10));
+        panelLateral.add(btnOverview);
+        panelLateral.add(subMenuOverview);
+    
+        panelLateral.revalidate();
+        panelLateral.repaint();
     }
 }
-

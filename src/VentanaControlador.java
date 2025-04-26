@@ -80,8 +80,5 @@ public class VentanaControlador extends JFrame {
 public class VentanaControlador extends VentanaBase {
     public VentanaControlador(ControladorAereo controlador) {
         super("Ventana Controlador - " + controlador.getNombre());
-
-        JPanel panelLateral = construirpanelLateral();
-        add(panelLateral, BorderLayout.WEST);
     }
 }

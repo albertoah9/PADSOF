@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 public abstract class VentanaBase extends JFrame {
 
     protected JPanel panelContenido;
+    protected JPanel panelLateral;
     protected JButton btnOverview;
     protected JPanel subMenuOverview;
 
@@ -66,76 +67,19 @@ public abstract class VentanaBase extends JFrame {
         panelContenido.add(Box.createRigidArea(new Dimension(0, 20)));
         panelContenido.add(horaActual);
 
-        // ----- BOTÓN OVERVIEW -----
-        btnOverview = new JButton("Overview");
-        btnOverview.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnOverview.addActionListener(e -> toggleSubMenu(subMenuOverview));
-
-        subMenuOverview = new JPanel();
-        subMenuOverview.setLayout(new BoxLayout(subMenuOverview, BoxLayout.Y_AXIS));
-        subMenuOverview.setVisible(false);
-
-        // Subopciones dentro de Overview
-        JButton btnGraficos = new JButton("Gráficos");
-        btnGraficos.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // ----- BOTÓN ORDEN DE PAGO (anidado dentro de Overview) -----
-        JButton btnOrdenPago = new JButton("Orden de Pago");
-        btnOrdenPago.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JPanel subMenuOrdenPago = new JPanel();
-        subMenuOrdenPago.setLayout(new BoxLayout(subMenuOrdenPago, BoxLayout.Y_AXIS));
-        subMenuOrdenPago.setVisible(false);
-
-        JButton btnFacturasPorPagar = new JButton("Facturas por pagar");
-        btnFacturasPorPagar.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JButton btnBusquedaFactura = new JButton("Búsqueda de factura");
-        btnBusquedaFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        subMenuOrdenPago.add(btnFacturasPorPagar);
-        subMenuOrdenPago.add(btnBusquedaFactura);
-
-        // Acción para desplegar submenú de orden de pago
-        btnOrdenPago.addActionListener(e -> toggleSubMenu(subMenuOrdenPago));
-
-        // Añadir al submenú Overview
-        subMenuOverview.add(btnGraficos);
-        subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
-        subMenuOverview.add(btnOrdenPago);
-        subMenuOverview.add(subMenuOrdenPago);
-
-        // Otros botones dentro de Overview
-        JButton btnGestiones = new JButton("Gestiones y asignaciones");
-        btnGestiones.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JButton btnEstado = new JButton("Estado");
-        btnEstado.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
-        subMenuOverview.add(btnGestiones);
-        subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
-        subMenuOverview.add(btnEstado);
+        // PANEL LATERAL
+        panelLateral = new JPanel();
+        panelLateral.setLayout(new BoxLayout(panelLateral, BoxLayout.Y_AXIS));
+        panelLateral.setPreferredSize(new Dimension(250, getHeight()));
 
         // ------------------------
         // AÑADIR TODO AL FRAME
         // ------------------------
         add(panelSuperior, BorderLayout.NORTH);
+        add(panelLateral, BorderLayout.WEST);
         add(panelContenido, BorderLayout.CENTER);
 
         setVisible(true);
-    }
-
-    protected JPanel construirpanelLateral(){
-        JPanel panelLateral;
-        // PANEL LATERAL
-        panelLateral = new JPanel();
-        panelLateral.setLayout(new BoxLayout(panelLateral, BoxLayout.Y_AXIS));
-        panelLateral.setPreferredSize(new Dimension(250, getHeight()));
-        // AÑADIR TODO AL PANEL LATERAL
-        panelLateral.add(Box.createVerticalStrut(10));
-        panelLateral.add(btnOverview);
-        panelLateral.add(subMenuOverview);
-        return panelLateral;
     }
 
     /*protected void inicializarMenu() {
@@ -206,7 +150,7 @@ public abstract class VentanaBase extends JFrame {
         cardLayoutContenido.show(panelContenido, nombreVista);
     }*/
 
-    private void toggleSubMenu(JPanel subMenu) {
+    protected void toggleSubMenu(JPanel subMenu) {
         subMenu.setVisible(!subMenu.isVisible());
         revalidate();
         repaint();
