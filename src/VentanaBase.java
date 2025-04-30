@@ -10,6 +10,10 @@ public abstract class VentanaBase extends JFrame {
     protected JPanel panelContenido;
     protected JPanel panelLateral;
     protected JButton btnOverview;
+    protected JButton bntSettings;
+    protected JButton btnHistory;
+    protected JButton btnActiveFlights;
+    protected JButton btnFlightSafety;
     protected JPanel subMenuOverview;
 
     public VentanaBase(String nombreUsuario) {
