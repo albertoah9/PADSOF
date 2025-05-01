@@ -18,7 +18,7 @@ public class VentanaControlador extends VentanaBase {
         // ----- BOTÓN OVERVIEW -----
         btnOverview = new JButton("Overview");
         btnOverview.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnOverview.addActionListener(e -> toggleSubMenu(subMenuOverview));
+        btnOverview.addActionListener(_ -> toggleSubMenu(subMenuOverview));
     
         subMenuOverview = new JPanel();
         subMenuOverview.setLayout(new BoxLayout(subMenuOverview, BoxLayout.Y_AXIS));
@@ -28,32 +28,45 @@ public class VentanaControlador extends VentanaBase {
         btnGraficos.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //para que acceda a la zona de graficos
-        btnGraficos.addActionListener(e -> mostrarVista(new VentanaControladorGraficos()));
+        btnGraficos.addActionListener(_ -> mostrarVista(new VentanaControladorGraficos()));
 
     
-        JButton btnOrdenPago = new JButton("Orden de Pago");
-        btnOrdenPago.setAlignmentX(Component.CENTER_ALIGNMENT);
-    
-        JPanel subMenuOrdenPago = new JPanel();
-        subMenuOrdenPago.setLayout(new BoxLayout(subMenuOrdenPago, BoxLayout.Y_AXIS));
-        subMenuOrdenPago.setVisible(false);
+        JButton btnFacturas = new JButton("Gestion de Facturas");
+        btnFacturas.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     
+        JPanel subMenuFacturas = new JPanel();
+        subMenuFacturas.setLayout(new BoxLayout(subMenuFacturas, BoxLayout.Y_AXIS));
+        subMenuFacturas.setVisible(false);
+
+        JButton btnOrdenDePago = new JButton("Orden de pago");
+        btnOrdenDePago.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //aparece no permitido para controlador
+        btnOrdenDePago.addActionListener(_ -> new PanelControladorSinPermiso());
+
         JButton btnFacturasPorPagar = new JButton("Facturas por pagar");
         btnFacturasPorPagar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //aparece no permitido para controlador
+        btnFacturasPorPagar.addActionListener(_ -> new PanelControladorSinPermiso());
     
         JButton btnBusquedaFactura = new JButton("Búsqueda de factura");
         btnBusquedaFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //aparece no permitido para controlador
+        btnBusquedaFactura.addActionListener(_ -> new PanelControladorSinPermiso());
+
+        subMenuFacturas.add(btnOrdenDePago);
+        subMenuFacturas.add(btnFacturasPorPagar);
+        subMenuFacturas.add(btnBusquedaFactura);
     
-        subMenuOrdenPago.add(btnFacturasPorPagar);
-        subMenuOrdenPago.add(btnBusquedaFactura);
-    
-        btnOrdenPago.addActionListener(e -> toggleSubMenu(subMenuOrdenPago));
+        btnFacturas.addActionListener(_ -> toggleSubMenu(subMenuFacturas));
     
         subMenuOverview.add(btnGraficos);
         subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
-        subMenuOverview.add(btnOrdenPago);
-        subMenuOverview.add(subMenuOrdenPago);
+        subMenuOverview.add(btnFacturas);
+        subMenuOverview.add(subMenuFacturas);
     
         JButton btnGestiones = new JButton("Gestiones y asignaciones");
         btnGestiones.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -66,29 +79,43 @@ public class VentanaControlador extends VentanaBase {
         subMenuOverview.add(btnEstado);
 
         //BOTON SETTINGS
-        bntSettings = new JButton("Settings");
+        bntSettings = new JButton("Ajustes");
         bntSettings.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         
         //BOTON HISTORY
-        btnHistory = new JButton("History");
+        btnHistory = new JButton("Hsitorial");
         btnHistory.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //aparece no permitido para controlador
+        btnHistory.addActionListener(_ -> new PanelControladorSinPermiso());
+
         //BOTON ACTIVE FLIGHTS
-        btnActiveFlights = new JButton("ActiveFlights");
+        btnActiveFlights = new JButton("VuelosActivos");
         btnActiveFlights.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         JPanel subMenuActiveFlights = new JPanel();
         subMenuActiveFlights.setLayout(new BoxLayout(subMenuActiveFlights, BoxLayout.Y_AXIS));
         subMenuActiveFlights.setVisible(false);
 
-        JButton btnCreateFlight = new JButton("Create Flight");
+        JButton btnCreateFlight = new JButton("Crear Vuelo");
         btnCreateFlight.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton btnSearchFlight = new JButton("Search Flight");
+        //aparece no permitido para controlador
+        btnCreateFlight.addActionListener(_ -> new PanelControladorSinPermiso());
+
+        JButton btnSearchFlight = new JButton("Buscar Vuelo");
         btnSearchFlight.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton btnRequestFlight = new JButton("Request Flight");
+        //aparece no permitido para controlador
+        btnSearchFlight.addActionListener(_ -> new PanelControladorSinPermiso());
+
+        JButton btnRequestFlight = new JButton("Solicitar Vuelo");
         btnRequestFlight.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        //aparece no permitido para controlador
+        btnRequestFlight.addActionListener(_ -> new PanelControladorSinPermiso());
 
         subMenuActiveFlights.add(btnCreateFlight);
         subMenuActiveFlights.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -96,10 +123,10 @@ public class VentanaControlador extends VentanaBase {
         subMenuActiveFlights.add(Box.createRigidArea(new Dimension(0, 5)));
         subMenuActiveFlights.add(btnRequestFlight);
 
-        btnActiveFlights.addActionListener(e -> toggleSubMenu(subMenuActiveFlights));
+        btnActiveFlights.addActionListener(_ -> toggleSubMenu(subMenuActiveFlights));
 
         //BOTTON FLIGHT SAVETY
-        JButton btnFlightSafety = new JButton("Flight Safety");
+        JButton btnFlightSafety = new JButton("Vuelo Seguro");
         btnFlightSafety.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Finalmente añades al panel lateral
