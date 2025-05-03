@@ -1,9 +1,7 @@
 
 
-import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import javax.swing.*;
 /*
 public class VentanaGestor extends JFrame {*/
 
@@ -147,6 +145,7 @@ public class VentanaGestor extends JFrame {*/
         botonActivo.setFont(botonActivo.getFont().deriveFont(Font.BOLD));
     }
 }*/
+
 public class VentanaGestor extends VentanaBase {
     private GestorAeropuerto gestor;
 
