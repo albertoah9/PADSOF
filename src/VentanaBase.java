@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +17,8 @@ public abstract class VentanaBase extends JFrame {
     public VentanaBase(String nombreUsuario) {
         setTitle("Aplicación de Gestión Aeroportuaria");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 700);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Pantalla completa
+        //setSize(1000, 700);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -84,6 +83,17 @@ public abstract class VentanaBase extends JFrame {
         add(panelContenido, BorderLayout.CENTER);
 
         setVisible(true);
+    }
+
+    // Método para cambiar el panel central de contenido
+    protected void mostrarVista(JPanel nuevoPanel) {
+        // Asegúrate de que panelContenido esté usando un layout adecuado para reemplazar componentes
+        // Por ejemplo, BorderLayout, CardLayout, o simplemente limpiar y añadir si usas BoxLayout como contenedor principal
+        // Como usas BoxLayout(Y_AXIS) en panelContenido, simplemente limpiarlo y añadir funciona bien para un solo panel hijo.
+        panelContenido.removeAll();         // Elimina todos los componentes actuales
+        panelContenido.add(nuevoPanel);     // Añade el nuevo panel
+        panelContenido.revalidate();        // Vuelve a calcular el layout
+        panelContenido.repaint();           // Repinta el contenedor para mostrar los cambios
     }
 
     /*protected void inicializarMenu() {

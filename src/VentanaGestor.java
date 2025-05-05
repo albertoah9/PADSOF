@@ -169,45 +169,96 @@ public class VentanaGestor extends VentanaBase {
     
         JButton btnGraficos = new JButton("Gráficos");
         btnGraficos.setAlignmentX(Component.CENTER_ALIGNMENT);
-    
-        JButton btnOrdenPago = new JButton("Orden de Pago");
-        btnOrdenPago.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnGraficos.addActionListener(e -> mostrarVista(new PanelGraficos(gestor)));
     
         JPanel subMenuOrdenPago = new JPanel();
         subMenuOrdenPago.setLayout(new BoxLayout(subMenuOrdenPago, BoxLayout.Y_AXIS));
         subMenuOrdenPago.setVisible(false);
-    
+
+        JButton btnPagoFact = new JButton("Pagos y facuras");
+        btnPagoFact.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnPagoFact.addActionListener(e -> toggleSubMenu(subMenuOrdenPago));
+        
+        
+        // ----- Botones dentro de subMenuOrdenPago ----
+        JButton btnOrdenPago = new JButton("Orden de pago");
+        btnOrdenPago.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnOrdenPago.addActionListener(e -> mostrarVista(new PanelOrdenPago(gestor)));
+
         JButton btnFacturasPorPagar = new JButton("Facturas por pagar");
         btnFacturasPorPagar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnFacturasPorPagar.addActionListener(e -> mostrarVista(new PanelFacturasPorPagar(gestor)));
     
         JButton btnBusquedaFactura = new JButton("Búsqueda de factura");
         btnBusquedaFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
-    
+        btnBusquedaFactura.addActionListener(e -> mostrarVista(new PanelBusquedaFactura(gestor)));
+        
+        subMenuOrdenPago.add(btnOrdenPago);
         subMenuOrdenPago.add(btnFacturasPorPagar);
         subMenuOrdenPago.add(btnBusquedaFactura);
     
-        btnOrdenPago.addActionListener(e -> toggleSubMenu(subMenuOrdenPago));
-    
         subMenuOverview.add(btnGraficos);
         subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
-        subMenuOverview.add(btnOrdenPago);
+        subMenuOverview.add(btnPagoFact);
         subMenuOverview.add(subMenuOrdenPago);
     
         JButton btnGestiones = new JButton("Gestiones y asignaciones");
         btnGestiones.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnGestiones.addActionListener(e -> mostrarVista(new PanelGestiones(gestor)));
+
         JButton btnEstado = new JButton("Estado");
         btnEstado.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnEstado.addActionListener(e -> mostrarVista(new PanelEstado(gestor)));
     
         subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
         subMenuOverview.add(btnGestiones);
         subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
         subMenuOverview.add(btnEstado);
     
+        btnSettings = new JButton("Settings");
+        btnSettings.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //btnSettings.addActionListener(e -> mostrarVista(new PanelSettings(gestor)));
+
+        btnHistory = new JButton("History");
+        btnHistory.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //btnHistory.addActionListener(e -> mostrarVista(new PanelHistory(gestor)));
+
+        btnActiveFlights = new JButton("Active flights");
+        btnActiveFlights.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //btnActiveFlights.addActionListener(e -> mostrarVista(new PanelActiveFlights(gestor)));
+
+        btnFlightSafety = new JButton("Flight safety");
+        btnFlightSafety.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //btnFlightSafety.addActionListener(e -> mostrarVista(new PanelFlightSafety(gestor)));
+        /*
+        btnLogout = new JButton("Log out");
+        btnLogout.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnLogOut.addActionListener(e -> {
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres cerrar sesión?", "Cerrar sesión", JOptionPane.YES_NO_OPTION);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                dispose(); // Cierra la ventana actual
+                new VentanaPrincipal(); // Abre la ventana de login
+            }
+        });*/
+
         // Finalmente añades al panel lateral
         panelLateral.add(Box.createVerticalStrut(10));
         panelLateral.add(btnOverview);
         panelLateral.add(subMenuOverview);
-    
+        panelLateral.add(Box.createRigidArea(new Dimension(0, 5)));
+
+        panelLateral.add(btnSettings);
+        panelLateral.add(Box.createRigidArea(new Dimension(0, 5)));
+        panelLateral.add(btnHistory);
+        panelLateral.add(Box.createRigidArea(new Dimension(0, 5)));
+        panelLateral.add(btnActiveFlights);
+        panelLateral.add(Box.createRigidArea(new Dimension(0, 5)));
+        panelLateral.add(btnFlightSafety);
+        panelLateral.add(Box.createRigidArea(new Dimension(0, 5)));
+        //panelLateral.add(btnLogOut);
+
+        panelLateral.add(Box.createVerticalGlue());
+
         panelLateral.revalidate();
         panelLateral.repaint();
     }
