@@ -24,40 +24,42 @@ public class VentanaOperador extends VentanaBase {
 
         inicializarMenuOperador(operador);
     }
-}
 
+    private void inicializarMenuOperador(OperadorAereo operador) {
+        JButton btnRegistrarVuelo = new JButton("Registrar Vuelo");
+        JButton btnConsultarVuelos = new JButton("Consultar Vuelos");
+        JButton btnEditarVuelo = new JButton("Editar Vuelo");
+        JButton btnCancelarVuelo = new JButton("Cancelar Vuelo");
 
-private void inicializarMenuOperador(OperadorAereo operador) {
-    JButton btnRegistrarVuelo = new JButton("Registrar Vuelo");
-    JButton btnConsultarVuelos = new JButton("Consultar Vuelos");
-    JButton btnEditarVuelo = new JButton("Editar Vuelo");
-    JButton btnCancelarVuelo = new JButton("Cancelar Vuelo");
+        // Añadir botones al panel lateral
+        panelLateral.add(btnRegistrarVuelo);
+        panelLateral.add(btnConsultarVuelos);
+        panelLateral.add(btnEditarVuelo);
+        panelLateral.add(btnCancelarVuelo);
 
-    // Añadir botones al panel lateral
-    panelLateral.add(btnRegistrarVuelo);
-    panelLateral.add(btnConsultarVuelos);
-    panelLateral.add(btnEditarVuelo);
-    panelLateral.add(btnCancelarVuelo);
-
-    // Añadir listeners que actualicen el panelContenido
-    btnRegistrarVuelo.addActionListener(e -> mostrarPanelOperacion("Registrar", operador));
-    btnConsultarVuelos.addActionListener(e -> mostrarPanelOperacion("Consultar", operador));
-    btnEditarVuelo.addActionListener(e -> mostrarPanelOperacion("Editar", operador));
-    btnCancelarVuelo.addActionListener(e -> mostrarPanelOperacion("Cancelar", operador));
-}
-
-private void mostrarPanelOperacion(String operacion, OperadorAereo operador) {
-    panelContenido.removeAll();
-
-    switch (operacion) {
-        case "Registrar":
-            panelContenido.add(new FormularioRegistroVuelo(operador));
-            break;
-        // Otros casos: Consultar, Editar, Cancelar...
-        default:
-            panelContenido.add(new JLabel("Operación no implementada aún"));
+        // Añadir listeners que actualicen el panelContenido
+        btnRegistrarVuelo.addActionListener(e -> mostrarPanelOperacion("Registrar", operador));
+        btnConsultarVuelos.addActionListener(e -> mostrarPanelOperacion("Consultar", operador));
+        btnEditarVuelo.addActionListener(e -> mostrarPanelOperacion("Editar", operador));
+        btnCancelarVuelo.addActionListener(e -> mostrarPanelOperacion("Cancelar", operador));
     }
 
-    revalidate();
-    repaint();
+    private void mostrarPanelOperacion(String operacion, OperadorAereo operador) {
+        panelContenido.removeAll();
+
+        switch (operacion) {
+            case "Registrar":
+                panelContenido.add(new FormularioRegistroVuelo(operador));
+                break;
+            // Otros casos: Consultar, Editar, Cancelar...
+            default:
+                panelContenido.add(new JLabel("Operación no implementada aún"));
+        }
+
+        revalidate();
+        repaint();
+    }
 }
+
+
+
