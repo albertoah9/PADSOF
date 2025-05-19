@@ -91,11 +91,31 @@ public class VentanaControlador extends VentanaBase {
         btnEstado.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnEstado.setMaximumSize(new Dimension(170, 30));
 
-    
+        JPanel subMenuEstado = new JPanel();
+        subMenuEstado.setLayout(new BoxLayout(subMenuEstado, BoxLayout.Y_AXIS));
+        subMenuEstado.setVisible(false);
+        subMenuEstado.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 0)); // Margen más profundo
+
+        JButton btnDisponibilidades = new JButton("Disponibilidades");
+        btnDisponibilidades.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnDisponibilidades.setMaximumSize(new Dimension(170, 30));
+        
+
+        JButton btnEstadoVuelo = new JButton("EstadoVuelo");
+        btnEstadoVuelo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnEstadoVuelo.setMaximumSize(new Dimension(170, 30));
+
+        subMenuEstado.add(btnDisponibilidades);
+        subMenuEstado.add(Box.createRigidArea(new Dimension(0, 5)));
+        subMenuEstado.add(btnEstadoVuelo);
+
+        btnEstado.addActionListener(_ -> toggleSubMenu(subMenuEstado));
+
         subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
         subMenuOverview.add(btnGestiones);
         subMenuOverview.add(Box.createRigidArea(new Dimension(0, 5)));
         subMenuOverview.add(btnEstado);
+        subMenuOverview.add(subMenuEstado);
 
         //BOTON SETTINGS
         btnSettings = new JButton("Ajustes");
@@ -187,13 +207,6 @@ public class VentanaControlador extends VentanaBase {
     }
 
 
-    private void mostrarVista(JPanel nuevaVista) {
-        panelContenido.removeAll();  // Limpiar el contenido actual
-        panelContenido.add(nuevaVista);  // Añadir la nueva vista
-        panelContenido.revalidate();  // Revalidar para refrescar la UI
-        panelContenido.repaint();  // Repintar el panel
-    }
- 
 
 
 }
