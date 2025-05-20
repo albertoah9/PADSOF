@@ -73,7 +73,7 @@ public class VentanaPrincipal extends JFrame {
                 case "Operador":
                     Aerolinea aerolineaDummy = new Aerolinea("Iberia", "IB123");
                     OperadorAereo operador = new OperadorAereo(nombre, pass, aerolineaDummy);
-                    new VentanaOperador(operador);
+                    new VentanaOperador();
                     break;
             }
 
