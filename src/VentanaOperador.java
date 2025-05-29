@@ -49,7 +49,7 @@ public class VentanaOperador extends VentanaBase {
 
         switch (operacion) {
             case "Registrar":
-                panelContenido.add(new FormularioRegistroVuelo(operador));
+                panelContenido.add(new FormularioRegistroVuelo(null, operador));
                 break;
             // Otros casos: Consultar, Editar, Cancelar...
             default:

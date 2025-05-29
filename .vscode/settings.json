@@ -4,5 +4,6 @@
         "libs/invoiceSystem.jar",
         "c:\\Users\\rober\\Downloads\\invoiceSystem.jar",
         "c:\\Users\\rober\\Downloads\\TeleChargeAndPaySystem8.jar"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
