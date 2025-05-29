@@ -20,7 +20,6 @@ public class Vuelo {
     }
 
     public enum Periodicidad{
-     
         PUNTUAL, DIARIO, DIAS_SEMANA
     }
     

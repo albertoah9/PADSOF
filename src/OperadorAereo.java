@@ -4,7 +4,6 @@ import java.util.List;
 public class OperadorAereo extends Usuario {
     private Aerolinea aerolineaAsignada;
 
-
     public OperadorAereo(String nombre, String contraseña, Aerolinea aerolineaAsignada) {
         super(nombre, contraseña);
         this.aerolineaAsignada = aerolineaAsignada;
@@ -12,7 +11,7 @@ public class OperadorAereo extends Usuario {
     }
 
     public OperadorAereo(String nombre, Aerolinea aerolineaAsignada) {
-        super(nombre, ""); // o puedes usar null si tu clase Usuario lo permite
+        super(nombre, ""); 
         this.aerolineaAsignada = aerolineaAsignada;
         aerolineaAsignada.agregarObservador(this);
     }
@@ -51,8 +50,6 @@ public class OperadorAereo extends Usuario {
             super.recibirNotificacion(notificacion);
         }
     }
-
-
 
     @Override
     public String toString() {

@@ -1,11 +1,6 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-
-// Asumiendo que GestorAeropuerto es visible
-// import tu_paquete.GestorAeropuerto;
 
 public class PanelOrdenPago extends JPanel {
 
