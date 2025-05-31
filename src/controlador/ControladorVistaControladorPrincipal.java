@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import vista.VistaControladorPrincipal;
 import vista.VistaControladorVuelos;
+import vista.VistaControladorDisponibilidad;
 
 public class ControladorVistaControladorPrincipal {
 
@@ -24,7 +25,10 @@ public class ControladorVistaControladorPrincipal {
 
         this.vista.btnDisponibilidad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clic en Disponibilidad de elementos");
+                VistaControladorDisponibilidad vistaDisponibilidades = new VistaControladorDisponibilidad();
+                ControladorVistaControladorDisponibilidad controladorDisponibilidad = new ControladorVistaControladorDisponibilidad(
+                        vistaDisponibilidades);
+                controladorDisponibilidad.iniciar();
             }
         });
 
