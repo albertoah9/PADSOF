@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import vista.VistaControladorPrincipal;
 import vista.VistaControladorVuelos;
 import vista.VistaControladorDisponibilidad;
+import vista.VistaControladorGraficos;
+import vista.VistaControladorNotificaciones;
 
 public class ControladorVistaControladorPrincipal {
 
@@ -34,13 +36,19 @@ public class ControladorVistaControladorPrincipal {
 
         this.vista.btnGraficos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clic en Graficos");
+                VistaControladorGraficos VistaGraficos = new VistaControladorGraficos();
+                ControladorVistaControladorGraficos controladorGraficos = new ControladorVistaControladorGraficos(
+                        VistaGraficos);
+                controladorGraficos.iniciar();
             }
         });
 
         this.vista.btnNotificaciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clic en Ver Notificaciones");
+                VistaControladorNotificaciones VistaNotificaciones = new VistaControladorNotificaciones();
+                ControladorVistaControladorNotificaciones controladorNotificaciones = new ControladorVistaControladorNotificaciones(
+                        VistaNotificaciones);
+                controladorNotificaciones.iniciar();
             }
         });
     }
