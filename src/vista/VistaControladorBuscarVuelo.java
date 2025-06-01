@@ -3,10 +3,10 @@ package vista;
 import java.awt.*;
 import javax.swing.*;
 
-public class VistaControladorGraficos extends JFrame {
+public class VistaControladorBuscarVuelo extends JFrame {
     public JLabel lblTitulo;
 
-    public VistaControladorGraficos() {
+    public VistaControladorBuscarVuelo() {
         setTitle("Graficos necesarios para el Operador");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 350);

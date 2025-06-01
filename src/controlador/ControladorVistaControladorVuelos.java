@@ -1,6 +1,8 @@
 package controlador;
 
 import vista.VistaControladorVuelos;
+import vista.VistaControladorBuscarVuelo;
+import vista.VistaControladorModificarVuelo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,13 +16,19 @@ public class ControladorVistaControladorVuelos {
 
         this.vista.btnModificarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Modificar estado del vuelo");
+                VistaControladorBuscarVuelo vistaBuscarVuelo = new VistaControladorBuscarVuelo();
+                ControladorVistaControladorBuscarVuelo controladorBuscarVuelo = new ControladorVistaControladorBuscarVuelo(
+                        vistaBuscarVuelo);
+                controladorBuscarVuelo.iniciar();
             }
         });
 
         this.vista.btnBuscarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Buscar vuelo");
+                VistaControladorModificarVuelo vistaModificarVuelo = new VistaControladorModificarVuelo();
+                ControladorVistaControladorModificarVuelo controladorModificarVuelo = new ControladorVistaControladorModificarVuelo(
+                        vistaModificarVuelo);
+                controladorModificarVuelo.iniciar();
             }
         });
     }
