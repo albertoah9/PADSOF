@@ -1,3 +1,5 @@
+package modelo;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,6 +26,7 @@ public class Aeropuerto {
     public enum Status {
         OK, ERROR
     }
+
     public enum UbiRelCiudad {
         NORTE, SUR, ESTE, OESTE
     }
@@ -48,10 +51,7 @@ public class Aeropuerto {
     private Usuario usuarioActivo;
     private ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto;
 
-
     private int diasAnticipacionMinima = 30;
-
-
 
     // CAMBIAR POR SISTEMA DE PAGO
     private ArrayList<Factura> facturas;
@@ -187,16 +187,17 @@ public class Aeropuerto {
     }
 
     public void setCosteVuelo(double costeVuelo) {
-        if(usuarioActivo instanceof GestorAeropuerto) {
+        if (usuarioActivo instanceof GestorAeropuerto) {
             this.costeVuelo = costeVuelo;
-        } else { 
+        } else {
             System.err.println("Usuario con permisos insuficientes");
         }
     }
 
     public Status iniciarSesion(String nombreUsuario, String contraseña) {
         for (ControladorAereo controladorAereo : controladores) {
-            if (controladorAereo.getNombre().equals(nombreUsuario) && controladorAereo.getContraseña().equals(contraseña)) {
+            if (controladorAereo.getNombre().equals(nombreUsuario)
+                    && controladorAereo.getContraseña().equals(contraseña)) {
                 usuarioActivo = controladorAereo;
                 return Status.OK;
             }
@@ -212,8 +213,8 @@ public class Aeropuerto {
         }
 
         if (gestor != null &&
-            gestor.getNombre().equals(nombreUsuario) &&
-            gestor.getContraseña().equals(contraseña)) {
+                gestor.getNombre().equals(nombreUsuario) &&
+                gestor.getContraseña().equals(contraseña)) {
             usuarioActivo = gestor;
             return Status.OK;
         }
@@ -223,7 +224,7 @@ public class Aeropuerto {
 
     /* Métodos */
     public Status addPuertaEmbarque(PuertaEmbarque puerta) {
-        if(usuarioActivo instanceof GestorAeropuerto) {
+        if (usuarioActivo instanceof GestorAeropuerto) {
             this.puertasEmbarque.add(puerta);
             return Status.OK;
         }
@@ -232,7 +233,7 @@ public class Aeropuerto {
     }
 
     public Status addTerminal(Terminal terminal) {
-        if(usuarioActivo instanceof GestorAeropuerto) {
+        if (usuarioActivo instanceof GestorAeropuerto) {
             this.terminales.add(terminal);
             return Status.OK;
         }
@@ -248,11 +249,12 @@ public class Aeropuerto {
         this.aeropuertosDestino.add(aeropuertoDestino);
     }
 
-    public void addVuelo(Vuelo vuelo) throws IllegalArgumentException{
+    public void addVuelo(Vuelo vuelo) throws IllegalArgumentException {
         if (usuarioActivo instanceof OperadorAereo) {
             // DIferencia en dias respecto a diasAnticipacion Minima
             if (vuelo.getFechaHora().isBefore(LocalDateTime.now().plusDays(diasAnticipacionMinima))) {
-                throw new IllegalArgumentException("Error, la fecha de salida no puede ser menor a " + diasAnticipacionMinima + " días");
+                throw new IllegalArgumentException(
+                        "Error, la fecha de salida no puede ser menor a " + diasAnticipacionMinima + " días");
             }
 
             this.vuelos.add(vuelo);
@@ -261,7 +263,7 @@ public class Aeropuerto {
             usuariosDest.add(usuarioActivo);
             Notificacion notificacion = new Notificacion("Nuevo vuelo programado: " + vuelo.getId(), usuariosDest);
             this.notificaciones.add(notificacion);
-            notificarUsuarios(notificacion, usuariosDest);        
+            notificarUsuarios(notificacion, usuariosDest);
         }
     }
 
@@ -313,13 +315,12 @@ public class Aeropuerto {
             notificarUsuarios(notificacion, usuariosDest);
         } else {
             // No hay terminal disponible
-            Notificacion notificacion = new Notificacion("No hay terminal disponible para el vuelo: " + vuelo.getId(), usuariosDest);
+            Notificacion notificacion = new Notificacion("No hay terminal disponible para el vuelo: " + vuelo.getId(),
+                    usuariosDest);
             notificaciones.add(notificacion);
             notificarUsuarios(notificacion, usuariosDest);
         }
     }
-
-    
 
     // Buscar terminal disponible
     private Terminal buscarTerminalDisponible() {
@@ -333,17 +334,16 @@ public class Aeropuerto {
         return null; // No hay terminal disponible
     }
 
-   
-
     // Asignar pista de aterrizaje
     public void asignarPistaAterrizaje(Vuelo vuelo) {
-            ArrayList<Usuario> usuariosDest = new ArrayList<>();
-            usuariosDest.add(gestor);
-            usuariosDest.add(usuarioActivo);
+        ArrayList<Usuario> usuariosDest = new ArrayList<>();
+        usuariosDest.add(gestor);
+        usuariosDest.add(usuarioActivo);
         for (Pista pista : pistas) {
             if (pista.isOcupada()) {
                 vuelo.setPista(pista);
-                Notificacion notificacion = new Notificacion("Pista de aterrizaje asignada para el vuelo: " + vuelo.getId(), usuariosDest);
+                Notificacion notificacion = new Notificacion(
+                        "Pista de aterrizaje asignada para el vuelo: " + vuelo.getId(), usuariosDest);
                 notificaciones.add(notificacion);
                 notificarUsuarios(notificacion, usuariosDest);
                 break;
@@ -364,7 +364,8 @@ public class Aeropuerto {
                 if (finger != null) {
                     vuelo.setFinger(finger);
                 }
-                Notificacion notificacion = new Notificacion("Puerta de embarque y finger asignados para el vuelo: " + vuelo.getId(), usuariosDest);
+                Notificacion notificacion = new Notificacion(
+                        "Puerta de embarque y finger asignados para el vuelo: " + vuelo.getId(), usuariosDest);
                 notificaciones.add(notificacion);
                 notificarUsuarios(notificacion, usuariosDest);
                 break;
@@ -389,7 +390,8 @@ public class Aeropuerto {
             Hangar hangarDisponible = buscarHangarDisponible(vuelo.getFechaHora());
             if (hangarDisponible != null) {
                 vuelo.setHangar(hangarDisponible);
-                Notificacion notificacion = new Notificacion("Hangar asignado al vuelo: " + vuelo.getId(), usuariosDest);
+                Notificacion notificacion = new Notificacion("Hangar asignado al vuelo: " + vuelo.getId(),
+                        usuariosDest);
                 notificaciones.add(notificacion);
                 notificarUsuarios(notificacion, usuariosDest);
             }
@@ -423,8 +425,9 @@ public class Aeropuerto {
         }
         return null; // Vuelo no encontrado
     }
-    //Buscar vuelo por aeropuerto
-    public ArrayList<Vuelo> buscarVuelosPorOrigen(String origen){
+
+    // Buscar vuelo por aeropuerto
+    public ArrayList<Vuelo> buscarVuelosPorOrigen(String origen) {
         ArrayList<Vuelo> resultados = new ArrayList<>();
         for (Vuelo vuelo : vuelos) {
             if (vuelo.getOrigen().equalsIgnoreCase(origen)) {
@@ -444,7 +447,7 @@ public class Aeropuerto {
         return resultados;
     }
 
-    //Buscar Vuelo por hora de salida
+    // Buscar Vuelo por hora de salida
     public ArrayList<Vuelo> buscarVuelosPorFechaSalida(LocalDateTime fechaSalida) {
         ArrayList<Vuelo> resultados = new ArrayList<>();
         for (Vuelo vuelo : vuelos) {
@@ -454,7 +457,8 @@ public class Aeropuerto {
         }
         return resultados;
     }
-    //Buscar Vuelo por hora de llegada
+
+    // Buscar Vuelo por hora de llegada
     public ArrayList<Vuelo> buscarVuelosPorFechaLlegada(LocalDateTime fechaLlegada) {
         ArrayList<Vuelo> resultados = new ArrayList<>();
         for (Vuelo vuelo : vuelos) {
@@ -464,7 +468,8 @@ public class Aeropuerto {
         }
         return resultados;
     }
-    //Buscar Vuelo por terminal
+
+    // Buscar Vuelo por terminal
     public ArrayList<Vuelo> buscarVuelosPorTerminal(Terminal terminal) {
         ArrayList<Vuelo> resultados = new ArrayList<>();
         for (Vuelo vuelo : vuelos) {
@@ -474,7 +479,6 @@ public class Aeropuerto {
         }
         return resultados;
     }
-    
 
     // Asignar controlador a vuelo
     public void asignarControladorAVuelo(Vuelo vuelo) {
@@ -530,35 +534,35 @@ public class Aeropuerto {
         return usuarios;
     }
 
-	public boolean modificarUsuario(int idUsuario, String nuevoNombre, String nuevaContraseña) {
-	    Usuario usuarioAModificar = null;
+    public boolean modificarUsuario(int idUsuario, String nuevoNombre, String nuevaContraseña) {
+        Usuario usuarioAModificar = null;
 
-	    for (Usuario u : usuarios) {
-	        if (u.getId() == idUsuario) {
-	            usuarioAModificar = u;
-	            break;
-	        }
-	    }
+        for (Usuario u : usuarios) {
+            if (u.getId() == idUsuario) {
+                usuarioAModificar = u;
+                break;
+            }
+        }
 
-	    if (usuarioAModificar != null) {
-	        usuarioAModificar.setNombre(nuevoNombre); 
-	        usuarioAModificar.setContraseña(nuevaContraseña); 
-	        System.out.println("El usuario ha sido modificado con los siguientes valores:");
-	        System.out.println("Nuevo Nombre: " + nuevoNombre);
-	        System.out.println("Nueva Contraseña: " + nuevaContraseña);
+        if (usuarioAModificar != null) {
+            usuarioAModificar.setNombre(nuevoNombre);
+            usuarioAModificar.setContraseña(nuevaContraseña);
+            System.out.println("El usuario ha sido modificado con los siguientes valores:");
+            System.out.println("Nuevo Nombre: " + nuevoNombre);
+            System.out.println("Nueva Contraseña: " + nuevaContraseña);
             return true;
-	    } else {
-	        System.out.println("Error: usuario no encontrado");
+        } else {
+            System.out.println("Error: usuario no encontrado");
             return false;
-	    }
-	}
+        }
+    }
 
     public void añadirOperador(OperadorAereo operador, Aerolinea aerolinea) {
         if (usuarioActivo instanceof GestorAeropuerto) {
             if (aerolinea == null) {
                 throw new IllegalArgumentException("Error, la aerolínea no puede ser nula");
             }
-            
+
             for (Usuario u : usuarios) {
                 if (u.getNombre().equals(operador.getNombre())) {
                     throw new IllegalArgumentException("Error, este nombre ya está en uso");
@@ -571,7 +575,7 @@ public class Aeropuerto {
             throw new IllegalArgumentException("Error, el usuario no tiene permisos suficientes");
         }
     }
-	
+
     public void añadirControlador(String nombre, String contraseña) {
         ControladorAereo nuevoControlador = new ControladorAereo(nombre, contraseña, null);
 
@@ -583,7 +587,7 @@ public class Aeropuerto {
 
         usuarios.add(nuevoControlador);
     }
-    
+
     public void eliminarUsuario(int idUsuario) {
         Usuario usuarioAEliminar = null;
         for (Usuario u : usuarios) {
@@ -600,8 +604,7 @@ public class Aeropuerto {
             System.out.println("Error: Usuario no encontrado.");
         }
     }
-    
-    
+
     public void verUsuarios() {
         if (usuarios.isEmpty()) {
             System.out.println("No hay usuarios registrados.");
@@ -612,7 +615,7 @@ public class Aeropuerto {
             }
         }
     }
-    
+
     public Usuario buscarUsuario(int id) {
         for (Usuario u : usuarios) {
             if (u.getId() == id) {
@@ -626,9 +629,9 @@ public class Aeropuerto {
     public void cambiarTerminal(ControladorAereo controlador, Terminal nuevaTerminal) {
         LocalDateTime fechaConsulta = LocalDateTime.now();
         if (controlador != null && nuevaTerminal != null) {
-            if(gestor.puedeConsultarTerminal(fechaConsulta)){
-            controlador.cambiarTerminal(nuevaTerminal);
-            System.out.println("Controlador asignado a la terminal " + nuevaTerminal.getId());
+            if (gestor.puedeConsultarTerminal(fechaConsulta)) {
+                controlador.cambiarTerminal(nuevaTerminal);
+                System.out.println("Controlador asignado a la terminal " + nuevaTerminal.getId());
             }
         } else {
             throw new IllegalArgumentException("Error: Controlador no encontrado o terminal nula.");
@@ -681,6 +684,4 @@ public class Aeropuerto {
         }
     }
 
-
 }
-

@@ -1,3 +1,5 @@
+package modelo;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,50 +11,50 @@ import modelo.UsoElementoAeropuerto;
 import modelo.Vuelo;
 
 public class Aerolinea {
-	private String nombre;
-	private String codigoAerolinea;
-	private List<Avion> flota;
-	private List<Factura> facturas;
-	private List<OperadorAereo> operadores;
+    private String nombre;
+    private String codigoAerolinea;
+    private List<Avion> flota;
+    private List<Factura> facturas;
+    private List<OperadorAereo> operadores;
     private List<OperadorAereo> observadores;
-	
-	public Aerolinea(String nombre, String codigoAerolinea) {
-		this.nombre = nombre;
-		this.codigoAerolinea = codigoAerolinea;
-		this.flota = new ArrayList<>();
-		this.facturas = new ArrayList<>();
-		this.operadores = new ArrayList<>();
+
+    public Aerolinea(String nombre, String codigoAerolinea) {
+        this.nombre = nombre;
+        this.codigoAerolinea = codigoAerolinea;
+        this.flota = new ArrayList<>();
+        this.facturas = new ArrayList<>();
+        this.operadores = new ArrayList<>();
         this.observadores = new ArrayList<>();
-	}
-	
-    public List<Avion> getFlota() { 
-        return flota; 
     }
 
-    public List<Factura> getFacturas() { 
-        return facturas; 
+    public List<Avion> getFlota() {
+        return flota;
     }
-    
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
     public List<OperadorAereo> getOperadores() {
         return operadores;
     }
 
-	public String getNombre() {
-	    return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public String getCodigoAerolinea() {
-		return codigoAerolinea;
-	}
-	
-	public void setCodigoAerolinea(String codigoAerolinea) {
-		this.codigoAerolinea = codigoAerolinea;
-	}
-	
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCodigoAerolinea() {
+        return codigoAerolinea;
+    }
+
+    public void setCodigoAerolinea(String codigoAerolinea) {
+        this.codigoAerolinea = codigoAerolinea;
+    }
+
     public void añadirAvion(Avion avion) {
         if (avion != null && !flota.contains(avion)) {
             flota.add(avion);
@@ -60,11 +62,10 @@ public class Aerolinea {
         }
     }
 
-	
     public void removerAvion(Avion avion) {
         if (flota.contains(avion)) {
             flota.remove(avion);
-            avion.asignarAerolinea(null);  // Desasignar la aerolínea del avión
+            avion.asignarAerolinea(null); // Desasignar la aerolínea del avión
         }
     }
 
@@ -74,14 +75,15 @@ public class Aerolinea {
             System.out.println(factura);
         }
     }
-    
+
     public void eliminarAerolinea() {
         facturas.clear();
         System.out.println("Aerolinea " + nombre + " eliminada junto con sus facturas.");
     }
-    
+
     public void agregarOperador(OperadorAereo operador) {
-        if (operador == null || operadores.contains(operador)) return;  // Verifica si ya está en la lista
+        if (operador == null || operadores.contains(operador))
+            return; // Verifica si ya está en la lista
         if (operador.getAerolineaAsignada() != null) {
             operador.getAerolineaAsignada().eliminarOperador(operador); // Elimina de su aerolínea anterior
         }
@@ -95,7 +97,8 @@ public class Aerolinea {
         }
     }
 
-    public double calcularCostoTotal(LocalDateTime fechaInicio, LocalDateTime fechaFin, ArrayList<UsoElementoAeropuerto> usos, ArrayList<Vuelo> vuelos, double costeVuelo) {
+    public double calcularCostoTotal(LocalDateTime fechaInicio, LocalDateTime fechaFin,
+            ArrayList<UsoElementoAeropuerto> usos, ArrayList<Vuelo> vuelos, double costeVuelo) {
         double costoTotal = 0;
 
         for (UsoElementoAeropuerto uso : usos) {
@@ -127,21 +130,20 @@ public class Aerolinea {
         }
     }
 
-    public void eliminarObservador(OperadorAereo operador){
+    public void eliminarObservador(OperadorAereo operador) {
         observadores.remove(operador);
     }
 
-    public void notificarCambio(String mesage){
-        for(OperadorAereo operador : observadores){
+    public void notificarCambio(String mesage) {
+        for (OperadorAereo operador : observadores) {
             operador.recibirNotificacion(new Notificacion(mesage, List.of(operador)));
         }
     }
-    
+
     @Override
     public String toString() {
-        return "Aerolinea [Nombre=" + nombre  + ", Código=" + codigoAerolinea +
-               ", Flota de aviones=" + flota.size() + ", Operadores=" + operadores.size() + "]";
+        return "Aerolinea [Nombre=" + nombre + ", Código=" + codigoAerolinea +
+                ", Flota de aviones=" + flota.size() + ", Operadores=" + operadores.size() + "]";
     }
 
-	
 }

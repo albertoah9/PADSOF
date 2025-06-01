@@ -1,9 +1,11 @@
+package modelo;
+
 public class AeropuertoDestino {
     public enum UbiRelCiudad {
         NORTE, SUR, ESTE, OESTE
     }
 
-    private int id; 
+    private int id;
     private String nombre;
     private String ciudad;
     private String pais;
