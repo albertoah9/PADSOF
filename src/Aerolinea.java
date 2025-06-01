@@ -1,6 +1,12 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Avion;
+import modelo.Factura;
+import modelo.Notificacion;
+import modelo.OperadorAereo;
+import modelo.UsoElementoAeropuerto;
+import modelo.Vuelo;
 
 public class Aerolinea {
 	private String nombre;

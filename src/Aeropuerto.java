@@ -4,6 +4,22 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import modelo.ControladorAereo;
+import modelo.ElementoAeropuerto;
+import modelo.Factura;
+import modelo.Finger;
+import modelo.GestorAeropuerto;
+import modelo.Hangar;
+import modelo.Notificacion;
+import modelo.OperadorAereo;
+import modelo.Pista;
+import modelo.PuertaEmbarque;
+import modelo.Terminal;
+import modelo.UsoElementoAeropuerto;
+import modelo.Usuario;
+import modelo.Vuelo;
+import modelo.ZonaAparcamiento;
+
 public class Aeropuerto {
     public enum Status {
         OK, ERROR

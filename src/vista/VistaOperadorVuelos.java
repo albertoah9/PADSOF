@@ -9,6 +9,7 @@ public class VistaOperadorVuelos extends JFrame {
     public JButton btnModificarVuelo;
     public JButton btnEliminarVuelo;
     public JLabel lblTitulo;
+    public JButton btnVolver;
 
     public VistaOperadorVuelos() {
         setTitle("Gestión de Vuelos");
@@ -41,6 +42,10 @@ public class VistaOperadorVuelos extends JFrame {
         panel.add(btnEliminarVuelo);
 
         add(panel, BorderLayout.CENTER);
+
+        btnVolver = crearBoton("Volver al Menú Principal");
+        panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        panel.add(btnVolver);
     }
 
     private JButton crearBoton(String texto) {

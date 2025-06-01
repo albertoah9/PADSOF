@@ -1,4 +1,8 @@
 import org.junit.Test;
+
+import modelo.Finger;
+import modelo.TerminalPasajeros;
+
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 

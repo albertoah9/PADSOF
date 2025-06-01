@@ -2,6 +2,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import modelo.Finger;
+import modelo.PuertaEmbarque;
+import modelo.Finger.EstadoFinger;
+
 public class FingerTest {
 
     @Before

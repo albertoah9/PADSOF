@@ -15,8 +15,10 @@ public class ControladorVistaOperadorPrincipal {
         // Eventos
         this.vista.btnVuelos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                vista.setVisible(false);
                 VistaOperadorVuelos vistaVuelos = new VistaOperadorVuelos();
-                ControladorVistaOperadorVuelos controladorVuelos = new ControladorVistaOperadorVuelos(vistaVuelos);
+                ControladorVistaOperadorVuelos controladorVuelos =
+                    new ControladorVistaOperadorVuelos(vistaVuelos, vista);
                 controladorVuelos.iniciar();
             }
         });

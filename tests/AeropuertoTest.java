@@ -2,6 +2,14 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import modelo.Avion;
+import modelo.Finger;
+import modelo.Pista;
+import modelo.PuertaEmbarque;
+import modelo.Terminal;
+import modelo.Vuelo;
+import modelo.ZonaAparcamiento;
+import modelo.ZonaAparcamiento.TipoZonaAparcamiento;
 import usuarios.GestorAeropuerto;
 import usuarios.OperadorAereo;
 import usuarios.Usuario;

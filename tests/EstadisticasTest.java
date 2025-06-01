@@ -1,5 +1,14 @@
 import org.junit.Before;
 import org.junit.Test;
+
+import modelo.Estadisticas;
+import modelo.Finger;
+import modelo.Hangar;
+import modelo.PuertaEmbarque;
+import modelo.Vuelo;
+import modelo.ZonaAparcamiento;
+import modelo.ZonaAparcamiento.TipoZonaAparcamiento;
+
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;

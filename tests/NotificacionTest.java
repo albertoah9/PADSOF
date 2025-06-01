@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import modelo.ControladorAereo;
+import modelo.Terminal;
 import notificaciones.Notificacion;
 import usuarios.OperadorAereo;
 import usuarios.Usuario;
