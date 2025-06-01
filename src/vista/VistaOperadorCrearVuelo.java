@@ -3,7 +3,7 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
-public class VistaCrearVuelo extends JFrame {
+public class VistaOperadorCrearVuelo extends JFrame {
 
     public JTextField txtOrigen;
     public JTextField txtDestino;
@@ -16,7 +16,7 @@ public class VistaCrearVuelo extends JFrame {
     public JButton btnCrear;
     public JButton btnCancelar;
 
-    public VistaCrearVuelo() {
+    public VistaOperadorCrearVuelo() {
         setTitle("Crear Nuevo Vuelo");
         setSize(500, 450);
         setLocationRelativeTo(null);

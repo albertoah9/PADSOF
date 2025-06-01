@@ -1,8 +1,6 @@
 package modelo;
 import java.time.LocalDate;
 
-import Aerolinea;
-
 public abstract class Avion {
 
     private static int contador = 1;

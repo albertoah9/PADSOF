@@ -13,12 +13,12 @@ import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class ControladorVistaCrearVuelo {
+public class ControladorVistaOperadorCrearVuelo {
 
     private VistaOperadorCrearVuelo vista;
     private Aeropuerto aeropuerto;
 
-    public ControladorVistaCrearVuelo(VistaOperadorCrearVuelo vista, Aeropuerto aeropuerto) {
+    public ControladorVistaOperadorCrearVuelo(VistaOperadorCrearVuelo vista, Aeropuerto aeropuerto) {
         this.vista = vista;
         this.aeropuerto = aeropuerto;
 

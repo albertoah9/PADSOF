@@ -2,8 +2,6 @@ package modelo;
 
 import java.util.List;
 
-import Aerolinea;
-
 public class OperadorAereo extends Usuario {
     private Aerolinea aerolineaAsignada;
 

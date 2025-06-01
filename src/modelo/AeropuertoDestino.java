@@ -1,3 +1,4 @@
+package modelo;
 public class AeropuertoDestino {
     public enum UbiRelCiudad {
         NORTE, SUR, ESTE, OESTE

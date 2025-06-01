@@ -1,8 +1,6 @@
 package modelo;
 import java.time.LocalDate;
 
-import Aerolinea;
-
 public class AvionCarga extends Avion {
     private double cargaMax;
     private boolean mercPeligrosas;

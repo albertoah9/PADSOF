@@ -2,6 +2,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import modelo.Aerolinea;
+import modelo.Aeropuerto;
 import modelo.Avion;
 import modelo.Finger;
 import modelo.Pista;

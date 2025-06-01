@@ -3,9 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import Aerolinea;
-import Aeropuerto;
-import Aeropuerto.UbiRelCiudad;
+import modelo.Aeropuerto.UbiRelCiudad;
 
 public class Main {
    public static void main(String[] args) {

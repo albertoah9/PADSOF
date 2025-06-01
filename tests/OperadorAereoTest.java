@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import modelo.Aerolinea;
 import modelo.Avion;
 import modelo.Avion.TipoAvion;
 import usuarios.OperadorAereo;

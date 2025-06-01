@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import modelo.Aerolinea;
 import modelo.ControladorAereo;
 import modelo.Terminal;
 import usuarios.GestorAeropuerto;

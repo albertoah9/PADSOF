@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import modelo.Aerolinea;
+import modelo.Aeropuerto;
 import modelo.Avion;
 import modelo.ControladorAereo;
 import modelo.Finger;

@@ -2,8 +2,6 @@ package modelo;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import Aerolinea;
-
 public class UsoElementoAeropuerto {
     private ElementoAeropuerto elementoAeropuerto;
     private Aerolinea aerolinea;

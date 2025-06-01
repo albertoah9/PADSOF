@@ -7,9 +7,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import Aerolinea;
-import Aeropuerto;
-
 public class Vuelo {
     public enum EstadoVuelo {
         ESPERANDO_PISTA, ESPERANDO_ATERRIZAJE, EN_PREPARACION, APARCADO, EN_HANGAR, EMBARCANDO, ESPERADNO_DESPEGUE, DESPEGADO, RETRASADO, EN_HORA

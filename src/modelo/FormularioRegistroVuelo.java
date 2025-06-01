@@ -3,9 +3,6 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import javax.swing.*;
 
-import Aerolinea;
-import Aeropuerto;
-
 public class FormularioRegistroVuelo extends JPanel {
 
     public FormularioRegistroVuelo(Aeropuerto aeropuerto, OperadorAereo operador) {

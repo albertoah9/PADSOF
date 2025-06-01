@@ -1,8 +1,6 @@
 package modelo;
 import java.time.LocalDate;
 
-import Aerolinea;
-
 public class AvionPasajeros extends Avion {
     private int capacidad;
 
