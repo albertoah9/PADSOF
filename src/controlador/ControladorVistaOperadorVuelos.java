@@ -1,23 +1,33 @@
 package controlador;
 
+import modelo.Aerolinea;
+import modelo.Aeropuerto;
+import vista.VistaOperadorVuelos;
+import vista.VistaOperadorCrearVuelo;
+import vista.VistaOperadorMostrarVuelos;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import vista.VistaOperadorVuelos;
 
 public class ControladorVistaOperadorVuelos {
 
     private VistaOperadorVuelos vista;
+    private Aeropuerto aeropuerto;
+    private Aerolinea aerolinea;
     private JFrame vistaPrincipal;
 
-    public ControladorVistaOperadorVuelos(VistaOperadorVuelos vista, JFrame vistaPrincipal) {
+    public ControladorVistaOperadorVuelos(VistaOperadorVuelos vista, Aeropuerto aeropuerto, Aerolinea aerolinea, JFrame vistaPrincipal) {
         this.vista = vista;
+        this.aeropuerto = aeropuerto;
         this.vistaPrincipal = vistaPrincipal;
+        this.aerolinea = aerolinea;
 
         this.vista.btnCrearVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Crear nuevo vuelo");
-                // Aquí se abriría un formulario o lógica de creación
+                VistaOperadorCrearVuelo vistaCrear = new VistaOperadorCrearVuelo();
+                ControladorVistaOperadorCrearVuelo controladorCrear = new ControladorVistaOperadorCrearVuelo(vistaCrear, aeropuerto);
+                controladorCrear.iniciar();
             }
         });
 
@@ -33,10 +43,19 @@ public class ControladorVistaOperadorVuelos {
             }
         });
 
+        this.vista.btnMostrarVuelos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                VistaOperadorMostrarVuelos vistaMostrar = new VistaOperadorMostrarVuelos();
+                ControladorVistaOperadorMostrarVuelos controladorMostrar = new ControladorVistaOperadorMostrarVuelos(vistaMostrar, aeropuerto, aerolinea, vista);
+                controladorMostrar.iniciar();
+                vista.setVisible(false);
+            }
+        });
+
         this.vista.btnVolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                vista.dispose(); // Cierra la ventana de vuelos
-                vistaPrincipal.setVisible(true); // Muestra de nuevo la ventana principal
+                vista.dispose();
+                vistaPrincipal.setVisible(true);
             }
         });
     }

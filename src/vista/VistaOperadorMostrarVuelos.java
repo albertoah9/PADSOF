@@ -10,7 +10,7 @@ public class VistaOperadorMostrarVuelos extends JFrame {
     public JButton btnVolver;
     private DefaultTableModel modeloTabla;
 
-    public VistaMostrarVuelos() {
+    public VistaOperadorMostrarVuelos() {
         setTitle("Listado de Vuelos");
         setSize(800, 400);
         setLocationRelativeTo(null);

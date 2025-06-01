@@ -9,8 +9,8 @@ public class VistaOperadorCrearVuelo extends JFrame {
     public JTextField txtDestino;
     public JComboBox<String> cmbTipoVuelo;
     public JComboBox<String> cmbClaseVuelo;
-    public JTextField txtFechaLlegada;
-    public JTextField txtFechaSalida;
+    public JTextField txtFecha;
+    public JTextField txtHora;
     public JComboBox<String> cmbPeriodicidad;
     public JCheckBox chkUsaFinger;
     public JButton btnCrear;
@@ -33,6 +33,13 @@ public class VistaOperadorCrearVuelo extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
+        panel.add(new JLabel("Tipo de Vuelo:"), gbc);
+        gbc.gridx = 1;
+        cmbTipoVuelo = new JComboBox<>(new String[]{"SALIDA", "LLEGADA"});
+        panel.add(cmbTipoVuelo, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
         panel.add(new JLabel("Origen:"), gbc);
         gbc.gridx = 1;
         txtOrigen = new JTextField();
@@ -47,13 +54,6 @@ public class VistaOperadorCrearVuelo extends JFrame {
 
         gbc.gridy++;
         gbc.gridx = 0;
-        panel.add(new JLabel("Tipo de Vuelo:"), gbc);
-        gbc.gridx = 1;
-        cmbTipoVuelo = new JComboBox<>(new String[]{"SALIDA", "LLEGADA"});
-        panel.add(cmbTipoVuelo, gbc);
-
-        gbc.gridy++;
-        gbc.gridx = 0;
         panel.add(new JLabel("Clase de Vuelo:"), gbc);
         gbc.gridx = 1;
         cmbClaseVuelo = new JComboBox<>(new String[]{"PASAJEROS", "MERCANCIAS"});
@@ -61,17 +61,17 @@ public class VistaOperadorCrearVuelo extends JFrame {
 
         gbc.gridy++;
         gbc.gridx = 0;
-        panel.add(new JLabel("Fecha y Hora de Llegada (AAAA-MM-DDTHH:MM):"), gbc);
+        panel.add(new JLabel("Fecha (AAAA-MM-DD):"), gbc);
         gbc.gridx = 1;
-        txtFechaLlegada = new JTextField();
-        panel.add(txtFechaLlegada, gbc);
+        txtFecha = new JTextField();
+        panel.add(txtFecha, gbc);
 
         gbc.gridy++;
         gbc.gridx = 0;
-        panel.add(new JLabel("Fecha y Hora de Salida (AAAA-MM-DDTHH:MM):"), gbc);
+        panel.add(new JLabel("Hora (HH:MM):"), gbc);
         gbc.gridx = 1;
-        txtFechaSalida = new JTextField();
-        panel.add(txtFechaSalida, gbc);
+        txtHora = new JTextField();
+        panel.add(txtHora, gbc);
 
         gbc.gridy++;
         gbc.gridx = 0;
