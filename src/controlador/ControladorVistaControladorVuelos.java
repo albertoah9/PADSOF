@@ -14,7 +14,7 @@ public class ControladorVistaControladorVuelos {
     public ControladorVistaControladorVuelos(VistaControladorVuelos vista) {
         this.vista = vista;
 
-        this.vista.btnModificarVuelo.addActionListener(new ActionListener() {
+        this.vista.btnBuscarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorBuscarVuelo vistaBuscarVuelo = new VistaControladorBuscarVuelo();
                 ControladorVistaControladorBuscarVuelo controladorBuscarVuelo = new ControladorVistaControladorBuscarVuelo(
@@ -23,7 +23,7 @@ public class ControladorVistaControladorVuelos {
             }
         });
 
-        this.vista.btnBuscarVuelo.addActionListener(new ActionListener() {
+        this.vista.btnModificarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorModificarVuelo vistaModificarVuelo = new VistaControladorModificarVuelo();
                 ControladorVistaControladorModificarVuelo controladorModificarVuelo = new ControladorVistaControladorModificarVuelo(
