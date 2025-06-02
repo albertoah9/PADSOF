@@ -392,6 +392,16 @@ public class Vuelo {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Vuelo{" +
+                "id='" + id + '\'' +
+                ", origen='" + origen + '\'' +
+                ", destino='" + destino + '\'' +
+                ", aerolinea=" + (aerolinea != null ? aerolinea.getCodigoAerolinea() : "null") +
+                '}';
+    }
+
 
 }
 

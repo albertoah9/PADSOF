@@ -1,9 +1,30 @@
-package modelo;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import modelo.Aerolinea;
+import modelo.Aeropuerto;
+import modelo.Avion;
+import modelo.AvionPasajeros;
+import modelo.ControladorAereo;
+import modelo.Finger;
+import modelo.GestorAeropuerto;
+import modelo.OperadorAereo;
+import modelo.Pista;
+import modelo.PistaAterrizaje;
+import modelo.PistaDespegue;
+import modelo.PuertaEmbarque;
+import modelo.Terminal;
+import modelo.TerminalCarga;
+import modelo.TerminalPasajeros;
+import modelo.Vuelo;
+import modelo.ZonaAparcamiento;
 import modelo.Aeropuerto.UbiRelCiudad;
+import modelo.PuertaEmbarque.TipoPuerta;
+import modelo.Vuelo.ClaseVuelo;
+import modelo.Vuelo.EstadoVuelo;
+import modelo.Vuelo.TipoVuelo;
 
 public class Main {
    public static void main(String[] args) {

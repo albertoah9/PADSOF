@@ -1,4 +1,5 @@
 package modelo;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -35,8 +36,6 @@ public class Aeropuerto {
 
 
     private int diasAnticipacionMinima = 30;
-
-
 
     // CAMBIAR POR SISTEMA DE PAGO
     private ArrayList<Factura> facturas;
@@ -125,6 +124,16 @@ public class Aeropuerto {
 
     public ArrayList<Vuelo> getVuelos() {
         return vuelos;
+    }
+
+    public ArrayList<Vuelo> getVuelosAerolinea(Aerolinea aerolinea) {
+        ArrayList<Vuelo> vuelosAerolinea = new ArrayList<>();
+        for (Vuelo v : vuelos) {
+            if (v.getAerolinea() != null && v.getAerolinea().getCodigoAerolinea().equals(aerolinea.getCodigoAerolinea())) {
+                vuelosAerolinea.add(v);
+            }
+        }
+        return vuelosAerolinea;
     }
 
     public ArrayList<Aerolinea> getAerolineas() {
@@ -235,12 +244,13 @@ public class Aeropuerto {
 
     public void addVuelo(Vuelo vuelo) throws IllegalArgumentException{
         if (usuarioActivo instanceof OperadorAereo) {
-            // DIferencia en dias respecto a diasAnticipacion Minima
+            // Si la diferencia de dias no es mayor que la mínima lanza la excepción
             if (vuelo.getFechaHora().isBefore(LocalDateTime.now().plusDays(diasAnticipacionMinima))) {
                 throw new IllegalArgumentException("Error, la fecha de salida no puede ser menor a " + diasAnticipacionMinima + " días");
             }
 
             this.vuelos.add(vuelo);
+            
             ArrayList<Usuario> usuariosDest = new ArrayList<>();
             usuariosDest.add(gestor);
             usuariosDest.add(usuarioActivo);

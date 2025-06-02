@@ -1,4 +1,4 @@
-package modelo;
+
 import controlador.ControladorVistaControladorPrincipal;
 import vista.VistaControladorPrincipal;
 

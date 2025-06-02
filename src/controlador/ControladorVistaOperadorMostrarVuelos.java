@@ -21,6 +21,7 @@ public class ControladorVistaOperadorMostrarVuelos {
         this.vista = vista;
         this.aeropuerto = aeropuerto;
         this.vistaAnterior = vistaAnterior;
+        this.aerolinea = aerolinea;
 
         cargarVuelos();
 
@@ -38,24 +39,26 @@ public class ControladorVistaOperadorMostrarVuelos {
     }
 
     private void cargarVuelos() {
-        List<Vuelo> vuelos = aeropuerto.getVuelos();
         vista.limpiarTabla();
+        System.out.println(aeropuerto.getVuelos());
+        System.out.println(aeropuerto.getVuelosAerolinea(aerolinea));
 
-        for (Vuelo v : vuelos) {
-            if (v.getAerolinea() == aerolinea) {
-                Object[] fila = {
-                    v.getId(),
-                    v.getOrigen(),
-                    v.getDestino(),
-                    v.getfechaHoraSalida(),
-                    v.getfechaHoraLlegada(),
-                    v.getTipoVuelo(),
-                    v.getClaseVuelo(),
-                    v.getEstado()
-                };
-                vista.agregarVuelo(fila);
-            }
+        for (Vuelo v : aeropuerto.getVuelosAerolinea(aerolinea)) {
+            System.out.println(v);
+            Object[] fila = {
+                v.getId(),
+                v.getOrigen(),
+                v.getDestino(),
+                v.getfechaHoraSalida(),
+                v.getfechaHoraLlegada(),
+                v.getTipoVuelo(),
+                v.getClaseVuelo(),
+                v.getEstado()
+            };
 
+            vista.agregarVuelo(fila);
+            vista.tablaVuelos.revalidate();
+            vista.tablaVuelos.repaint();
         }
     }
 }

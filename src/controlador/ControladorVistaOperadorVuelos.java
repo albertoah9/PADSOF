@@ -5,6 +5,7 @@ import modelo.Aeropuerto;
 import vista.VistaOperadorVuelos;
 import vista.VistaOperadorCrearVuelo;
 import vista.VistaOperadorMostrarVuelos;
+import vista.VistaOperadorModificarEstadoVuelo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,18 +23,21 @@ public class ControladorVistaOperadorVuelos {
         this.aeropuerto = aeropuerto;
         this.vistaPrincipal = vistaPrincipal;
         this.aerolinea = aerolinea;
-
+        
         this.vista.btnCrearVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 VistaOperadorCrearVuelo vistaCrear = new VistaOperadorCrearVuelo();
-                ControladorVistaOperadorCrearVuelo controladorCrear = new ControladorVistaOperadorCrearVuelo(vistaCrear, aeropuerto);
+                ControladorVistaOperadorCrearVuelo controladorCrear = new ControladorVistaOperadorCrearVuelo(vistaCrear, aeropuerto, aerolinea);
                 controladorCrear.iniciar();
             }
         });
 
         this.vista.btnModificarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Modificar estado del vuelo");
+                VistaOperadorModificarEstadoVuelo vistaModificar = new VistaOperadorModificarEstadoVuelo();
+                ControladorVistaOperadorModificarEstadoVuelo controladorModificar = new ControladorVistaOperadorModificarEstadoVuelo(vistaModificar, aeropuerto, aerolinea, vista);
+                controladorModificar.iniciar();
+                vista.setVisible(false);
             }
         });
 

@@ -5,6 +5,7 @@ import modelo.Vuelo;
 import modelo.Vuelo.ClaseVuelo;
 import modelo.Vuelo.Periodicidad;
 import modelo.Vuelo.TipoVuelo;
+import modelo.Aerolinea;
 import modelo.Aeropuerto;
 
 import javax.swing.*;
@@ -19,10 +20,12 @@ public class ControladorVistaOperadorCrearVuelo {
 
     private VistaOperadorCrearVuelo vista;
     private Aeropuerto aeropuerto;
+    private Aerolinea aerolinea;
 
-    public ControladorVistaOperadorCrearVuelo(VistaOperadorCrearVuelo vista, Aeropuerto aeropuerto) {
+    public ControladorVistaOperadorCrearVuelo(VistaOperadorCrearVuelo vista, Aeropuerto aeropuerto, Aerolinea aerolinea) {
         this.vista = vista;
         this.aeropuerto = aeropuerto;
+        this.aerolinea = aerolinea;
 
         this.vista.btnCrear.addActionListener(new ActionListener() {
             @Override
@@ -96,14 +99,16 @@ public class ControladorVistaOperadorCrearVuelo {
                 aeropuerto,
                 tipo,
                 clase,
-                null // Aerolinea
+                this.aerolinea
             );
 
             vuelo.setPeriodicidad(periodicidad);
             vuelo.setUsaFinger(usaFinger);
 
             aeropuerto.addVuelo(vuelo);
+
             JOptionPane.showMessageDialog(vista, "Vuelo creado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            
             vista.dispose();
 
         } catch (DateTimeParseException ex) {
