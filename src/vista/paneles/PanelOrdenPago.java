@@ -1,6 +1,9 @@
+package vista.paneles;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import modelo.GestorAeropuerto;
 
 public class PanelOrdenPago extends JPanel {
 

@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import modelo.GestorAeropuerto;
+import modelo.Notificacion;
+import modelo.Usuario;
+
 public class Aeropuerto {
     public enum Status {
         OK, ERROR

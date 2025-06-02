@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.Notificacion;
+
 public abstract class Terminal {
     private static int contador = 1;
     private int id;

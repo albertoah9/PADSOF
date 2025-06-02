@@ -1,7 +1,10 @@
+package vista.paneles;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel; // Para manejar los datos de la tabla
+
+import modelo.GestorAeropuerto;
 
 // Asumiendo que GestorAeropuerto es visible
 // import tu_paquete.GestorAeropuerto;

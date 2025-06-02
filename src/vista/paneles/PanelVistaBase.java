@@ -1,4 +1,8 @@
+package vista.paneles;
 import javax.swing.*;
+
+import modelo.GestorAeropuerto;
+
 import java.awt.*;
 
 public class PanelVistaBase extends JPanel {

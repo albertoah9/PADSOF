@@ -1,6 +1,9 @@
+package vista.paneles;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder; // Para añadir margen
+
+import modelo.GestorAeropuerto;
 
 // Asumiendo que GestorAeropuerto es visible
 // import tu_paquete.GestorAeropuerto;

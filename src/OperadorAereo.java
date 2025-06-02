@@ -1,6 +1,9 @@
 
 import java.util.List;
 
+import modelo.Notificacion;
+import modelo.Usuario;
+
 public class OperadorAereo extends Usuario {
     private Aerolinea aerolineaAsignada;
 

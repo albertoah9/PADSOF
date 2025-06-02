@@ -5,6 +5,14 @@ import javax.swing.*;
 /*
 public class VentanaGestor extends JFrame {*/
 
+import modelo.GestorAeropuerto;
+import vista.paneles.PanelBusquedaFactura;
+import vista.paneles.PanelEstado;
+import vista.paneles.PanelFacturasPorPagar;
+import vista.paneles.PanelGestiones;
+import vista.paneles.PanelGraficos;
+import vista.paneles.PanelOrdenPago;
+
     /*public VentanaGestor(GestorAeropuerto gestor) {
         setTitle("Gestión del Aeropuerto");
         setDefaultCloseOperation(EXIT_ON_CLOSE);

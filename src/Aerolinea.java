@@ -2,6 +2,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.Notificacion;
+
 public class Aerolinea {
 	private String nombre;
 	private String codigoAerolinea;

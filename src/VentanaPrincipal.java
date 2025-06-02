@@ -68,7 +68,7 @@ public class VentanaPrincipal extends JFrame {
                 case "Controlador":
                     Terminal terminalDummy = new TerminalPasajeros(1500);
                     ControladorAereo controlador = new ControladorAereo(nombre, pass, terminalDummy);
-                    new VentanaControlador(controlador);
+                    //new VentanaControlador(controlador);
                     break;
                 case "Operador":
                     Aerolinea aerolineaDummy = new Aerolinea("Iberia", "IB123");

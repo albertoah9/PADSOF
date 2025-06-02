@@ -1,7 +1,9 @@
+package vista.paneles;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 // Necesitaremos una clase GestorAeropuerto (o similar) para pasar información si es necesario
 // public class GestorAeropuerto { ... } // Asumo que ya tienes esta clase o una equivalente

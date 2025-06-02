@@ -1,6 +1,10 @@
+package vista.paneles;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
+
+import modelo.GestorAeropuerto;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
