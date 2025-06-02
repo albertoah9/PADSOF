@@ -27,7 +27,7 @@ public class VistaControladorVuelos extends JFrame {
         panel.add(lblTitulo);
 
         // Botones
-        btnBuscarVuelo = crearBoton("Crear Nuevo Vuelo");
+        btnBuscarVuelo = crearBoton("Buscar Vuelo");
         panel.add(btnBuscarVuelo);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
 

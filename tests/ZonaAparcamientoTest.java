@@ -1,5 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
+
+import modelo.ZonaAparcamiento;
+import modelo.ZonaAparcamiento.TipoZonaAparcamiento;
+
 import static org.junit.Assert.*;
 
 public class ZonaAparcamientoTest {

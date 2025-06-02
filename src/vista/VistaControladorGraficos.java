@@ -18,7 +18,7 @@ public class VistaControladorGraficos extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50)); // Márgenes
 
         // Título
-        lblTitulo = new JLabel("Visualizacionb de los graficos que el Operador necesita",
+        lblTitulo = new JLabel("Visualizacion de los graficos que el Operador necesita",
                 SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);

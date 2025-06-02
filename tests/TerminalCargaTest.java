@@ -1,4 +1,7 @@
 import org.junit.Test;
+
+import modelo.TerminalCarga;
+
 import static org.junit.Assert.*;
 
 public class TerminalCargaTest {

@@ -1,6 +1,8 @@
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+import modelo.Hangar;
+
 public class HangarTest {
     double delta = 0.0001;
     

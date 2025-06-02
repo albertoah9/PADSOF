@@ -1,6 +1,11 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import modelo.Pista;
+import modelo.PistaAterrizaje;
+import modelo.PistaDespegue;
+import modelo.Pista.EstadoPista;
+
 public class PistaTest {
 
     @Test

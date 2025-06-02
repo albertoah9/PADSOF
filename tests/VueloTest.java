@@ -1,8 +1,18 @@
 import org.junit.Test;
 
-import PuertaEmbarque.TipoPuerta;
-import Vuelo.EstadoVuelo;
-import Vuelo.TipoVuelo;
+import modelo.Aerolinea;
+import modelo.Aeropuerto;
+import modelo.Avion;
+import modelo.ControladorAereo;
+import modelo.Finger;
+import modelo.Pista;
+import modelo.PuertaEmbarque;
+import modelo.Terminal;
+import modelo.Vuelo;
+import modelo.ZonaAparcamiento;
+import modelo.PuertaEmbarque.TipoPuerta;
+import modelo.Vuelo.EstadoVuelo;
+import modelo.Vuelo.TipoVuelo;
 
 import static org.junit.Assert.*;
 import java.time.LocalDate;

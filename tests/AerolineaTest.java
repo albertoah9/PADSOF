@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import modelo.Aerolinea;
+import modelo.Avion;
+import modelo.Avion.TipoAvion;
+
 public class AerolineaTest {
     private Aerolinea aerolinea;
     private Avion avion1;
