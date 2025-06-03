@@ -1,10 +1,11 @@
 package modelo;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Notificacion;
 
-public abstract class Terminal {
+public class Terminal {
     private static int contador = 1;
     private int id;
     private ArrayList<ControladorAereo> controladores;
@@ -22,7 +23,8 @@ public abstract class Terminal {
     }
 
     public void agregarControlador(ControladorAereo controlador) {
-        if (controlador == null || controladores.contains(controlador)) return;
+        if (controlador == null || controladores.contains(controlador))
+            return;
 
         if (controlador.getTerminalAsignada() != null) {
             controlador.getTerminalAsignada().eliminarControlador(controlador); // Elimina de la anterior

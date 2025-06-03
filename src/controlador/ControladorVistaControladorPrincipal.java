@@ -2,6 +2,9 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import modelo.Aerolinea;
+import modelo.Aeropuerto;
 import vista.VistaControladorPrincipal;
 import vista.VistaControladorVuelos;
 import vista.VistaControladorDisponibilidad;
@@ -11,16 +14,23 @@ import vista.VistaControladorNotificaciones;
 public class ControladorVistaControladorPrincipal {
 
     private VistaControladorPrincipal vista;
+    private Aeropuerto aeropuerto;
+    private Aerolinea aerolinea;
 
-    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista) {
+    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto,
+            Aerolinea aerolinea) {
+
         this.vista = vista;
+        this.aeropuerto = aeropuerto;
+        this.aerolinea = aerolinea;
 
         // Eventos
         this.vista.btnVuelos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                vista.setVisible(false);
                 VistaControladorVuelos vistaVuelos = new VistaControladorVuelos();
                 ControladorVistaControladorVuelos controladorVuelos = new ControladorVistaControladorVuelos(
-                        vistaVuelos);
+                        vistaVuelos, aeropuerto, aerolinea, vista);
                 controladorVuelos.iniciar();
             }
         });

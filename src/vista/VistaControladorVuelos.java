@@ -6,6 +6,7 @@ import javax.swing.*;
 public class VistaControladorVuelos extends JFrame {
     public JButton btnModificarVuelo;
     public JButton btnBuscarVuelo;
+    public JButton btnVolver;
     public JLabel lblTitulo;
 
     public VistaControladorVuelos() {
@@ -35,6 +36,9 @@ public class VistaControladorVuelos extends JFrame {
         panel.add(btnModificarVuelo);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
 
+        btnVolver = crearBoton("Volver");
+        panel.add(btnVolver);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
         add(panel, BorderLayout.CENTER);
     }
 

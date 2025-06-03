@@ -6,13 +6,24 @@ import vista.VistaControladorModificarVuelo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
+
+import modelo.Aerolinea;
+import modelo.Aeropuerto;
 
 public class ControladorVistaControladorVuelos {
 
     private VistaControladorVuelos vista;
+    private Aeropuerto aeropuerto;
+    private Aerolinea aerolinea;
+    private JFrame vistaPrincipal;
 
-    public ControladorVistaControladorVuelos(VistaControladorVuelos vista) {
+    public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, Aerolinea aerolinea,
+            JFrame vistaPrincipal) {
         this.vista = vista;
+        this.aeropuerto = aeropuerto;
+        this.vistaPrincipal = vistaPrincipal;
+        this.aerolinea = aerolinea;
 
         this.vista.btnBuscarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -29,6 +40,13 @@ public class ControladorVistaControladorVuelos {
                 ControladorVistaControladorModificarVuelo controladorModificarVuelo = new ControladorVistaControladorModificarVuelo(
                         vistaModificarVuelo);
                 controladorModificarVuelo.iniciar();
+            }
+        });
+
+        this.vista.btnVolver.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                vista.dispose();
+                vistaPrincipal.setVisible(true);
             }
         });
     }
