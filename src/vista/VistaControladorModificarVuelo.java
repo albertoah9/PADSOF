@@ -74,15 +74,10 @@ public class VistaControladorModificarVuelo extends JFrame {
 
         // Simulación de vuelos activos (puedes reemplazar esto con tu lógica real)
         String[][] vuelos = new String[0][4]; // Lista vacía inicialmente
-        // Ejemplo: si hay vuelos activos, descomenta y ajusta
-        vuelos = new String[][] {
-                { "VA123", "MAD", "BCN", "En espera" },
-                { "VA456", "BCN", "MAD", "Despegando" },
-                { "VA789", "LHR", "JFK", "En vuelo" }
-        };
 
         if (vuelos.length > 0) {
-            String[] estados = { "En espera", "Despegando", "En vuelo", "Aterrizando", "Completado", "Cancelado" };
+            String[] estados = { "ESPERANDO_PISTA", "ESPERANDO_ATERRIZAJE", "EN_PREPARACION", "APARCADO", "EN_HANGAR",
+                    "EMBARCANDO", "ESPERANDO_DESPEGUE", "DESPEGADO", "RETRASADO", "EN_HORA" };
             for (int i = 0; i < vuelos.length; i++) {
                 JPanel vueloPanel = new JPanel();
                 vueloPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));

@@ -10,6 +10,7 @@ public class VistaControladorDisponibilidad extends JFrame {
     public JTextField txtCostoHora;
     public JTextField txtId;
     public JButton btnFiltrar;
+    public JTextArea areaTexto; // Para mostrar los elementos
 
     public VistaControladorDisponibilidad() {
         setTitle("Disponibilidad de elementos");
@@ -23,7 +24,7 @@ public class VistaControladorDisponibilidad extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
 
         // Título
-        lblTitulo = new JLabel("Gestion de las disponibilidades de los elementos del aeropuerto",
+        lblTitulo = new JLabel("Gestión de las disponibilidades de los elementos del aeropuerto",
                 SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -93,21 +94,9 @@ public class VistaControladorDisponibilidad extends JFrame {
         panel.add(Box.createVerticalStrut(20));
         panel.add(btnFiltrar);
 
-        // Área de texto con lista de elementos y barra de desplazamiento
-        StringBuilder elementos = new StringBuilder();
-        elementos.append("Disponible    Avión A320 - ID: 001 - Costo: $500/h\n");
-        elementos.append("No disponible    Avión B737 - ID: 002 - Costo: $450/h\n");
-        elementos.append("Disponible    Vehículo de carga - ID: 003 - Costo: $50/h\n");
-        elementos.append("No disponible    Tractor de remolque - ID: 004 - Costo: $30/h\n");
-        elementos.append("Disponible    Carro de equipaje - ID: 005 - Costo: $20/h\n");
-        elementos.append("No disponible    Escalera de pasajeros - ID: 006 - Costo: $25/h\n");
-        elementos.append("Disponible    Cinta transportadora - ID: 007 - Costo: $15/h\n");
-        elementos.append("No disponible    Generador eléctrico - ID: 008 - Costo: $40/h\n");
-        elementos.append("Disponible    Unidad de aire acondicionado - ID: 009 - Costo: $35/h\n");
-        elementos.append("No disponible    Camión de combustible - ID: 010 - Costo: $60/h\n");
-
-        JTextArea areaTexto = new JTextArea(elementos.toString());
-        areaTexto.setLineWrap(false); // Desactivar ajuste de línea para mantener el formato
+        // Área de texto con barra de desplazamiento (vacía al inicio)
+        areaTexto = new JTextArea();
+        areaTexto.setLineWrap(false);
         areaTexto.setEditable(false);
         areaTexto.setFont(new Font("Arial", Font.PLAIN, 13));
         areaTexto.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -122,9 +111,10 @@ public class VistaControladorDisponibilidad extends JFrame {
         add(panel, BorderLayout.CENTER);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new VistaControladorDisponibilidad().setVisible(true);
-        });
+    // Método que usará el controlador para mostrar los elementos en el área de
+    // texto
+    public void mostrarElementos(String texto) {
+        areaTexto.setText(texto);
     }
+
 }
