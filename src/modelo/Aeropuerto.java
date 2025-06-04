@@ -6,10 +6,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import modelo.GestorAeropuerto;
-import modelo.Notificacion;
-import modelo.Usuario;
-
 public class Aeropuerto {
     public enum Status {
         OK, ERROR
@@ -422,6 +418,7 @@ public class Aeropuerto {
         }
         return null; // Vuelo no encontrado
     }
+
     //Buscar vuelo por aeropuerto
     public ArrayList<Vuelo> buscarVuelosPorOrigen(String origen){
         ArrayList<Vuelo> resultados = new ArrayList<>();
@@ -678,6 +675,32 @@ public class Aeropuerto {
         } catch (IllegalArgumentException e) {
             System.out.println("Error en los datos del archivo: " + e.getMessage());
         }
+    }
+
+    public boolean eliminarVuelo(int idVuelo) {
+        Vuelo vueloAEliminar = null;
+
+        for (Vuelo v : vuelos) {
+            if (v.getId() == idVuelo) {
+                vueloAEliminar = v;
+                break;
+            }
+        }
+
+        if (vueloAEliminar != null) {
+            if (usuarioActivo instanceof OperadorAereo || usuarioActivo instanceof GestorAeropuerto) {
+                OperadorAereo operador = (OperadorAereo) usuarioActivo;
+                if (!vueloAEliminar.getAerolinea().equals(operador.getAerolineaAsignada())) {
+                    System.out.println("Error: No puedes eliminar vuelos de otra aerolínea.");
+                    return false;
+                }
+
+                vuelos.remove(vueloAEliminar);
+                return true;
+            } 
+        }
+        
+        return false;
     }
 
 

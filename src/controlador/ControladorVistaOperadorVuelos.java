@@ -1,15 +1,15 @@
 package controlador;
 
-import modelo.Aerolinea;
-import modelo.Aeropuerto;
-import vista.VistaOperadorVuelos;
-import vista.VistaOperadorCrearVuelo;
-import vista.VistaOperadorMostrarVuelos;
-import vista.VistaOperadorModificarEstadoVuelo;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
+import modelo.Aerolinea;
+import modelo.Aeropuerto;
+import vista.VistaOperadorCrearVuelo;
+import vista.VistaOperadorEliminarVuelo;
+import vista.VistaOperadorModificarEstadoVuelo;
+import vista.VistaOperadorMostrarVuelos;
+import vista.VistaOperadorVuelos;
 
 public class ControladorVistaOperadorVuelos {
 
@@ -41,9 +41,13 @@ public class ControladorVistaOperadorVuelos {
             }
         });
 
-        this.vista.btnEliminarVuelo.addActionListener(new ActionListener() {
+        vista.btnEliminarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Eliminar vuelo");
+                VistaOperadorEliminarVuelo vistaEliminar = new VistaOperadorEliminarVuelo();
+                ControladorVistaOperadorEliminarVuelo controladorEliminar =
+                    new ControladorVistaOperadorEliminarVuelo(aeropuerto, vistaEliminar, aerolinea, vista);
+                controladorEliminar.iniciar();
+                vista.setVisible(false);
             }
         });
 

@@ -1,15 +1,13 @@
 package controlador;
 
-import vista.VistaControladorVuelos;
-import vista.VistaControladorBuscarVuelo;
-import vista.VistaControladorModificarVuelo;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-
 import modelo.Aerolinea;
 import modelo.Aeropuerto;
+import vista.VistaControladorBuscarVuelo;
+import vista.VistaControladorModificarVuelo;
+import vista.VistaControladorVuelos;
 
 public class ControladorVistaControladorVuelos {
 
