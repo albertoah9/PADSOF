@@ -11,7 +11,7 @@ public class VistaOperadorEliminarAvion extends JFrame {
 
     public VistaOperadorEliminarAvion() {
         setTitle("Eliminar Avión");
-        setSize(450, 200);
+        setSize(700, 350);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
