@@ -3,8 +3,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.Notificacion;
-
 public class Aerolinea {
 	private String nombre;
 	private String codigoAerolinea;
@@ -56,12 +54,11 @@ public class Aerolinea {
             avion.asignarAerolinea(this);
         }
     }
-
 	
     public void removerAvion(Avion avion) {
         if (flota.contains(avion)) {
             flota.remove(avion);
-            avion.asignarAerolinea(null);  // Desasignar la aerolínea del avión
+            avion.asignarAerolinea(null);
         }
     }
 

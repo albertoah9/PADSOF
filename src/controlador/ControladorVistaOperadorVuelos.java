@@ -11,6 +11,8 @@ import vista.VistaOperadorModificarEstadoVuelo;
 import vista.VistaOperadorMostrarVuelos;
 import vista.VistaOperadorVuelos;
 
+import controlador.ControladorVistaOperadorCrearVuelo;
+
 public class ControladorVistaOperadorVuelos {
 
     private VistaOperadorVuelos vista;

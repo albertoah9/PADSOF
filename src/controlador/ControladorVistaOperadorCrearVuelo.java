@@ -7,6 +7,7 @@ import modelo.Vuelo.Periodicidad;
 import modelo.Vuelo.TipoVuelo;
 import modelo.Aerolinea;
 import modelo.Aeropuerto;
+import modelo.Avion;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,17 +16,22 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 
 public class ControladorVistaOperadorCrearVuelo {
 
     private VistaOperadorCrearVuelo vista;
     private Aeropuerto aeropuerto;
     private Aerolinea aerolinea;
+    private HashMap<String, Avion> mapaAviones; // Para mapear nombre visible a objeto Avion
 
     public ControladorVistaOperadorCrearVuelo(VistaOperadorCrearVuelo vista, Aeropuerto aeropuerto, Aerolinea aerolinea) {
         this.vista = vista;
         this.aeropuerto = aeropuerto;
         this.aerolinea = aerolinea;
+        this.mapaAviones = new HashMap<>();
+
+        cargarAviones();
 
         this.vista.btnCrear.addActionListener(new ActionListener() {
             @Override
@@ -41,7 +47,6 @@ public class ControladorVistaOperadorCrearVuelo {
             }
         });
 
-        // Ajustar origen/destino automáticamente
         this.vista.cmbTipoVuelo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,9 +69,18 @@ public class ControladorVistaOperadorCrearVuelo {
 
     public void iniciar() {
         vista.setVisible(true);
-        // Inicializar selección automática
         vista.cmbTipoVuelo.setSelectedIndex(0);
         vista.cmbTipoVuelo.getActionListeners()[0].actionPerformed(null);
+    }
+
+    private void cargarAviones() {
+        vista.cmbAvion.removeAllItems();
+        mapaAviones.clear();
+        for (Avion avion : aerolinea.getFlota()) {
+            String nombre = "Avión " + avion.getId() + " - " + avion.getModelo();
+            vista.cmbAvion.addItem(nombre);
+            mapaAviones.put(nombre, avion);
+        }
     }
 
     private void crearVuelo() {
@@ -86,15 +100,22 @@ public class ControladorVistaOperadorCrearVuelo {
             LocalDateTime llegada = (tipo == TipoVuelo.LLEGADA) ? fechaHora : null;
             LocalDateTime salida = (tipo == TipoVuelo.SALIDA) ? fechaHora : null;
 
+            String avionSeleccionado = (String) vista.cmbAvion.getSelectedItem();
+            Avion avion = mapaAviones.get(avionSeleccionado);
+
+            if (avion == null) {
+                throw new IllegalArgumentException("Debes seleccionar un avión válido.");
+            }
+
             Vuelo vuelo = new Vuelo(
                 origen,
                 destino,
                 llegada,
                 salida,
-                null, // Terminal
-                null, // Avion
-                null, // Pista
-                null, // PuertaEmbarque
+                null,
+                avion,
+                null,
+                null,
                 Vuelo.EstadoVuelo.EN_PREPARACION,
                 aeropuerto,
                 tipo,
@@ -108,7 +129,6 @@ public class ControladorVistaOperadorCrearVuelo {
             aeropuerto.addVuelo(vuelo);
 
             JOptionPane.showMessageDialog(vista, "Vuelo creado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            
             vista.dispose();
 
         } catch (DateTimeParseException ex) {

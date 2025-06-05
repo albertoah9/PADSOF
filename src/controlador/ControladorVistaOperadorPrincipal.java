@@ -2,9 +2,9 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import modelo.Aerolinea;
 import modelo.Aeropuerto;
+import vista.VistaOperadorAviones;
 import vista.VistaOperadorPrincipal;
 import vista.VistaOperadorVuelos;
 
@@ -32,7 +32,11 @@ public class ControladorVistaOperadorPrincipal {
 
         this.vista.btnAviones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clic en Gestionar Aviones");
+                vista.setVisible(false);
+                VistaOperadorAviones vistaAviones = new VistaOperadorAviones();
+                ControladorVistaOperadorAviones controladorAviones = 
+                    new ControladorVistaOperadorAviones(vistaAviones, aeropuerto, aerolinea, vista);
+                controladorAviones.iniciar();
             }
         });
 
