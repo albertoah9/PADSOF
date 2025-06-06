@@ -1,129 +1,114 @@
 package controlador;
 
-import modelo.ControladorAereo;
-import modelo.Terminal;
+import modelo.Aeropuerto;
 import modelo.Vuelo;
 import vista.VistaControladorModificarVuelo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorVistaControladorModificarVuelo {
 
     private VistaControladorModificarVuelo vista;
-    private ControladorAereo controladorAereo;
+    private Aeropuerto aeropuerto;
     private JFrame vistaAnterior;
 
-    // Para guardar los JComboBox de estados por vuelo y relacionarlos
-    private List<Vuelo> vuelos;
-    private List<JComboBox<String>> combosEstados;
+    // Para asociar cada vuelo con su JComboBox de estado
+    private List<VueloEstadoPanel> vueloEstadoPanels;
 
-    public ControladorVistaControladorModificarVuelo(VistaControladorModificarVuelo vista,
-            ControladorAereo controladorAereo,
+    // Clase auxiliar para mapear vuelo y su combobox en la vista
+    private static class VueloEstadoPanel {
+        Vuelo vuelo;
+        JComboBox<String> comboEstado;
+        JPanel panel;
+
+        VueloEstadoPanel(Vuelo vuelo, JComboBox<String> comboEstado, JPanel panel) {
+            this.vuelo = vuelo;
+            this.comboEstado = comboEstado;
+            this.panel = panel;
+        }
+    }
+
+    public ControladorVistaControladorModificarVuelo(VistaControladorModificarVuelo vista, Aeropuerto aeropuerto,
             JFrame vistaAnterior) {
         this.vista = vista;
-        this.controladorAereo = controladorAereo;
+        this.aeropuerto = aeropuerto;
         this.vistaAnterior = vistaAnterior;
+        this.vueloEstadoPanels = new ArrayList<>();
 
-        this.vuelos = new ArrayList<>();
-        this.combosEstados = new ArrayList<>();
-
-        // Botón volver
+        // Configurar botones
         this.vista.btnVolver.addActionListener(e -> {
             vista.dispose();
             vistaAnterior.setVisible(true);
         });
 
-        // Botón actualizar lista
         this.vista.btnActualizar.addActionListener(e -> cargarVuelos());
 
-        // Botón confirmar cambios
-        this.vista.btnConfirmar.addActionListener(this::confirmarCambios);
+        this.vista.btnConfirmar.addActionListener(e -> confirmarCambios());
 
+        // Carga inicial
         cargarVuelos();
-    }
-
-    public void iniciar() {
-        vista.setVisible(true);
     }
 
     private void cargarVuelos() {
         vista.panelVuelos.removeAll();
-        vuelos.clear();
-        combosEstados.clear();
+        vueloEstadoPanels.clear();
 
-        Terminal terminal = controladorAereo.getTerminalAsignada();
-        if (terminal == null) {
-            JOptionPane.showMessageDialog(vista, "No hay terminal asignada al controlador aéreo.", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        List<Vuelo> vuelos = aeropuerto.getVuelos(); // Método que devuelve la lista completa de vuelos
 
-        List<Vuelo> vuelosTerminal = terminal.getVuelosActivos();
+        String[] estados = { "ESPERANDO_PISTA", "ESPERANDO_ATERRIZAJE", "EN_PREPARACION", "APARCADO", "EN_HANGAR",
+                "EMBARCANDO", "ESPERANDO_DESPEGUE", "DESPEGADO", "RETRASADO", "EN_HORA" };
 
-        if (vuelosTerminal.isEmpty()) {
-            JLabel sinVuelos = new JLabel("No hay vuelos activos.");
-            sinVuelos.setFont(new Font("Arial", Font.ITALIC, 14));
-            vista.panelVuelos.add(sinVuelos);
-        } else {
-            String[] estados = { "ESPERANDO_PISTA", "ESPERANDO_ATERRIZAJE", "EN_PREPARACION", "APARCADO", "EN_HANGAR",
-                    "EMBARCANDO", "ESPERANDO_DESPEGUE", "DESPEGADO", "RETRASADO", "EN_HORA" };
+        for (int i = 0; i < vuelos.size(); i++) {
+            Vuelo v = vuelos.get(i);
 
-            for (Vuelo vuelo : vuelosTerminal) {
-                vuelos.add(vuelo);
+            JPanel vueloPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+            vueloPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-                JPanel vueloPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
-                vueloPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            vueloPanel.add(new JLabel("Vuelo: " + v.getId()));
+            vueloPanel.add(new JLabel("Origen: " + v.getOrigen()));
+            vueloPanel.add(new JLabel("Destino: " + v.getDestino()));
 
-                vueloPanel.add(new JLabel("Vuelo: " + vuelo.getId()));
-                vueloPanel.add(new JLabel("Origen: " + vuelo.getOrigen()));
-                vueloPanel.add(new JLabel("Destino: " + vuelo.getDestino()));
+            JComboBox<String> comboEstado = new JComboBox<>(estados);
+            comboEstado.setSelectedItem(v.getEstado().name());
+            comboEstado.setPreferredSize(new Dimension(150, 25));
 
-                JComboBox<String> comboEstado = new JComboBox<>(estados);
-                comboEstado.setSelectedItem(vuelo.getEstado().name());
-                comboEstado.setPreferredSize(new Dimension(150, 25));
-                vueloPanel.add(comboEstado);
+            vueloPanel.add(comboEstado);
 
-                combosEstados.add(comboEstado);
-                vista.panelVuelos.add(vueloPanel);
+            vista.panelVuelos.add(vueloPanel);
+            if (i < vuelos.size() - 1) {
                 vista.panelVuelos.add(new JSeparator());
             }
+
+            vueloEstadoPanels.add(new VueloEstadoPanel(v, comboEstado, vueloPanel));
         }
 
         vista.panelVuelos.revalidate();
         vista.panelVuelos.repaint();
     }
 
-    private void confirmarCambios(ActionEvent e) {
-        boolean cambiosRealizados = false;
-
-        for (int i = 0; i < vuelos.size(); i++) {
-            Vuelo vuelo = vuelos.get(i);
-            JComboBox<String> comboEstado = combosEstados.get(i);
-            String estadoSeleccionado = (String) comboEstado.getSelectedItem();
-
-            if (estadoSeleccionado != null && !estadoSeleccionado.equalsIgnoreCase(vuelo.getEstado().name())) {
+    private void confirmarCambios() {
+        for (VueloEstadoPanel vep : vueloEstadoPanels) {
+            String estadoSeleccionado = (String) vep.comboEstado.getSelectedItem();
+            if (estadoSeleccionado != null && !vep.vuelo.getEstado().name().equals(estadoSeleccionado)) {
+                // Cambiar estado del vuelo
                 try {
                     Vuelo.EstadoVuelo nuevoEstado = Vuelo.EstadoVuelo.valueOf(estadoSeleccionado);
-                    controladorAereo.cambiarEstadoVuelo(vuelo, nuevoEstado);
-                    cambiosRealizados = true;
+                    vep.vuelo.setEstado(nuevoEstado);
                 } catch (IllegalArgumentException ex) {
-                    JOptionPane.showMessageDialog(vista, "Estado inválido para vuelo " + vuelo.getId(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(vista, "Estado inválido para vuelo " + vep.vuelo.getId(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
+        JOptionPane.showMessageDialog(vista, "Estados de vuelos actualizados correctamente.", "Éxito",
+                JOptionPane.INFORMATION_MESSAGE);
+        cargarVuelos(); // Recarga para refrescar la vista
+    }
 
-        if (cambiosRealizados) {
-            JOptionPane.showMessageDialog(vista, "Estados actualizados correctamente.", "Éxito",
-                    JOptionPane.INFORMATION_MESSAGE);
-            cargarVuelos();
-        } else {
-            JOptionPane.showMessageDialog(vista, "No se detectaron cambios en los estados.", "Información",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
+    public void iniciar() {
+        vista.setVisible(true);
     }
 }

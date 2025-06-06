@@ -7,10 +7,7 @@ import java.util.List;
 
 import javax.swing.*;
 
-import modelo.Aerolinea;
-import modelo.Aeropuerto;
-import modelo.ElementoAeropuerto;
-import modelo.UsoElementoAeropuerto;
+import modelo.*;
 import vista.VistaControladorPrincipal;
 import vista.VistaControladorVuelos;
 import vista.VistaControladorDisponibilidad;
@@ -25,6 +22,7 @@ public class ControladorVistaControladorPrincipal {
     private JFrame vistaAnterior;
     private List<ElementoAeropuerto> elementos;
     private ArrayList<UsoElementoAeropuerto> usos;
+    private List<String> listaNotificaciones;
 
     public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto,
             Aerolinea aerolinea, JFrame vistaAnterior) {
@@ -33,6 +31,8 @@ public class ControladorVistaControladorPrincipal {
         this.aeropuerto = aeropuerto;
         this.aerolinea = aerolinea;
         this.vistaAnterior = vistaAnterior;
+
+        this.listaNotificaciones = new ArrayList<>();
 
         // Eventos
         this.vista.btnVuelos.addActionListener(new ActionListener() {
@@ -67,13 +67,14 @@ public class ControladorVistaControladorPrincipal {
 
         this.vista.btnNotificaciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                VistaControladorNotificaciones VistaNotificaciones = new VistaControladorNotificaciones();
+                VistaControladorNotificaciones vistaNotificaciones = new VistaControladorNotificaciones();
                 ControladorVistaControladorNotificaciones controladorNotificaciones = new ControladorVistaControladorNotificaciones(
-                        VistaNotificaciones, vista);
+                        vistaNotificaciones, vista, listaNotificaciones);
                 controladorNotificaciones.iniciar();
                 vista.setVisible(false);
             }
         });
+
     }
 
     public void iniciar() {

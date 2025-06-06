@@ -2,6 +2,9 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 import modelo.Aerolinea;
 import modelo.Aeropuerto;
@@ -36,7 +39,7 @@ public class ControladorVistaControladorVuelos {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorModificarVuelo vistaModificarVuelo = new VistaControladorModificarVuelo();
                 ControladorVistaControladorModificarVuelo controladorModificarVuelo = new ControladorVistaControladorModificarVuelo(
-                        vistaModificarVuelo, vistaAnterior);
+                        vistaModificarVuelo, aeropuerto, vistaAnterior);
                 controladorModificarVuelo.iniciar();
                 vista.setVisible(false);
 

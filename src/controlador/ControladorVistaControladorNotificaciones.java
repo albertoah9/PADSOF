@@ -2,21 +2,23 @@ package controlador;
 
 import vista.VistaControladorNotificaciones;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
+import java.util.List;
 
 public class ControladorVistaControladorNotificaciones {
 
     private VistaControladorNotificaciones vista;
     private JFrame vistaAnterior;
+    private List<String> listaNotificaciones; // Lista de mensajes de notificación
 
-    public ControladorVistaControladorNotificaciones(VistaControladorNotificaciones vista, JFrame vistaAnterior) {
+    public ControladorVistaControladorNotificaciones(VistaControladorNotificaciones vista, JFrame vistaAnterior,
+            List<String> listaNotificaciones) {
         this.vista = vista;
         this.vistaAnterior = vistaAnterior;
+        this.listaNotificaciones = listaNotificaciones;
 
-        // unimos la aprte visual con la logica
         this.vista.btnVolver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -27,6 +29,12 @@ public class ControladorVistaControladorNotificaciones {
     }
 
     public void iniciar() {
+        actualizarVista();
         vista.setVisible(true);
+    }
+
+    public void actualizarVista() {
+        String[] arrayNotificaciones = listaNotificaciones.toArray(new String[0]);
+        vista.actualizarNotificaciones(arrayNotificaciones);
     }
 }

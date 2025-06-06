@@ -30,86 +30,59 @@ public class VistaControladorNotificaciones extends JFrame {
         panelNotificaciones = new JPanel();
         panelNotificaciones.setLayout(new BoxLayout(panelNotificaciones, BoxLayout.Y_AXIS));
         panelNotificaciones.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-
-        // Inicialmente sin notificaciones
-        actualizarNotificaciones();
-
-        // Scroll pane para las notificaciones
         JScrollPane scrollPane = new JScrollPane(panelNotificaciones,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setPreferredSize(new Dimension(400, 250));
         panel.add(scrollPane);
 
-        // Agregar panel central
         add(panel, BorderLayout.CENTER);
 
-        // ===== NUEVO: Panel inferior con botón "Volver" =====
+        // Panel inferior con botón "Volver"
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
         btnVolver = new JButton("Volver");
         btnVolver.setPreferredSize(new Dimension(100, 30));
         panelInferior.add(btnVolver);
-
         add(panelInferior, BorderLayout.SOUTH);
     }
 
-    public void actualizarNotificaciones() {
-        panelNotificaciones.removeAll(); // Limpiar panel existente
+    /**
+     * Actualiza las notificaciones en pantalla.
+     * 
+     * @param notificaciones Array de strings con los mensajes de notificación.
+     */
+    public void actualizarNotificaciones(String[] notificaciones) {
+        panelNotificaciones.removeAll();
 
-        String[] notificaciones = new String[0]; // Lista vacía inicialmente
-
-        if (notificaciones.length > 0) {
+        if (notificaciones.length == 0) {
+            JLabel noNotif = new JLabel("No hay notificaciones.");
+            noNotif.setFont(new Font("Arial", Font.ITALIC, 14));
+            noNotif.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            panelNotificaciones.add(noNotif);
+        } else {
             for (int i = 0; i < notificaciones.length; i++) {
-                JPanel notifPanel = new JPanel();
-                notifPanel.setLayout(new BorderLayout());
+                JPanel notifPanel = new JPanel(new BorderLayout());
                 notifPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-                // Texto de la notificación
                 JTextArea textoNotif = new JTextArea(notificaciones[i]);
                 textoNotif.setLineWrap(true);
                 textoNotif.setWrapStyleWord(true);
                 textoNotif.setEditable(false);
                 textoNotif.setFont(new Font("Arial", Font.PLAIN, 12));
-                textoNotif.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
                 textoNotif.setBackground(notifPanel.getBackground());
+                textoNotif.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
                 notifPanel.add(textoNotif, BorderLayout.CENTER);
 
-                // Panel para los botones "View more" y "Delete"
-                JPanel botonesPanel = new JPanel();
-                botonesPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-                JButton btnViewMore = new JButton("View more");
-                btnViewMore.setFont(new Font("Arial", Font.PLAIN, 12));
-                btnViewMore.setPreferredSize(new Dimension(100, 30));
-                JButton btnDelete = new JButton("Delete");
-                btnDelete.setFont(new Font("Arial", Font.PLAIN, 12));
-                btnDelete.setPreferredSize(new Dimension(100, 30));
-                botonesPanel.add(btnViewMore);
-                botonesPanel.add(btnDelete);
-                notifPanel.add(botonesPanel, BorderLayout.EAST);
-
                 panelNotificaciones.add(notifPanel);
+
                 if (i < notificaciones.length - 1) {
                     panelNotificaciones.add(new JSeparator());
                 }
             }
-            panelNotificaciones.revalidate();
-            panelNotificaciones.repaint();
         }
-    }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            VistaControladorNotificaciones frame = new VistaControladorNotificaciones();
-            frame.setVisible(true);
-            // Simulación de llegada de notificaciones después de 2 segundos (puedes quitar
-            // esto)
-            new java.util.Timer().schedule(new java.util.TimerTask() {
-                @Override
-                public void run() {
-                    String[] nuevasNotificaciones = { "Notificación 1: Nueva alerta", "Notificación 2: Actualización" };
-                    frame.actualizarNotificaciones();
-                }
-            }, 2000);
-        });
+        panelNotificaciones.revalidate();
+        panelNotificaciones.repaint();
     }
 }
