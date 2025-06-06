@@ -10,7 +10,7 @@ public class VistaControladorDisponibilidad extends JFrame {
     public JTextField txtCostoHora;
     public JTextField txtId;
     public JButton btnFiltrar;
-    public JTextArea areaTexto; // Para mostrar los elementos
+    public JTextArea areaTexto;
 
     public VistaControladorDisponibilidad() {
         setTitle("Disponibilidad de elementos");
@@ -31,7 +31,7 @@ public class VistaControladorDisponibilidad extends JFrame {
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
         panel.add(lblTitulo);
 
-        // Panel para los controles de búsqueda y filtros
+        // Panel de filtros
         JPanel panelControles = new JPanel();
         panelControles.setLayout(new GridBagLayout());
         panelControles.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
@@ -39,7 +39,7 @@ public class VistaControladorDisponibilidad extends JFrame {
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Fila 1: Tipo de elemento e ID
+        // Fila 1: Tipo + ID
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0.2;
@@ -47,7 +47,8 @@ public class VistaControladorDisponibilidad extends JFrame {
 
         gbc.gridx = 1;
         gbc.weightx = 0.8;
-        comboTipoElemento = new JComboBox<>(new String[] { "", "Opción 1", "Opción 2" });
+        comboTipoElemento = new JComboBox<>(
+                new String[] { "", "PuertaEmbarque", "Finger", "ZonaAparcamiento", "Pista" });
         comboTipoElemento.setPreferredSize(new Dimension(200, 30));
         panelControles.add(comboTipoElemento, gbc);
 
@@ -61,7 +62,7 @@ public class VistaControladorDisponibilidad extends JFrame {
         txtId.setPreferredSize(new Dimension(200, 30));
         panelControles.add(txtId, gbc);
 
-        // Fila 2: Estado y Costo por hora
+        // Fila 2: Estado + Costo
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weightx = 0.2;
@@ -75,7 +76,7 @@ public class VistaControladorDisponibilidad extends JFrame {
 
         gbc.gridx = 2;
         gbc.weightx = 0.2;
-        panelControles.add(new JLabel("Costo por hora (Si aplica):"), gbc);
+        panelControles.add(new JLabel("Costo por hora (si aplica):"), gbc);
 
         gbc.gridx = 3;
         gbc.weightx = 0.8;
@@ -85,7 +86,7 @@ public class VistaControladorDisponibilidad extends JFrame {
 
         panel.add(panelControles);
 
-        // Botón de filtrar (centrado)
+        // Botón Filtrar
         btnFiltrar = new JButton("Filtrar");
         btnFiltrar.setFont(new Font("Arial", Font.PLAIN, 14));
         btnFiltrar.setPreferredSize(new Dimension(120, 35));
@@ -94,7 +95,7 @@ public class VistaControladorDisponibilidad extends JFrame {
         panel.add(Box.createVerticalStrut(20));
         panel.add(btnFiltrar);
 
-        // Área de texto con barra de desplazamiento (vacía al inicio)
+        // Área de texto resultados
         areaTexto = new JTextArea();
         areaTexto.setLineWrap(false);
         areaTexto.setEditable(false);
@@ -103,18 +104,15 @@ public class VistaControladorDisponibilidad extends JFrame {
         JScrollPane scrollPane = new JScrollPane(areaTexto,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
-        scrollPane.setPreferredSize(new Dimension(Integer.MAX_VALUE, 150));
+        scrollPane.setPreferredSize(new Dimension(Integer.MAX_VALUE, 200));
+
         panel.add(Box.createVerticalStrut(20));
         panel.add(scrollPane);
 
         add(panel, BorderLayout.CENTER);
     }
 
-    // Método que usará el controlador para mostrar los elementos en el área de
-    // texto
     public void mostrarElementos(String texto) {
         areaTexto.setText(texto);
     }
-
 }

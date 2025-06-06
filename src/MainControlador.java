@@ -1,13 +1,23 @@
+import controlador.ControladorVistaControladorDisponibilidad;
 import controlador.ControladorVistaControladorPrincipal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import modelo.Aerolinea;
 import modelo.Aeropuerto;
 import modelo.Avion;
 import modelo.AvionCarga;
 import modelo.AvionPasajeros;
+import modelo.Finger;
 import modelo.OperadorAereo;
+import modelo.Pista;
+import modelo.PistaAterrizaje;
+import modelo.PistaDespegue;
+import modelo.PuertaEmbarque;
 import modelo.Vuelo;
+import modelo.ZonaAparcamiento;
+import vista.VistaControladorDisponibilidad;
 import vista.VistaControladorPrincipal;
 
 public class MainControlador {
@@ -161,6 +171,19 @@ public class MainControlador {
                                 Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.LLEGADA,
                                 Vuelo.ClaseVuelo.MERCANCIAS, aerolinea);
                 aeropuerto.addVuelo(vuelo22);
+
+                ZonaAparcamiento z1 = new ZonaAparcamiento(5, 5, 20);
+                ZonaAparcamiento z2 = new ZonaAparcamiento(4, 7, 90);
+
+                Finger f1 = new Finger(4.0);
+                PuertaEmbarque p1 = new PuertaEmbarque(f1, z1, 150, PuertaEmbarque.TipoPuerta.PASAJEROS);
+                PuertaEmbarque p2 = new PuertaEmbarque(f1, z2, 100, PuertaEmbarque.TipoPuerta.MERCANCIAS);
+                p2.ocuparPuerta();
+                f1.agregarPuertaEmbarque(p1);
+                f1.agregarPuertaEmbarque(p2);
+
+                Pista pista1 = new PistaDespegue(1000, 50);
+                Pista pista2 = new PistaAterrizaje(800, 40);
 
                 VistaControladorPrincipal vista = new VistaControladorPrincipal();
                 ControladorVistaControladorPrincipal controlador = new ControladorVistaControladorPrincipal(vista,

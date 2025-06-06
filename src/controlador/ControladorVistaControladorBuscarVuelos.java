@@ -86,11 +86,9 @@ public class ControladorVistaControladorBuscarVuelos {
             cumple &= v.getDestino().toLowerCase().contains(destino.toLowerCase());
         }
         if (estado != null) {
-            // Si getEstado() devuelve enum
             cumple &= v.getEstado().name().equalsIgnoreCase(estado);
         }
         if (clase != null) {
-            // Si getClaseVuelo() devuelve enum
             cumple &= v.getClaseVuelo().name().equalsIgnoreCase(clase);
         }
 

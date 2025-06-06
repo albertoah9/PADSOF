@@ -2,12 +2,15 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
-
 import modelo.Aerolinea;
 import modelo.Aeropuerto;
+import modelo.ElementoAeropuerto;
+import modelo.UsoElementoAeropuerto;
 import vista.VistaControladorPrincipal;
 import vista.VistaControladorVuelos;
 import vista.VistaControladorDisponibilidad;
@@ -20,6 +23,8 @@ public class ControladorVistaControladorPrincipal {
     private Aeropuerto aeropuerto;
     private Aerolinea aerolinea;
     private JFrame vistaAnterior;
+    private List<ElementoAeropuerto> elementos;
+    private ArrayList<UsoElementoAeropuerto> usos;
 
     public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto,
             Aerolinea aerolinea, JFrame vistaAnterior) {
@@ -43,8 +48,9 @@ public class ControladorVistaControladorPrincipal {
         this.vista.btnDisponibilidad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorDisponibilidad vistaDisponibilidades = new VistaControladorDisponibilidad();
+
                 ControladorVistaControladorDisponibilidad controladorDisponibilidad = new ControladorVistaControladorDisponibilidad(
-                        vistaDisponibilidades);
+                        vistaDisponibilidades, elementos, usos);
                 controladorDisponibilidad.iniciar();
             }
         });
