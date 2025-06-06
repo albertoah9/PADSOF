@@ -25,11 +25,10 @@ public class ControladorVistaControladorVuelos {
         this.vista.btnBuscarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorBuscarVuelo vistaBuscarVuelo = new VistaControladorBuscarVuelo();
-                ControladorVistaControladorBuscarVuelo controladorBuscarVuelo = new ControladorVistaControladorBuscarVuelo(
-                        vistaBuscarVuelo, vistaAnterior);
+                ControladorVistaControladorBuscarVuelos controladorBuscarVuelo = new ControladorVistaControladorBuscarVuelos(
+                        vistaBuscarVuelo, aeropuerto, aerolinea, vista);
                 controladorBuscarVuelo.iniciar();
                 vista.setVisible(false);
-
             }
         });
 
