@@ -12,11 +12,9 @@ public class ControladorVistaControladorNotificaciones {
     private VistaControladorNotificaciones vista;
     private JFrame vistaAnterior;
 
-
     public ControladorVistaControladorNotificaciones(VistaControladorNotificaciones vista, JFrame vistaAnterior) {
         this.vista = vista;
         this.vistaAnterior = vistaAnterior;
-
 
         // unimos la aprte visual con la logica
         this.vista.btnVolver.addActionListener(new ActionListener() {

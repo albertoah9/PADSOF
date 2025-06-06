@@ -8,63 +8,55 @@ public class VistaControladorNotificaciones extends JFrame {
     private JPanel panelNotificaciones;
     public JButton btnVolver;
 
-
     public VistaControladorNotificaciones() {
-    setTitle("Notificaciones");
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setSize(450, 400);
-    setLocationRelativeTo(null);
-    setLayout(new BorderLayout());
+        setTitle("Notificaciones");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(450, 400);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-    JPanel panel = new JPanel();
-    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-    panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-    // Título
-    lblTitulo = new JLabel("Notificaciones", SwingConstants.CENTER);
-    lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
-    lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-    lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-    panel.add(lblTitulo);
+        // Título
+        lblTitulo = new JLabel("Notificaciones", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
+        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+        panel.add(lblTitulo);
 
-    // Panel para las notificaciones
-    panelNotificaciones = new JPanel();
-    panelNotificaciones.setLayout(new BoxLayout(panelNotificaciones, BoxLayout.Y_AXIS));
-    panelNotificaciones.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+        // Panel para las notificaciones
+        panelNotificaciones = new JPanel();
+        panelNotificaciones.setLayout(new BoxLayout(panelNotificaciones, BoxLayout.Y_AXIS));
+        panelNotificaciones.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 
-    // Inicialmente sin notificaciones
-    actualizarNotificaciones();
+        // Inicialmente sin notificaciones
+        actualizarNotificaciones();
 
-    // Scroll pane para las notificaciones
-    JScrollPane scrollPane = new JScrollPane(panelNotificaciones,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-    scrollPane.setPreferredSize(new Dimension(400, 250));
-    panel.add(scrollPane);
+        // Scroll pane para las notificaciones
+        JScrollPane scrollPane = new JScrollPane(panelNotificaciones,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(400, 250));
+        panel.add(scrollPane);
 
-    // Agregar panel central
-    add(panel, BorderLayout.CENTER);
+        // Agregar panel central
+        add(panel, BorderLayout.CENTER);
 
-    // ===== NUEVO: Panel inferior con botón "Volver" =====
-    JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    btnVolver = new JButton("Volver");
-    btnVolver.setPreferredSize(new Dimension(100, 30));
-    panelInferior.add(btnVolver);
+        // ===== NUEVO: Panel inferior con botón "Volver" =====
+        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        btnVolver = new JButton("Volver");
+        btnVolver.setPreferredSize(new Dimension(100, 30));
+        panelInferior.add(btnVolver);
 
-    add(panelInferior, BorderLayout.SOUTH);
-}
+        add(panelInferior, BorderLayout.SOUTH);
+    }
 
-
-    // Método para actualizar las notificaciones (simula la llegada de nuevas
-    // notificaciones)
     public void actualizarNotificaciones() {
         panelNotificaciones.removeAll(); // Limpiar panel existente
 
-        // Simulación de notificaciones (puedes reemplazar esto con tu lógica real)
         String[] notificaciones = new String[0]; // Lista vacía inicialmente
-        // Ejemplo: si llegan notificaciones, descomenta y ajusta
-        // notificaciones = new String[]{"Notificación 1: Mensaje de ejemplo",
-        // "Notificación 2: Otro mensaje"};
 
         if (notificaciones.length > 0) {
             for (int i = 0; i < notificaciones.length; i++) {

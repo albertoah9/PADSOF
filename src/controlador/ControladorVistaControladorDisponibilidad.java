@@ -13,7 +13,6 @@ public class ControladorVistaControladorDisponibilidad {
 
     private VistaControladorDisponibilidad vista;
 
-    // Supongo que tienes listas globales o las recibes de alguna forma
     private List<ElementoAeropuerto> elementos;
     private ArrayList<UsoElementoAeropuerto> usos;
 
@@ -29,7 +28,6 @@ public class ControladorVistaControladorDisponibilidad {
     }
 
     private void inicializarComboTipos() {
-        // Según tus clases, pon aquí las opciones reales
         vista.comboTipoElemento.removeAllItems();
         vista.comboTipoElemento.addItem(""); // opción vacío para todos
         vista.comboTipoElemento.addItem("PuertaEmbarque");
