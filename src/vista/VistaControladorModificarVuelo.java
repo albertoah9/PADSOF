@@ -8,6 +8,7 @@ public class VistaControladorModificarVuelo extends JFrame {
     private JPanel panelVuelos;
     private JButton btnConfirmar;
     private JButton btnActualizar;
+    public JButton btnVolver;
     private JLabel lblHoraActual;
 
     public VistaControladorModificarVuelo() {
@@ -64,6 +65,16 @@ public class VistaControladorModificarVuelo extends JFrame {
         lblHoraActual.setFont(new Font("Arial", Font.PLAIN, 12));
         lblHoraActual.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         panel.add(lblHoraActual);
+
+
+        btnVolver = new JButton("Volver");
+        btnVolver.setFont(new Font("Arial", Font.PLAIN, 12));
+        btnVolver.setPreferredSize(new Dimension(150, 30));
+
+        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        panelInferior.add(btnVolver);
+
+        add(panelInferior, BorderLayout.SOUTH);
 
         add(panel, BorderLayout.CENTER);
     }

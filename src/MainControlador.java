@@ -16,7 +16,7 @@ public class MainControlador {
         aeropuerto.setUsuarioActivo(controlador);
         VistaControladorPrincipal vista = new VistaControladorPrincipal();
         ControladorVistaControladorPrincipal controladorA = new ControladorVistaControladorPrincipal(vista, aeropuerto,
-                aerolinea);
+                aerolinea, vista);
         controladorA.iniciar();
     }
 }

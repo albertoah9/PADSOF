@@ -13,6 +13,8 @@ public class VistaControladorBuscarVuelo extends JFrame {
     public JTextField txtTerminal;
     public JComboBox<String> comboTipoVuelo;
     public JButton btnBuscar;
+    public JButton btnVolver;
+
 
     public JTable tablaVuelos;
     public DefaultTableModel modeloTabla;
@@ -56,10 +58,15 @@ public class VistaControladorBuscarVuelo extends JFrame {
         panelFormulario.add(new JLabel());
         // boton para filtrar
         btnBuscar = new JButton("Filtrar");
-        btnBuscar.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnBuscar.setPreferredSize(new Dimension(150, 35));
-        JPanel btnPanel = new JPanel();
+
+        btnVolver = new JButton("Volver");
+        btnVolver.setPreferredSize(new Dimension(150, 35));
+
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         btnPanel.add(btnBuscar);
+        btnPanel.add(btnVolver);
+
         add(btnPanel, BorderLayout.SOUTH);
 
         add(panelFormulario, BorderLayout.NORTH);

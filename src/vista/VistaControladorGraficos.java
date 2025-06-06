@@ -10,6 +10,7 @@ public class VistaControladorGraficos extends JFrame {
     private JPanel panelRetrasosAerolinea;
     private JPanel panelUsoTerminales;
     private JLabel lblHoraActual;
+    public JButton btnVolver;
 
     public VistaControladorGraficos() {
         setTitle("Gráficos necesarios para el Controlador Aéreo");
@@ -66,6 +67,13 @@ public class VistaControladorGraficos extends JFrame {
         panel.add(lblHoraActual);
 
         add(panel, BorderLayout.CENTER);
+
+        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        btnVolver = new JButton("Volver");
+        btnVolver.setPreferredSize(new Dimension(100, 30));
+        panelInferior.add(btnVolver);
+
+    add(panelInferior, BorderLayout.SOUTH);
     }
 
     public static void main(String[] args) {
