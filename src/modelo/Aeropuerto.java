@@ -34,7 +34,6 @@ public class Aeropuerto {
     private Usuario usuarioActivo;
     private ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto;
 
-
     private int diasAnticipacionMinima = 30;
 
     // CAMBIAR POR SISTEMA DE PAGO
@@ -65,6 +64,7 @@ public class Aeropuerto {
         this.ubiRelCiudad = ubiRelCiudad;
     }
 
+    // Getters y Setters
     public int getDiasAnticipacionMinima() {
         return diasAnticipacionMinima;
     }
@@ -73,7 +73,6 @@ public class Aeropuerto {
         diasAnticipacionMinima = dias;
     }
 
-    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
