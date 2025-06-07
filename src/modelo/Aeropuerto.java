@@ -690,7 +690,6 @@ public class Aeropuerto {
             if (usuarioActivo instanceof OperadorAereo || usuarioActivo instanceof GestorAeropuerto) {
                 OperadorAereo operador = (OperadorAereo) usuarioActivo;
                 if (!vueloAEliminar.getAerolinea().equals(operador.getAerolineaAsignada())) {
-                    System.out.println("Error: No puedes eliminar vuelos de otra aerolínea.");
                     return false;
                 }
 
@@ -702,6 +701,4 @@ public class Aeropuerto {
         return false;
     }
 
-
 }
-
