@@ -39,7 +39,7 @@ public class ControladorVistaControladorVuelos {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorModificarVuelo vistaModificarVuelo = new VistaControladorModificarVuelo();
                 ControladorVistaControladorModificarVuelo controladorModificarVuelo = new ControladorVistaControladorModificarVuelo(
-                        vistaModificarVuelo, aeropuerto, vistaAnterior);
+                        vistaModificarVuelo, aeropuerto, vista);
                 controladorModificarVuelo.iniciar();
                 vista.setVisible(false);
 
