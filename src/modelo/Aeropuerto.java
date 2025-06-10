@@ -31,23 +31,22 @@ public class Aeropuerto {
     private ArrayList<Aerolinea> aerolineas;
     private ArrayList<Notificacion> notificaciones;
     private ArrayList<ControladorAereo> controladores;
-    private GestorAeropuerto gestor;
+    private ArrayList<OperadorAereo> operadores; // ¡NUEVO! Lista de operadores
+    private GestorAeropuerto gestor; // Esta referencia es opcional si el gestor se pasa como parámetro o se gestiona externamente.
     private ArrayList<Hangar> hangares;
     private ArrayList<ZonaAparcamiento> aparcamientos;
-    private ArrayList<Usuario> usuarios;
+    private ArrayList<Usuario> usuarios; // Lista general de todos los usuarios
     private Usuario usuarioActivo;
     private ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto;
 
 
     private int diasAnticipacionMinima = 30;
 
-    // CAMBIAR POR SISTEMA DE PAGO
-    private ArrayList<Factura> facturas;
-
-    private double costeVuelo = 35.0;
-
-    // Constructor
     public Aeropuerto(String nombre, String ciudad, String pais, UbiRelCiudad ubiRelCiudad) {
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+        this.pais = pais;
+        this.ubiRelCiudad = ubiRelCiudad;
         this.puertasEmbarque = new ArrayList<>();
         this.terminales = new ArrayList<>();
         this.pistas = new ArrayList<>();
@@ -56,604 +55,224 @@ public class Aeropuerto {
         this.aerolineas = new ArrayList<>();
         this.notificaciones = new ArrayList<>();
         this.controladores = new ArrayList<>();
+        this.operadores = new ArrayList<>(); // ¡Inicializar aquí!
         this.hangares = new ArrayList<>();
         this.aparcamientos = new ArrayList<>();
-        this.facturas = new ArrayList<>();
-        this.usosElementosAeropuerto = new ArrayList<>();
-        this.gestor = new GestorAeropuerto("Gestor Aeropuerto", "gestor123");
-        this.usuarioActivo = null;
         this.usuarios = new ArrayList<>();
-        this.nombre = nombre;
-        this.ciudad = ciudad;
-        this.pais = pais;
-        this.ubiRelCiudad = ubiRelCiudad;
+        this.usosElementosAeropuerto = new ArrayList<>();
     }
 
-    public int getDiasAnticipacionMinima() {
-        return diasAnticipacionMinima;
+    // --- Métodos para Vuelos ---
+    public void addVuelo(Vuelo vuelo) {
+        if (vuelo == null) throw new IllegalArgumentException("El vuelo no puede ser nulo.");
+        this.vuelos.add(vuelo);
+        // Podrías añadir lógica para asignar recursos o notificar aquí
     }
 
-    public void setDiasAnticipacionMinima(int dias) {
-        diasAnticipacionMinima = dias;
+    public List<Vuelo> getVuelos() {
+        return new ArrayList<>(vuelos); // Retorna una copia
     }
 
-    // Getters y Setters
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-    public UbiRelCiudad getUbiRelCiudad() {
-        return ubiRelCiudad;
-    }
-
-    public void setUbiRelCiudad(UbiRelCiudad ubiRelCiudad) {
-        this.ubiRelCiudad = ubiRelCiudad;
-    }
-
-    public ArrayList<PuertaEmbarque> getPuertasEmbarque() {
-        return puertasEmbarque;
-    }
-
-    public ArrayList<Terminal> getTerminales() {
-        return terminales;
-    }
-
-    public ArrayList<Pista> getPistas() {
-        return pistas;
-    }
-
-    public ArrayList<AeropuertoDestino> getAeropuertosDestino() {
-        return aeropuertosDestino;
-    }
-
-    public ArrayList<Vuelo> getVuelos() {
-        return vuelos;
-    }
-
-    public ArrayList<Vuelo> getVuelosAerolinea(Aerolinea aerolinea) {
-        ArrayList<Vuelo> vuelosAerolinea = new ArrayList<>();
-        for (Vuelo v : vuelos) {
-            if (v.getAerolinea() != null && v.getAerolinea().getCodigoAerolinea().equals(aerolinea.getCodigoAerolinea())) {
+    public List<Vuelo> getVuelosAerolinea(Aerolinea aerolinea) { // Añadido si no estaba
+        List<Vuelo> vuelosAerolinea = new ArrayList<>();
+        for (Vuelo v : this.vuelos) {
+            if (v.getAerolinea().equals(aerolinea)) {
                 vuelosAerolinea.add(v);
             }
         }
         return vuelosAerolinea;
     }
 
-    public ArrayList<Aerolinea> getAerolineas() {
-        return aerolineas;
+    public Vuelo buscarVuelo(int idVuelo) { // Añadido si no estaba
+        return vuelos.stream()
+                     .filter(v -> v.getId() == idVuelo)
+                     .findFirst()
+                     .orElse(null);
     }
 
-    public ArrayList<Notificacion> getNotificaciones() {
-        return notificaciones;
+    // --- Métodos para Aerolineas ---
+    public void addAerolinea(Aerolinea aerolinea) {
+        if (aerolinea == null) throw new IllegalArgumentException("La aerolínea no puede ser nula.");
+        this.aerolineas.add(aerolinea);
     }
 
-    public ArrayList<ControladorAereo> getControladores() {
-        return controladores;
+    public List<Aerolinea> getAerolineas() {
+        return new ArrayList<>(aerolineas);
     }
 
-    public GestorAeropuerto getGestor() {
-        return gestor;
+    // --- Métodos para Notificaciones ---
+    public void addNotificacion(Notificacion notificacion) {
+        if (notificacion == null) throw new IllegalArgumentException("La notificación no puede ser nula.");
+        this.notificaciones.add(notificacion);
     }
 
-    public void setGestor(GestorAeropuerto gestor) {
-        this.gestor = gestor;
+    public List<Notificacion> getNotificaciones() {
+        return new ArrayList<>(notificaciones);
     }
 
-    public ArrayList<Hangar> getHangares() {
-        return hangares;
+    // --- Métodos para Controladores Aéreos ---
+    public void agregarControladorAereo(ControladorAereo controlador) {
+        if (controlador == null) {
+            throw new IllegalArgumentException("El controlador aéreo no puede ser nulo.");
+        }
+        if (this.controladores.contains(controlador)) {
+            System.out.println("El controlador aéreo " + controlador.getNombre() + " ya está registrado en el aeropuerto.");
+        } else {
+            this.controladores.add(controlador);
+            this.usuarios.add(controlador); // Asumiendo que todos los controladores son usuarios
+            System.out.println("Controlador aéreo " + controlador.getNombre() + " añadido con éxito al aeropuerto.");
+        }
     }
 
-    public ArrayList<ZonaAparcamiento> getAparcamientos() {
-        return aparcamientos;
+    public boolean eliminarControladorAereo(ControladorAereo controlador) {
+        if (controlador == null) {
+            throw new IllegalArgumentException("El controlador aéreo no puede ser nulo.");
+        }
+        if (this.controladores.remove(controlador)) {
+            this.usuarios.remove(controlador); // Eliminar también de la lista general de usuarios
+            System.out.println("Controlador aéreo " + controlador.getNombre() + " eliminado del aeropuerto con éxito.");
+            return true;
+        }
+        return false;
+    }
+
+    public List<ControladorAereo> getControladores() {
+        return new ArrayList<>(controladores);
+    }
+
+    // --- Métodos para Operadores Aéreos ---
+    public void agregarOperadorAereo(OperadorAereo operador) {
+        if (operador == null) {
+            throw new IllegalArgumentException("El operador aéreo no puede ser nulo.");
+        }
+        if (this.operadores.contains(operador)) {
+            System.out.println("El operador aéreo " + operador.getNombre() + " ya está registrado en el aeropuerto.");
+        } else {
+            this.operadores.add(operador);
+            this.usuarios.add(operador); // Asumiendo que todos los operadores son usuarios
+            System.out.println("Operador aéreo " + operador.getNombre() + " añadido con éxito al aeropuerto.");
+        }
+    }
+
+    public boolean eliminarOperadorAereo(OperadorAereo operador) {
+        if (operador == null) {
+            throw new IllegalArgumentException("El operador aéreo no puede ser nulo.");
+        }
+        if (this.operadores.remove(operador)) {
+            this.usuarios.remove(operador); // Eliminar también de la lista general de usuarios
+            System.out.println("Operador aéreo " + operador.getNombre() + " eliminado del aeropuerto con éxito.");
+            return true;
+        }
+        return false;
+    }
+
+    public List<OperadorAereo> getOperadores() {
+        return new ArrayList<>(operadores);
+    }
+
+    public ControladorAereo buscarControladorPorContrasena(String contrasena) {
+        for (ControladorAereo ctrl : controladores) {
+            if (ctrl.getContraseña().equals(contrasena)) {
+                return ctrl;
+            }
+        }
+        return null;
+    }
+
+    // --- Métodos para Usuarios Generales ---
+    public void addUsuario(Usuario usuario) {
+        if (usuario != null && !this.usuarios.contains(usuario)) {
+            this.usuarios.add(usuario);
+        }
+    }
+
+    public List<Usuario> getUsuarios() {
+        return new ArrayList<>(usuarios);
     }
 
     public Usuario getUsuarioActivo() {
         return usuarioActivo;
     }
 
-    public void setUsuarioActivo(Usuario usuario) {
-        this.usuarioActivo = usuario;
+    public void setUsuarioActivo(Usuario usuarioActivo) {
+        this.usuarioActivo = usuarioActivo;
     }
 
-    public ArrayList<Factura> getFacturas() {
-        return facturas;
+    // --- Métodos para Puertas de Embarque ---
+    public void addPuertaEmbarque(PuertaEmbarque puerta) {
+        if (puerta == null) throw new IllegalArgumentException("La puerta de embarque no puede ser nula.");
+        this.puertasEmbarque.add(puerta);
     }
 
-    public double getCosteVuelo() {
-        return costeVuelo;
+    public List<PuertaEmbarque> getPuertasEmbarque() {
+        return new ArrayList<>(puertasEmbarque);
     }
 
-    public void setCosteVuelo(double costeVuelo) {
-        if(usuarioActivo instanceof GestorAeropuerto) {
-            this.costeVuelo = costeVuelo;
-        } else { 
-            System.err.println("Usuario con permisos insuficientes");
-        }
+    // --- Métodos para Terminales ---
+    public void addTerminal(Terminal terminal) {
+        if (terminal == null) throw new IllegalArgumentException("La terminal no puede ser nula.");
+        this.terminales.add(terminal);
     }
 
-    public Status iniciarSesion(String nombreUsuario, String contraseña) {
-        for (ControladorAereo controladorAereo : controladores) {
-            if (controladorAereo.getNombre().equals(nombreUsuario) && controladorAereo.getContraseña().equals(contraseña)) {
-                usuarioActivo = controladorAereo;
-                return Status.OK;
-            }
-        }
-
-        for (Aerolinea aerolinea : aerolineas) {
-            for (OperadorAereo operador : aerolinea.getOperadores()) {
-                if (operador.getNombre().equals(nombreUsuario) && operador.getContraseña().equals(contraseña)) {
-                    usuarioActivo = operador;
-                    return Status.OK;
-                }
-            }
-        }
-
-        if (gestor != null &&
-            gestor.getNombre().equals(nombreUsuario) &&
-            gestor.getContraseña().equals(contraseña)) {
-            usuarioActivo = gestor;
-            return Status.OK;
-        }
-
-        return Status.ERROR;
+    public List<Terminal> getTerminales() {
+        return new ArrayList<>(terminales);
     }
 
-    /* Métodos */
-    public Status addPuertaEmbarque(PuertaEmbarque puerta) {
-        if(usuarioActivo instanceof GestorAeropuerto) {
-            this.puertasEmbarque.add(puerta);
-            return Status.OK;
-        }
-        System.err.println("Usuario con permisos insuficientes");
-        return Status.ERROR;
+    public Terminal buscarTerminalPorId(int idTerminal) {
+        return terminales.stream()
+                         .filter(t -> t.getId() == idTerminal)
+                         .findFirst()
+                         .orElse(null);
     }
 
-    public Status addTerminal(Terminal terminal) {
-        if(usuarioActivo instanceof GestorAeropuerto) {
-            this.terminales.add(terminal);
-            return Status.OK;
-        }
-        System.err.println("Usuario con permisos insuficientes");
-        return Status.ERROR;
-    }
-
+    // --- Métodos para Pistas ---
     public void addPista(Pista pista) {
+        if (pista == null) throw new IllegalArgumentException("La pista no puede ser nula.");
         this.pistas.add(pista);
     }
 
-    public void addAeropuertoDestino(AeropuertoDestino aeropuertoDestino) {
-        this.aeropuertosDestino.add(aeropuertoDestino);
+    public List<Pista> getPistas() {
+        return new ArrayList<>(pistas);
     }
 
-    public void addVuelo(Vuelo vuelo) throws IllegalArgumentException{
-        if (usuarioActivo instanceof OperadorAereo) {
-            // Si la diferencia de dias no es mayor que la mínima lanza la excepción
-            if (vuelo.getFechaHora().isBefore(LocalDateTime.now().plusDays(diasAnticipacionMinima))) {
-                throw new IllegalArgumentException("Error, la fecha de salida no puede ser menor a " + diasAnticipacionMinima + " días");
-            }
-
-            this.vuelos.add(vuelo);
-            
-            ArrayList<Usuario> usuariosDest = new ArrayList<>();
-            usuariosDest.add(gestor);
-            usuariosDest.add(usuarioActivo);
-            Notificacion notificacion = new Notificacion("Nuevo vuelo programado: " + vuelo.getId(), usuariosDest);
-            this.notificaciones.add(notificacion);
-            notificarUsuarios(notificacion, usuariosDest);        
-        }
-    }
-
-    public void addAerolinea(Aerolinea aerolinea) {
-        this.aerolineas.add(aerolinea);
-    }
-
-    public void addNotificacion(Notificacion notificacion) {
-        this.notificaciones.add(notificacion);
-    }
-
-    public void addControlador(ControladorAereo controlador) {
-        this.controladores.add(controlador);
-    }
-
+    // --- Métodos para Hangares ---
     public void addHangar(Hangar hangar) {
+        if (hangar == null) throw new IllegalArgumentException("El hangar no puede ser nulo.");
         this.hangares.add(hangar);
     }
 
-    public void addZonaAparcamiento(ZonaAparcamiento aparcamiento) {
-        this.aparcamientos.add(aparcamiento);
+    public List<Hangar> getHangares() {
+        return new ArrayList<>(hangares);
     }
 
-    public ArrayList<UsoElementoAeropuerto> getUsosElementosAeropuerto() {
-        return usosElementosAeropuerto;
+    // --- Métodos para Zonas de Aparcamiento ---
+    public void addZonaAparcamiento(ZonaAparcamiento zona) {
+        if (zona == null) throw new IllegalArgumentException("La zona de aparcamiento no puede ser nula.");
+        this.aparcamientos.add(zona);
     }
 
-    public ArrayList<UsoElementoAeropuerto> getUsosElementosAeropuertoElemento(ElementoAeropuerto elemento) {
-        ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto = new ArrayList<>();
-        for (UsoElementoAeropuerto uso : usosElementosAeropuerto) {
-            if (uso.getElementoAeropuerto().equals(elemento)) {
-                usosElementosAeropuerto.add(uso);
-            }
-        }
-
-        return usosElementosAeropuerto;
+    public List<ZonaAparcamiento> getAparcamientos() {
+        return new ArrayList<>(aparcamientos);
     }
 
-    /* Asignar terminal a un vuelo */
-    public void asignarTerminalAVuelo(Vuelo vuelo) {
-        Terminal terminalAsignada = buscarTerminalDisponible();
-        ArrayList<Usuario> usuariosDest = new ArrayList<>();
-        usuariosDest.add(gestor);
-        usuariosDest.add(usuarioActivo);
-        if (terminalAsignada != null) {
-            vuelo.setTerminal(terminalAsignada);
-            Notificacion notificacion = new Notificacion("Terminal asignada al vuelo: " + vuelo.getId(), usuariosDest);
-            notificaciones.add(notificacion);
-            notificarUsuarios(notificacion, usuariosDest);
-        } else {
-            // No hay terminal disponible
-            Notificacion notificacion = new Notificacion("No hay terminal disponible para el vuelo: " + vuelo.getId(), usuariosDest);
-            notificaciones.add(notificacion);
-            notificarUsuarios(notificacion, usuariosDest);
-        }
+    // --- Métodos para Usos de Elementos del Aeropuerto ---
+    public void addUsoElementoAeropuerto(UsoElementoAeropuerto uso) {
+        if (uso == null) throw new IllegalArgumentException("El uso del elemento no puede ser nulo.");
+        this.usosElementosAeropuerto.add(uso);
     }
 
-    
-
-    // Buscar terminal disponible
-    private Terminal buscarTerminalDisponible() {
-        LocalDateTime fechaConsulta = LocalDateTime.now();
-
-        for (Terminal terminal : terminales) {
-            if (!terminal.isOcupada() && gestor.puedeConsultarTerminal(fechaConsulta)) {
-                return terminal;
-            }
-        }
-        return null; // No hay terminal disponible
+    public List<UsoElementoAeropuerto> getUsosElementosAeropuerto() {
+        return new ArrayList<>(usosElementosAeropuerto);
     }
 
-   
-
-    // Asignar pista de aterrizaje
-    public void asignarPistaAterrizaje(Vuelo vuelo) {
-            ArrayList<Usuario> usuariosDest = new ArrayList<>();
-            usuariosDest.add(gestor);
-            usuariosDest.add(usuarioActivo);
-        for (Pista pista : pistas) {
-            if (pista.isOcupada()) {
-                vuelo.setPista(pista);
-                Notificacion notificacion = new Notificacion("Pista de aterrizaje asignada para el vuelo: " + vuelo.getId(), usuariosDest);
-                notificaciones.add(notificacion);
-                notificarUsuarios(notificacion, usuariosDest);
-                break;
-            }
-        }
+    // --- Métodos para Aeropuertos de Destino ---
+    public void addAeropuertoDestino(AeropuertoDestino aeropuertoDestino) {
+        if (aeropuertoDestino == null) throw new IllegalArgumentException("El aeropuerto de destino no puede ser nulo.");
+        this.aeropuertosDestino.add(aeropuertoDestino);
     }
 
-    // Asignar puerta de embarque y finger
-    public void asignarPuertaYFinger(Vuelo vuelo) {
-        ArrayList<Usuario> usuariosDest = new ArrayList<>();
-        usuariosDest.add(gestor);
-        usuariosDest.add(usuarioActivo);
-        for (PuertaEmbarque puerta : puertasEmbarque) {
-            if (puerta.estaDisponible()) {
-                vuelo.setPuertaEmbarque(puerta);
-                // Asignar finger si es necesario
-                Finger finger = buscarFingerDisponible(vuelo);
-                if (finger != null) {
-                    vuelo.setFinger(finger);
-                }
-                Notificacion notificacion = new Notificacion("Puerta de embarque y finger asignados para el vuelo: " + vuelo.getId(), usuariosDest);
-                notificaciones.add(notificacion);
-                notificarUsuarios(notificacion, usuariosDest);
-                break;
-            }
-        }
-    }
-
-    // Buscar finger disponible
-    private Finger buscarFingerDisponible(Vuelo vuelo) {
-        if (vuelo.getPuertaEmbarque().getFinger().isOcupado(vuelo.getFechaHora(), usosElementosAeropuerto)) {
-            return vuelo.getPuertaEmbarque().getFinger();
-        }
-        return null; // No hay finger disponible
-    }
-
-    // Asignar hangar si el vuelo está retrasado
-    public void asignarHangarSiRetrasado(Vuelo vuelo) {
-        ArrayList<Usuario> usuariosDest = new ArrayList<>();
-        usuariosDest.add(gestor);
-        usuariosDest.add(usuarioActivo);
-        if (vuelo.estaRetrasado()) {
-            Hangar hangarDisponible = buscarHangarDisponible(vuelo.getFechaHora());
-            if (hangarDisponible != null) {
-                vuelo.setHangar(hangarDisponible);
-                Notificacion notificacion = new Notificacion("Hangar asignado al vuelo: " + vuelo.getId(), usuariosDest);
-                notificaciones.add(notificacion);
-                notificarUsuarios(notificacion, usuariosDest);
-            }
-        }
-    }
-
-    // Buscar hangar disponible
-    private Hangar buscarHangarDisponible(LocalDateTime fechaHora) {
-        for (Hangar hangar : hangares) {
-            if (!hangar.isOcupado(fechaHora, getUsosElementosAeropuertoElemento(hangar))) {
-                return hangar;
-            }
-        }
-
-        return null; // No hay hangar disponible
-    }
-
-    // Notificar a todos los usuarios
-    private void notificarUsuarios(Notificacion notificacion, ArrayList<Usuario> usuariosDest) {
-        for (Usuario usuario : usuariosDest) {
-            usuario.enviarNotificacion(notificacion);
-        }
-    }
-
-    // Buscar vuelo por código
-    public Vuelo buscarVuelo(int id) {
-        for (Vuelo vuelo : vuelos) {
-            if (vuelo.getId() == id) {
-                return vuelo;
-            }
-        }
-        return null; // Vuelo no encontrado
-    }
-    //Buscar vuelo por aeropuerto
-    public ArrayList<Vuelo> buscarVuelosPorOrigen(String origen){
-        ArrayList<Vuelo> resultados = new ArrayList<>();
-        for (Vuelo vuelo : vuelos) {
-            if (vuelo.getOrigen().equalsIgnoreCase(origen)) {
-                resultados.add(vuelo);
-            }
-        }
-        return resultados;
-    }
-
-    public ArrayList<Vuelo> buscarVuelosPorDestino(String destino) {
-        ArrayList<Vuelo> resultados = new ArrayList<>();
-        for (Vuelo vuelo : vuelos) {
-            if (vuelo.getDestino().equalsIgnoreCase(destino)) {
-                resultados.add(vuelo);
-            }
-        }
-        return resultados;
-    }
-
-    //Buscar Vuelo por hora de salida
-    public ArrayList<Vuelo> buscarVuelosPorFechaSalida(LocalDateTime fechaSalida) {
-        ArrayList<Vuelo> resultados = new ArrayList<>();
-        for (Vuelo vuelo : vuelos) {
-            if (vuelo.getfechaHoraSalida().equals(fechaSalida)) {
-                resultados.add(vuelo);
-            }
-        }
-        return resultados;
-    }
-    //Buscar Vuelo por hora de llegada
-    public ArrayList<Vuelo> buscarVuelosPorFechaLlegada(LocalDateTime fechaLlegada) {
-        ArrayList<Vuelo> resultados = new ArrayList<>();
-        for (Vuelo vuelo : vuelos) {
-            if (vuelo.getfechaHoraLlegada() != null && vuelo.getfechaHoraLlegada().equals(fechaLlegada)) {
-                resultados.add(vuelo);
-            }
-        }
-        return resultados;
-    }
-    //Buscar Vuelo por terminal
-    public ArrayList<Vuelo> buscarVuelosPorTerminal(Terminal terminal) {
-        ArrayList<Vuelo> resultados = new ArrayList<>();
-        for (Vuelo vuelo : vuelos) {
-            if (vuelo.getTerminal() != null && vuelo.getTerminal().equals(terminal)) {
-                resultados.add(vuelo);
-            }
-        }
-        return resultados;
-    }
-    
-
-    // Asignar controlador a vuelo
-    public void asignarControladorAVuelo(Vuelo vuelo) {
-        Terminal terminal = vuelo.getTerminal();
-        ArrayList<ControladorAereo> controladores = terminal.getControladores();
-        // Selecciona uno al hazar para asignar
-        ControladorAereo controladorAsignado = controladores.get((int) (Math.random() * controladores.size()));
-        vuelo.setControladorAereo(controladorAsignado);
-        // Notificar
-        ArrayList<Usuario> usuariosDest = new ArrayList<>();
-        usuariosDest.add(gestor);
-        usuariosDest.add(usuarioActivo);
-        usuariosDest.add(controladorAsignado);
-        Notificacion notificacion = new Notificacion("Controlador asignado al vuelo: " + vuelo.getId(), usuariosDest);
-        notificaciones.add(notificacion);
-        notificarUsuarios(notificacion, usuariosDest);
-    }
-
-    // Facturar
-    public void facturarAerolineas(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
-        if (usuarioActivo instanceof GestorAeropuerto) {
-            for (Aerolinea aerolinea : aerolineas) {
-                ArrayList<UsoElementoAeropuerto> usosAerolinea = new ArrayList<>();
-                for (UsoElementoAeropuerto uso : usosElementosAeropuerto) {
-                    if (uso.getAerolinea().equals(aerolinea)) {
-                        usosAerolinea.add(uso);
-                    }
-                }
-                ArrayList<Vuelo> vuelosAerolinea = new ArrayList<>();
-                for (Vuelo vuelo : vuelos) {
-                    if (vuelo.getAerolinea().equals(aerolinea)) {
-                        vuelos.add(vuelo);
-                    }
-                }
-                double coste = aerolinea.calcularCostoTotal(fechaInicio, fechaFin, usosAerolinea, vuelos, costeVuelo);
-                Factura factura = new Factura(coste);
-
-                aerolinea.añadirFactura(factura);
-                aerolinea.notificarCambio("Nueva factura pendiente de pago");
-            }
-        } else {
-            throw new IllegalArgumentException("Error, el usuario no tiene permisos suficientes");
-        }
-    }
-
-    /* Métodos de usuarios Usuarios */
-
-    public void setUsuarios(ArrayList<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public ArrayList<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-	public boolean modificarUsuario(int idUsuario, String nuevoNombre, String nuevaContraseña) {
-	    Usuario usuarioAModificar = null;
-
-	    for (Usuario u : usuarios) {
-	        if (u.getId() == idUsuario) {
-	            usuarioAModificar = u;
-	            break;
-	        }
-	    }
-
-	    if (usuarioAModificar != null) {
-	        usuarioAModificar.setNombre(nuevoNombre); 
-	        usuarioAModificar.setContraseña(nuevaContraseña); 
-	        System.out.println("El usuario ha sido modificado con los siguientes valores:");
-	        System.out.println("Nuevo Nombre: " + nuevoNombre);
-	        System.out.println("Nueva Contraseña: " + nuevaContraseña);
-            return true;
-	    } else {
-	        System.out.println("Error: usuario no encontrado");
-            return false;
-	    }
-	}
-
-    public void añadirOperador(OperadorAereo operador, Aerolinea aerolinea) {
-        if (usuarioActivo instanceof GestorAeropuerto) {
-            if (aerolinea == null) {
-                throw new IllegalArgumentException("Error, la aerolínea no puede ser nula");
-            }
-            
-            for (Usuario u : usuarios) {
-                if (u.getNombre().equals(operador.getNombre())) {
-                    throw new IllegalArgumentException("Error, este nombre ya está en uso");
-                }
-            }
-
-            usuarios.add(operador);
-            aerolinea.agregarOperador(operador);
-        } else {
-            throw new IllegalArgumentException("Error, el usuario no tiene permisos suficientes");
-        }
-    }
-	
-    public void añadirControlador(String nombre, String contraseña) {
-        ControladorAereo nuevoControlador = new ControladorAereo(nombre, contraseña, null);
-
-        for (Usuario u : usuarios) {
-            if (u.getNombre().equals(nombre)) {
-                throw new IllegalArgumentException("Error, este nombre ya está en uso");
-            }
-        }
-
-        usuarios.add(nuevoControlador);
-    }
-    
-    public void eliminarUsuario(int idUsuario) {
-        Usuario usuarioAEliminar = null;
-        for (Usuario u : usuarios) {
-            if (u.getId() == idUsuario) {
-                usuarioAEliminar = u;
-                break;
-            }
-        }
-
-        if (usuarioAEliminar != null) {
-            usuarios.remove(usuarioAEliminar);
-            System.out.println("Usuario con ID " + idUsuario + " eliminado correctamente.");
-        } else {
-            System.out.println("Error: Usuario no encontrado.");
-        }
-    }
-    
-    
-    public void verUsuarios() {
-        if (usuarios.isEmpty()) {
-            System.out.println("No hay usuarios registrados.");
-        } else {
-            System.out.println("Lista de usuarios registrados:");
-            for (Usuario usuario : usuarios) {
-                System.out.println(usuario);
-            }
-        }
-    }
-    
-    public Usuario buscarUsuario(int id) {
-        for (Usuario u : usuarios) {
-            if (u.getId() == id) {
-                return u;
-            }
-        }
-
-        return null;
-    }
-
-    public void cambiarTerminal(ControladorAereo controlador, Terminal nuevaTerminal) {
-        LocalDateTime fechaConsulta = LocalDateTime.now();
-        if (controlador != null && nuevaTerminal != null) {
-            if(gestor.puedeConsultarTerminal(fechaConsulta)){
-            controlador.cambiarTerminal(nuevaTerminal);
-            System.out.println("Controlador asignado a la terminal " + nuevaTerminal.getId());
-            }
-        } else {
-            throw new IllegalArgumentException("Error: Controlador no encontrado o terminal nula.");
-        }
-    }
-
-    public void cambiarAerolinea(OperadorAereo operador, Aerolinea nuevaAerolinea) {
-        if (operador != null && nuevaAerolinea != null) {
-            operador.cambiarAerolinea(nuevaAerolinea);
-            System.out.println("Operador asignado a la aerolínea " + nuevaAerolinea.getNombre());
-        } else {
-            throw new IllegalArgumentException("Error: Operador no encontrado o aerolínea nula.");
-        }
-    }
-
-    public void cambiarEstadoVuelo(int idVuelo, Aeropuerto aeropuerto, Vuelo.EstadoVuelo nuevoEstado, Usuario usuario) {
-        if (aeropuerto == null || nuevoEstado == null || idVuelo <= 0) {
-            System.out.println("Error: Los datos no pueden ser nulos o menor que 0.");
-            return;
-        }
-        Vuelo vuelo = aeropuerto.buscarVuelo(idVuelo);
-        if (vuelo != null) {
-            vuelo.setEstado(nuevoEstado);
-        } else {
-            System.out.println("Error: Vuelo no encontrado.");
-        }
+    public List<AeropuertoDestino> getAeropuertosDestino() {
+        return new ArrayList<>(aeropuertosDestino);
     }
 
     // Función de lectura de aeropuertos de un fichero externo
@@ -679,7 +298,4 @@ public class Aeropuerto {
             System.out.println("Error en los datos del archivo: " + e.getMessage());
         }
     }
-
-
 }
-

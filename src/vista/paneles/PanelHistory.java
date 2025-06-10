@@ -58,12 +58,12 @@ public class PanelHistory extends JPanel {
         add(txtFechaFacturas, gbc);
         gbc.gridx++;
 
-        btnCalendarioFacturas = new JButton(new ImageIcon(getClass().getResource("/calendario.png"))); // Asume que tienes un icono llamado calendario.png
+        /*btnCalendarioFacturas = new JButton(new ImageIcon(getClass().getResource("/calendario.png"))); // Asume que tienes un icono llamado calendario.png
         btnCalendarioFacturas.setPreferredSize(new Dimension(30, 30));
         add(btnCalendarioFacturas, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 2;*/
 
         lblPrecioFacturas = new JLabel("precio");
         add(lblPrecioFacturas, gbc);
@@ -121,12 +121,12 @@ public class PanelHistory extends JPanel {
         add(txtFechaPeticiones, gbc);
         gbc.gridx++;
 
-        btnCalendarioPeticiones = new JButton(new ImageIcon(getClass().getResource("/calendario.png"))); // Asume que tienes un icono llamado calendario.png
+        /*btnCalendarioPeticiones = new JButton(new ImageIcon(getClass().getResource("/calendario.png"))); // Asume que tienes un icono llamado calendario.png
         btnCalendarioPeticiones.setPreferredSize(new Dimension(30, 30));
         add(btnCalendarioPeticiones, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 2;*/
 
         btnBuscarPeticiones = new JButton("Buscar");
         add(btnBuscarPeticiones, gbc);
@@ -164,13 +164,13 @@ public class PanelHistory extends JPanel {
         btnBuscarPeticiones.addActionListener(listener);
     }
 
-    public void addCalendarioFacturasListener(ActionListener listener) {
+    /*public void addCalendarioFacturasListener(ActionListener listener) {
         btnCalendarioFacturas.addActionListener(listener);
-    }
+    }*/
 
-    public void addCalendarioPeticionesListener(ActionListener listener) {
+    /*public void addCalendarioPeticionesListener(ActionListener listener) {
         btnCalendarioPeticiones.addActionListener(listener);
-    }
+    }*/
 
     public void addSliderPrecioFacturasChangeListener(ChangeListener listener) {
         sliderPrecioFacturas.addChangeListener(listener);

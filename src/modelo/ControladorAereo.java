@@ -87,14 +87,12 @@ public class ControladorAereo extends Usuario {
             default:
                 System.out.println("El vuelo con ID " + vuelo.getId() + " tiene un estado desconocido.");
         }
-
-    
     }
 
+    public void setContrasena(String nuevaContrasena){
+        super.setContraseña(nuevaContrasena);
+    }
     
-
-  
-
     @Override
     public String toString() {
         return super.toString() + ", Terminal asignada: " + (terminalAsignada != null ? terminalAsignada.getId() : "Ninguna");

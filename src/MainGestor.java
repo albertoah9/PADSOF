@@ -1,4 +1,4 @@
-
+import modelo.Aeropuerto; // Asegúrate de importar la clase Aeropuerto
 import modelo.GestorAeropuerto;
 import vista.VistaGestorPrincipal;
 import javax.swing.SwingUtilities;
@@ -7,11 +7,18 @@ public class MainGestor {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            // Crear una instancia del GestorAeropuerto (el modelo)
-            GestorAeropuerto gestor = new GestorAeropuerto(null, null);
+            // 1. Crear una instancia del objeto Aeropuerto
+            // Necesitarás los parámetros correctos para el constructor de tu clase Aeropuerto.
+            // Por ejemplo, si tu constructor es Aeropuerto(String nombre, String ciudad, String pais, UbiRelCiudad ubicacion):
+            Aeropuerto miAeropuerto = new Aeropuerto("Aeropuerto Adolfo Suárez Madrid-Barajas", "Madrid", "España", Aeropuerto.UbiRelCiudad.ESTE);
 
-            // Crear una instancia de la VistaGestorPrincipal, pasando el nombre de usuario y el gestor
-            VistaGestorPrincipal vista = new VistaGestorPrincipal("Gestor");
+            // 2. Crear una instancia del GestorAeropuerto (el modelo)
+            // Pasar valores válidos para nombre, contraseña y el objeto Aeropuerto creado
+            GestorAeropuerto gestor = new GestorAeropuerto("admin", "password123", miAeropuerto);
+
+            // Crear una instancia de la VistaGestorPrincipal, pasando el gestor
+            VistaGestorPrincipal vista = new VistaGestorPrincipal(gestor);
+            vista.setVisible(true); // Hacer visible la vista principal
 
             // No necesitamos instanciar controladores individuales aquí para la visualización básica
             // Los controladores se instanciarán donde se necesiten para la interacción

@@ -13,7 +13,7 @@ import modelo.Usuario;
 
 public class Vuelo {
     public enum EstadoVuelo {
-        ESPERANDO_PISTA, ESPERANDO_ATERRIZAJE, EN_PREPARACION, APARCADO, EN_HANGAR, EMBARCANDO, ESPERADNO_DESPEGUE, DESPEGADO, RETRASADO, EN_HORA
+        ESPERANDO_PISTA, ESPERANDO_ATERRIZAJE, EN_PREPARACION, APARCADO, EN_HANGAR, EMBARCANDO, ESPERANDO_DESPEGUE, DESPEGADO, RETRASADO, EN_HORA
     }
 
     public enum TipoVuelo {
@@ -292,7 +292,7 @@ public class Vuelo {
 
     public boolean VueloEsperandoDespegue(){
         if (this.estado == EstadoVuelo.ESPERANDO_PISTA && this.pistaAsignada) {
-            this.estado = EstadoVuelo.ESPERADNO_DESPEGUE; 
+            this.estado = EstadoVuelo.ESPERANDO_DESPEGUE; 
             this.pistaAsignada = false;
             this.fechaHoraEstadoEsperandoDespegue = LocalDateTime.now();
             return true;
@@ -306,7 +306,7 @@ public class Vuelo {
 
     // DESPEGADO
     public boolean VueloDespegado() {
-        if (this.estado == EstadoVuelo.ESPERADNO_DESPEGUE) {
+        if (this.estado == EstadoVuelo.ESPERANDO_DESPEGUE) {
             if (this.fechaHoraEstadoEsperandoDespegue != null &&
                 ChronoUnit.MINUTES.between(this.fechaHoraEstadoEsperandoDespegue, LocalDateTime.now()) >= 2) {
                 this.estado = EstadoVuelo.DESPEGADO;

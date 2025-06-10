@@ -9,6 +9,7 @@ public class Factura {
     private final LocalDateTime fechaVencimiento;  // Cambiado a String
     private double monto;
     private EstadoFactura estado;
+    private Aerolinea aerolinea;
 
     public enum EstadoFactura {
         PENDIENTE_DE_PAGO, PAGADO
@@ -21,6 +22,7 @@ public class Factura {
         this.fechaVencimiento = java.time.LocalDateTime.now().plusDays(30);
         this.monto = monto;
         this.estado = EstadoFactura.PENDIENTE_DE_PAGO;
+        this.aerolinea = aerolinea;
     }
 
     // Getter para el monto
@@ -46,6 +48,10 @@ public class Factura {
     // Estado de la factura
     public EstadoFactura getEstado() {
         return estado;
+    }
+
+    public Aerolinea getAerolinea() {
+        return aerolinea;
     }
 
     // Marcar factura como pagada

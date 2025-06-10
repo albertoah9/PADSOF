@@ -1,217 +1,259 @@
 package vista.paneles;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
-// Necesitaremos una clase GestorAeropuerto (o similar) para pasar información si es necesario
-// public class GestorAeropuerto { ... } // Asumo que ya tienes esta clase o una equivalente
+import modelo.GestorAeropuerto; // Asegúrate de que esta importación sea correcta
 
 public class PanelSettings extends JPanel {
 
-    private GestorAeropuerto gestor; // O el tipo de usuario adecuado
+    private GestorAeropuerto gestor; // Necesitamos una referencia al gestor
 
-    // Componentes de la interfaz
-    private JLabel lblTitulo;
+    public PanelSettings(GestorAeropuerto gestor) {
+        this.gestor = gestor; // Asignamos la instancia del gestor
+        setLayout(new BorderLayout());
+        setBorder(new EmptyBorder(20, 20, 20, 20)); // Margen alrededor del panel
 
-    // Sección Cambiar Contraseña
-    private JLabel lblCurrentPassword;
-    private JPasswordField txtCurrentPassword;
-    private JLabel lblNewPassword;
-    private JPasswordField txtNewPassword;
-    private JLabel lblConfirmNewPassword;
-    private JPasswordField txtConfirmNewPassword;
-    private JButton btnChangePassword;
+        // Crear un JTabbedPane para organizar las secciones
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setFont(new Font("SansSerif", Font.BOLD, 14));
 
-    // Sección Información de Contacto (Ejemplo simple)
-    private JLabel lblEmail;
-    private JTextField txtEmail;
-    private JButton btnUpdateInfo;
+        // 1. Gestión de usuarios
+        tabbedPane.addTab("Gestión de Usuarios", crearPanelGestionUsuarios());
 
-    // Sección Preferencias de Notificación (Ejemplo simple)
-    private JLabel lblNotificationPreferences;
-    private JCheckBox chkEmailNotifications;
-    private JCheckBox chkSMSNotifications;
+        // 2. Configuración del aeropuerto
+        tabbedPane.addTab("Configuración del Aeropuerto", crearPanelConfiguracionAeropuerto());
 
-    public PanelSettings(GestorAeropuerto gestor2) {
-        this.gestor = gestor2; // Guardamos la referencia al gestor (si es necesaria para lógica futura)
+        // 3. Gestión de aerolíneas
+        tabbedPane.addTab("Gestión de Aerolíneas", crearPanelGestionAerolineas());
 
-        // Configurar el layout del panel principal
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Apila los componentes verticalmente
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Añade un margen alrededor
+        // 4. Notificaciones
+        tabbedPane.addTab("Notificaciones", crearPanelNotificaciones());
 
-        // --- Título del Panel ---
-        lblTitulo = new JLabel("Configuración de Usuario");
-        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 20));
-        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT); // Centra el título
-
-        // --- Sección Cambiar Contraseña ---
-        JPanel panelPassword = new JPanel();
-        panelPassword.setLayout(new BoxLayout(panelPassword, BoxLayout.Y_AXIS)); // Apila verticalmente dentro de esta sección
-        panelPassword.setBorder(BorderFactory.createTitledBorder("Cambiar Contraseña")); // Borde con título
-
-        lblCurrentPassword = new JLabel("Contraseña Actual:");
-        txtCurrentPassword = new JPasswordField(20); // Tamaño preferido inicial
-        lblNewPassword = new JLabel("Nueva Contraseña:");
-        txtNewPassword = new JPasswordField(20);
-        lblConfirmNewPassword = new JLabel("Confirmar Nueva Contraseña:");
-        txtConfirmNewPassword = new JPasswordField(20);
-        btnChangePassword = new JButton("Cambiar Contraseña");
-
-        // Alinear etiquetas y campos de texto en pares
-        JPanel panelCurrentPassword = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Usamos FlowLayout para la pareja
-        panelCurrentPassword.add(lblCurrentPassword);
-        panelCurrentPassword.add(txtCurrentPassword);
-
-        JPanel panelNewPassword = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelNewPassword.add(lblNewPassword);
-        panelNewPassword.add(txtNewPassword);
-
-        JPanel panelConfirmPassword = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelConfirmPassword.add(lblConfirmNewPassword);
-        panelConfirmPassword.add(txtConfirmNewPassword);
-
-        JPanel panelButtonPassword = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Centramos el botón
-        panelButtonPassword.add(btnChangePassword);
-
-        panelPassword.add(panelCurrentPassword);
-        panelPassword.add(Box.createRigidArea(new Dimension(0, 5))); // Espacio vertical
-        panelPassword.add(panelNewPassword);
-        panelPassword.add(Box.createRigidArea(new Dimension(0, 5)));
-        panelPassword.add(panelConfirmPassword);
-        panelPassword.add(Box.createRigidArea(new Dimension(0, 15)));
-        panelPassword.add(panelButtonPassword);
-        panelPassword.setAlignmentX(Component.LEFT_ALIGNMENT); // Alinear esta sección a la izquierda
-
-        // --- Sección Información de Contacto ---
-        JPanel panelContactInfo = new JPanel();
-        panelContactInfo.setLayout(new BoxLayout(panelContactInfo, BoxLayout.Y_AXIS));
-        panelContactInfo.setBorder(BorderFactory.createTitledBorder("Información de Contacto"));
-
-        lblEmail = new JLabel("Correo Electrónico:");
-        txtEmail = new JTextField(gestor2 != null ? gestor2.getEmail() : "", 20); // Ejemplo: precargar email si existe en GestorAeropuerto
-        btnUpdateInfo = new JButton("Actualizar Información");
-
-        JPanel panelEmail = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelEmail.add(lblEmail);
-        panelEmail.add(txtEmail);
-
-        JPanel panelButtonInfo = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelButtonInfo.add(btnUpdateInfo);
-
-        panelContactInfo.add(panelEmail);
-        panelContactInfo.add(Box.createRigidArea(new Dimension(0, 15)));
-        panelContactInfo.add(panelButtonInfo);
-         panelContactInfo.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // --- Sección Preferencias de Notificación ---
-        JPanel panelNotifications = new JPanel();
-        panelNotifications.setLayout(new BoxLayout(panelNotifications, BoxLayout.Y_AXIS));
-        panelNotifications.setBorder(BorderFactory.createTitledBorder("Preferencias de Notificación"));
-
-        lblNotificationPreferences = new JLabel("Recibir notificaciones por:");
-        chkEmailNotifications = new JCheckBox("Correo Electrónico", true); // true = seleccionado por defecto
-        chkSMSNotifications = new JCheckBox("SMS", false);
-
-        panelNotifications.add(lblNotificationPreferences);
-        panelNotifications.add(Box.createRigidArea(new Dimension(0, 5)));
-        panelNotifications.add(chkEmailNotifications);
-        panelNotifications.add(chkSMSNotifications);
-        panelNotifications.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-
-        // --- Añadir todo al panel principal ---
-        add(lblTitulo);
-        add(Box.createRigidArea(new Dimension(0, 20))); // Espacio entre título y primera sección
-        add(panelPassword);
-        add(Box.createRigidArea(new Dimension(0, 20))); // Espacio entre secciones
-        add(panelContactInfo);
-        add(Box.createRigidArea(new Dimension(0, 20))); // Espacio entre secciones
-        add(panelNotifications);
-        // Puedes añadir más espacio al final si quieres
-        // add(Box.createVerticalGlue()); // Empuja los componentes hacia arriba si hay espacio extra
-
-        // --- Añadir Action Listeners (Inicialmente, solo muestran un mensaje) ---
-        btnChangePassword.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Aquí iría la lógica para cambiar la contraseña
-                // Por ahora, solo mostramos un mensaje
-                char[] currentPass = txtCurrentPassword.getPassword();
-                char[] newPass = txtNewPassword.getPassword();
-                char[] confirmNewPass = txtConfirmNewPassword.getPassword();
-
-                // Simple validación (deberías añadir más lógica real aquí)
-                if (newPass.length == 0 || confirmNewPass.length == 0) {
-                     JOptionPane.showMessageDialog(PanelSettings.this, "La nueva contraseña no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (String.valueOf(newPass).equals(String.valueOf(confirmNewPass))) {
-                    JOptionPane.showMessageDialog(PanelSettings.this, "Lógica de cambio de contraseña aquí...", "Cambio de Contraseña", JOptionPane.INFORMATION_MESSAGE);
-                    // Limpiar campos de contraseña después del intento
-                    txtCurrentPassword.setText("");
-                    txtNewPassword.setText("");
-                    txtConfirmNewPassword.setText("");
-                } else {
-                     JOptionPane.showMessageDialog(PanelSettings.this, "Las nuevas contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
-                     txtNewPassword.setText("");
-                     txtConfirmNewPassword.setText("");
-                }
-                // Importante: Limpiar los arrays de caracteres sensibles
-                 java.util.Arrays.fill(currentPass, '0');
-                 java.util.Arrays.fill(newPass, '0');
-                 java.util.Arrays.fill(confirmNewPass, '0');
-            }
-        });
-
-        btnUpdateInfo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Aquí iría la lógica para actualizar la información de contacto
-                 String email = txtEmail.getText();
-                JOptionPane.showMessageDialog(PanelSettings.this, "Lógica para actualizar email: " + email, "Actualizar Info", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-
-        // Los JCheckBox no necesitan ActionListeners si solo guardas el estado al hacer clic en un botón de "Guardar Configuración" general,
-        // pero podrías añadir listeners si quisieras aplicar cambios inmediatamente o realizar alguna acción al marcarlos/desmarcarlos.
-        // Por ahora, asumimos que se guardarían con un botón "Guardar Configuración" general o al actualizar la información.
+        add(tabbedPane, BorderLayout.CENTER);
     }
 
-    // Método dummy para el ejemplo, asumiendo que GestorAeropuerto tiene un getEmail()
-    // Reemplaza esto con la implementación real de tu clase GestorAeropuerto
-    private static class GestorAeropuerto {
-        private String nombre;
-        private String password;
-        private String email;
+    // --- Métodos para crear cada panel de pestaña ---
 
-        public GestorAeropuerto(String nombre, String password) {
-            this.nombre = nombre;
-            this.password = password;
-            this.email = "ejemplo@aeropuerto.com"; // Email de ejemplo
-        }
+    private JPanel crearPanelGestionUsuarios() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        public String getNombre() { return nombre; }
-        public String getPassword() { return password; } // Nota: No es seguro manejar contraseñas así en una app real
-        public String getEmail() { return email; }
+        JTabbedPane subTabbedPane = new JTabbedPane();
+        subTabbedPane.addTab("Operadores", crearSubPanelOperadores());
+        subTabbedPane.addTab("Controladores", crearSubPanelControladores());
 
-        // Puedes añadir métodos para actualizar el email, cambiar contraseña, etc.
+        panel.add(subTabbedPane, BorderLayout.CENTER);
+        return panel;
     }
 
-     // Método main para probar solo este panel (opcional)
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Panel Settings Test");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(600, 500); // Ajusta el tamaño según necesites
-            frame.setLocationRelativeTo(null); // Centra la ventana
+    private JPanel crearSubPanelOperadores() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createTitledBorder("Gestión de Operadores"));
 
-            // Crea un GestorAeropuerto dummy para la prueba
-            GestorAeropuerto gestorDummy = new GestorAeropuerto("UsuarioPrueba", "pass123");
+        // Alta Operador
+        panel.add(new JLabel("Dar de alta Operador:"));
+        panel.add(new JTextField("Nombre"));
+        panel.add(new JTextField("Apellido"));
+        panel.add(new JTextField("DNI"));
+        panel.add(new JComboBox<>(new String[]{"Seleccionar Aerolínea", "Aerolinea A", "Aerolinea B"}));
+        panel.add(new JButton("Dar de Alta Operador"));
+        panel.add(Box.createVerticalStrut(15));
 
-            PanelSettings settingsPanel = new PanelSettings(gestorDummy);
-            frame.add(settingsPanel); // Añade el panel al frame
+        // Editar Operador
+        panel.add(new JLabel("Editar Operador:"));
+        panel.add(new JTextField("ID/DNI Operador a Editar"));
+        panel.add(new JTextField("Nuevo Nombre (opcional)"));
+        panel.add(new JTextField("Nuevo Apellido (opcional)"));
+        panel.add(new JComboBox<>(new String[]{"Nueva Aerolínea (opcional)", "Aerolinea X", "Aerolinea Y"}));
+        panel.add(new JButton("Guardar Cambios Operador"));
+        panel.add(Box.createVerticalStrut(15));
 
-            frame.setVisible(true);
-        });
+        // Eliminar Operador
+        panel.add(new JLabel("Eliminar Operador:"));
+        panel.add(new JTextField("ID/DNI Operador a Eliminar"));
+        panel.add(new JButton("Eliminar Operador"));
+        panel.add(Box.createVerticalGlue());
+
+        return panel;
+    }
+
+    private JPanel crearSubPanelControladores() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createTitledBorder("Gestión de Controladores"));
+
+        // Alta Controlador
+        panel.add(new JLabel("Dar de alta Controlador:"));
+        panel.add(new JTextField("Nombre"));
+        panel.add(new JTextField("Apellido"));
+        panel.add(new JTextField("DNI"));
+        panel.add(new JPasswordField("Contraseña")); // Usar JPasswordField
+        panel.add(new JButton("Dar de Alta Controlador"));
+        panel.add(Box.createVerticalStrut(15));
+
+        // Editar Controlador
+        panel.add(new JLabel("Editar Controlador:"));
+        panel.add(new JTextField("ID/DNI Controlador a Editar"));
+        panel.add(new JTextField("Nuevo Nombre (opcional)"));
+        panel.add(new JTextField("Nuevo Apellido (opcional)"));
+        panel.add(new JPasswordField("Nueva Contraseña (opcional)"));
+        panel.add(new JButton("Guardar Cambios Controlador"));
+        panel.add(Box.createVerticalStrut(15));
+
+        // Eliminar Controlador
+        panel.add(new JLabel("Eliminar Controlador:"));
+        panel.add(new JTextField("ID/DNI Controlador a Eliminar"));
+        panel.add(new JButton("Eliminar Controlador"));
+        panel.add(Box.createVerticalStrut(15));
+
+        // Asignar Terminal
+        panel.add(new JLabel("Asignar Terminal a Controlador:"));
+        panel.add(new JTextField("ID/DNI Controlador"));
+        panel.add(new JComboBox<>(new String[]{"Seleccionar Terminal", "Terminal 1", "Terminal 2"}));
+        panel.add(new JButton("Asignar Terminal"));
+        panel.add(Box.createVerticalGlue());
+
+        return panel;
+    }
+
+    // 2.1.1.2. Configuración del aeropuerto
+    private JPanel crearPanelConfiguracionAeropuerto() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JTabbedPane subTabbedPane = new JTabbedPane();
+
+        // Pestaña para Terminales (gestionar, definir tipo, aforo)
+        JPanel panelTerminales = new JPanel();
+        panelTerminales.setLayout(new BoxLayout(panelTerminales, BoxLayout.Y_AXIS));
+        panelTerminales.setBorder(BorderFactory.createTitledBorder("Gestión de Terminales"));
+
+        // Alta/Edición Terminal
+        panelTerminales.add(new JLabel("Gestionar Terminales:"));
+        panelTerminales.add(new JTextField("ID Terminal"));
+        panelTerminales.add(new JComboBox<>(new String[]{"Tipo de Terminal", "Pasajeros", "Mercancías"}));
+        panelTerminales.add(new JTextField("Aforo Máximo (solo pasajeros)"));
+        panelTerminales.add(new JButton("Guardar/Actualizar Terminal"));
+        panelTerminales.add(Box.createVerticalStrut(15));
+
+        // Eliminar Terminal
+        panelTerminales.add(new JLabel("Eliminar Terminal:"));
+        panelTerminales.add(new JTextField("ID Terminal a Eliminar"));
+        panelTerminales.add(new JButton("Eliminar Terminal"));
+        panelTerminales.add(Box.createVerticalGlue());
+        subTabbedPane.addTab("Terminales", panelTerminales);
+
+        // Pestaña para Puertas de embarque y Fingers
+        JPanel panelPuertasFingers = new JPanel();
+        panelPuertasFingers.setLayout(new BoxLayout(panelPuertasFingers, BoxLayout.Y_AXIS));
+        panelPuertasFingers.setBorder(BorderFactory.createTitledBorder("Gestión de Puertas y Fingers"));
+
+        // Alta/Edición Puerta de Embarque
+        panelPuertasFingers.add(new JLabel("Gestionar Puertas de Embarque:"));
+        panelPuertasFingers.add(new JTextField("Código de Puerta"));
+        panelPuertasFingers.add(new JTextField("ID Terminal Asociada"));
+        panelPuertasFingers.add(new JButton("Guardar/Actualizar Puerta"));
+        panelPuertasFingers.add(Box.createVerticalStrut(15));
+
+        // Alta/Edición Finger
+        panelPuertasFingers.add(new JLabel("Gestionar Fingers:"));
+        panelPuertasFingers.add(new JTextField("ID Finger"));
+        panelPuertasFingers.add(new JTextField("Puertas Asociadas (ej. P1,P2)"));
+        panelPuertasFingers.add(new JTextField("Altura Máxima"));
+        panelPuertasFingers.add(new JTextField("Coste por Hora"));
+        panelPuertasFingers.add(new JButton("Guardar/Actualizar Finger"));
+        panelPuertasFingers.add(Box.createVerticalGlue());
+        subTabbedPane.addTab("Puertas y Fingers", panelPuertasFingers);
+
+        // Pestaña para Zonas de aparcamiento y Hangares
+        JPanel panelAparcamientosHangares = new JPanel();
+        panelAparcamientosHangares.setLayout(new BoxLayout(panelAparcamientosHangares, BoxLayout.Y_AXIS));
+        panelAparcamientosHangares.setBorder(BorderFactory.createTitledBorder("Gestión de Aparcamientos y Hangares"));
+
+        // Alta/Edición Zona de Aparcamiento
+        panelAparcamientosHangares.add(new JLabel("Gestionar Zonas de Aparcamiento:"));
+        panelAparcamientosHangares.add(new JTextField("ID Zona"));
+        panelAparcamientosHangares.add(new JTextField("Coste por Hora de Zona"));
+        panelAparcamientosHangares.add(new JTextField("Capacidad Total Plazas"));
+        panelAparcamientosHangares.add(new JButton("Guardar/Actualizar Zona"));
+        panelAparcamientosHangares.add(Box.createVerticalStrut(15));
+
+        // Alta/Edición Hangar
+        panelAparcamientosHangares.add(new JLabel("Gestionar Hangares:"));
+        panelAparcamientosHangares.add(new JTextField("ID Hangar"));
+        panelAparcamientosHangares.add(new JComboBox<>(new String[]{"Tipo de Hangar", "Reparación", "Mantenimiento", "Almacenamiento"}));
+        panelAparcamientosHangares.add(new JTextField("Dimensiones (alto x ancho x largo)"));
+        panelAparcamientosHangares.add(new JTextField("Coste por Hora"));
+        panelAparcamientosHangares.add(new JTextField("Capacidad Mercancías Peligrosas"));
+        panelAparcamientosHangares.add(new JButton("Guardar/Actualizar Hangar"));
+        panelAparcamientosHangares.add(Box.createVerticalGlue());
+        subTabbedPane.addTab("Aparcamientos y Hangares", panelAparcamientosHangares);
+
+        panel.add(subTabbedPane, BorderLayout.CENTER);
+        return panel;
+    }
+
+    // 2.1.1.3. Gestión de aerolíneas
+    private JPanel crearPanelGestionAerolineas() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createTitledBorder("Gestión de Aerolíneas"));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Dar de alta aerolíneas
+        panel.add(new JLabel("Dar de alta Aerolínea:"));
+        panel.add(new JTextField("Código de Aerolínea"));
+        panel.add(new JTextField("Nombre de la Aerolínea"));
+        panel.add(new JButton("Dar de Alta Aerolínea"));
+        panel.add(Box.createVerticalStrut(15));
+
+        // Editar Aerolínea
+        panel.add(new JLabel("Editar Aerolínea:"));
+        panel.add(new JTextField("Código de Aerolínea a Editar"));
+        panel.add(new JTextField("Nuevo Nombre (opcional)"));
+        panel.add(new JButton("Guardar Cambios Aerolínea"));
+        panel.add(Box.createVerticalStrut(15));
+
+        // Eliminar Aerolínea
+        panel.add(new JLabel("Eliminar Aerolínea:"));
+        panel.add(new JTextField("Código de Aerolínea a Eliminar"));
+        panel.add(new JButton("Eliminar Aerolínea"));
+        panel.add(Box.createVerticalGlue());
+
+        return panel;
+    }
+
+    // 2.1.1.4. Notificaciones
+    private JPanel crearPanelNotificaciones() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createTitledBorder("Configuración de Notificaciones"));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Recibir notificaciones de todos los vuelos (Checkbox)
+        panel.add(new JLabel("Recibir Notificaciones:"));
+        panel.add(new JCheckBox("Activar Notificaciones de Todos los Vuelos"));
+        panel.add(Box.createVerticalStrut(10));
+
+        // Configurar tipo de notificaciones
+        panel.add(new JLabel("Tipos de Notificación a Recibir:"));
+        panel.add(new JCheckBox("Vuelos con Retraso"));
+        panel.add(new JCheckBox("Vuelos Cancelados"));
+        panel.add(new JCheckBox("Nuevos Vuelos Programados"));
+        panel.add(new JCheckBox("Cambios de Puerta/Pista"));
+        panel.add(Box.createVerticalStrut(10));
+
+        // Configurar de qué vuelos
+        panel.add(new JLabel("Filtrar Notificaciones por Vuelo:"));
+        panel.add(new JTextField("ID de Vuelo Específico (opcional)"));
+        panel.add(new JComboBox<>(new String[]{"Todos los vuelos", "Mis vuelos", "Vuelos de Aerolínea X"})); // Placeholder
+        panel.add(Box.createVerticalStrut(15));
+
+        panel.add(new JButton("Guardar Configuración de Notificaciones"));
+        panel.add(Box.createVerticalGlue());
+
+        return panel;
     }
 }
