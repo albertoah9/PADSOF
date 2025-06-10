@@ -1,4 +1,5 @@
 package modelo;
+
 import java.time.LocalDate;
 
 public class AvionPasajeros extends Avion {

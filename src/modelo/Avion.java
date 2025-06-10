@@ -27,10 +27,11 @@ public abstract class Avion {
         this.aerolinea = aerolinea;
     }
 
-    //geters y seters
-    public Aerolinea getAerolinea() { return aerolinea; } //Añadido
+    // Getters y Setters
+    public Aerolinea getAerolinea() { 
+        return aerolinea; 
+    }
 
-    
     public int getId() {
         return id;
     }
@@ -77,13 +78,8 @@ public abstract class Avion {
         this.anyoCompra = anyoCompra;
     }
 
-    public void asignarAerolinea(Aerolinea aerolinea) {
-        if (this.aerolinea != null) {
-            this.aerolinea.removerAvion(this);
-        }
-        this.aerolinea = aerolinea;
-        aerolinea.añadirAvion(this);
+    public void asignarAerolinea(Aerolinea nuevaAerolinea) {
+        this.aerolinea = nuevaAerolinea;
     }
     
-
 }

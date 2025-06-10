@@ -1,7 +1,7 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class VistaOperadorCrearVuelo extends JFrame {
 
@@ -13,12 +13,13 @@ public class VistaOperadorCrearVuelo extends JFrame {
     public JTextField txtHora;
     public JComboBox<String> cmbPeriodicidad;
     public JCheckBox chkUsaFinger;
+    public JComboBox<String> cmbAvion;
     public JButton btnCrear;
     public JButton btnCancelar;
 
     public VistaOperadorCrearVuelo() {
         setTitle("Crear Nuevo Vuelo");
-        setSize(500, 450);
+        setSize(500, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -86,6 +87,13 @@ public class VistaOperadorCrearVuelo extends JFrame {
         gbc.gridx = 1;
         chkUsaFinger = new JCheckBox();
         panel.add(chkUsaFinger, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+        panel.add(new JLabel("Seleccione Avión:"), gbc);
+        gbc.gridx = 1;
+        cmbAvion = new JComboBox<>();
+        panel.add(cmbAvion, gbc);
 
         gbc.gridy++;
         gbc.gridx = 0;

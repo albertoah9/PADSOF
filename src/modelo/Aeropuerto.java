@@ -6,10 +6,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import modelo.GestorAeropuerto;
-import modelo.Notificacion;
-import modelo.Usuario;
-
 public class Aeropuerto {
     public enum Status {
         OK, ERROR
@@ -38,7 +34,6 @@ public class Aeropuerto {
     private ArrayList<Usuario> usuarios; // Lista general de todos los usuarios
     private Usuario usuarioActivo;
     private ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto;
-
 
     private int diasAnticipacionMinima = 30;
 

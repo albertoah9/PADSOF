@@ -40,11 +40,9 @@ public class ControladorVistaOperadorMostrarVuelos {
 
     private void cargarVuelos() {
         vista.limpiarTabla();
-        System.out.println(aeropuerto.getVuelos());
-        System.out.println(aeropuerto.getVuelosAerolinea(aerolinea));
 
         for (Vuelo v : aeropuerto.getVuelosAerolinea(aerolinea)) {
-            System.out.println(v);
+
             Object[] fila = {
                 v.getId(),
                 v.getOrigen(),
@@ -57,6 +55,7 @@ public class ControladorVistaOperadorMostrarVuelos {
             };
 
             vista.agregarVuelo(fila);
+            
             vista.tablaVuelos.revalidate();
             vista.tablaVuelos.repaint();
         }

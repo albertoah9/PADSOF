@@ -1,43 +1,78 @@
 package vista;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class VistaControladorModificarVuelo extends JFrame {
+    public JPanel panelVuelos;
+    public JButton btnConfirmar;
+    public JButton btnActualizar;
+    public JButton btnVolver;
     public JLabel lblTitulo;
+    private JLabel lblHoraActual;
 
     public VistaControladorModificarVuelo() {
-        setTitle("Graficos necesarios para el Operador");
+        setTitle("Modificar el estado del Vuelo");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 350);
+        setSize(600, 450);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50)); // Márgenes
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Título
-        lblTitulo = new JLabel("Visualizacion de los graficos que el Operador necesita",
-                SwingConstants.CENTER);
+        lblTitulo = new JLabel("Aquí se podrá modificar el estado del vuelo", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         panel.add(lblTitulo);
 
-        // Añadir los elementos visuales necesarios en esta vista
+        // Panel dinámico para los vuelos
+        panelVuelos = new JPanel();
+        panelVuelos.setLayout(new BoxLayout(panelVuelos, BoxLayout.Y_AXIS));
+        panelVuelos.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+
+        // Scroll pane para el panel de vuelos
+        JScrollPane scrollPane = new JScrollPane(panelVuelos,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(550, 150));
+        panel.add(scrollPane);
+
+        // Botón de confirmar cambio
+        btnConfirmar = new JButton("Confirmar cambio");
+        btnConfirmar.setFont(new Font("Arial", Font.PLAIN, 12));
+        btnConfirmar.setPreferredSize(new Dimension(150, 30));
+        btnConfirmar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(btnConfirmar);
+
+        // Botón de actualización
+        btnActualizar = new JButton("Actualizar lista");
+        btnActualizar.setFont(new Font("Arial", Font.PLAIN, 12));
+        btnActualizar.setPreferredSize(new Dimension(150, 30));
+        btnActualizar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(btnActualizar);
+
+        // Hora actual (puedes actualizarlo dinámicamente si quieres)
+        lblHoraActual = new JLabel("Hora actual: 10:25 PM CEST, 03/06/2025", SwingConstants.CENTER);
+        lblHoraActual.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblHoraActual.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        panel.add(lblHoraActual);
+
+        // Panel inferior con botón volver
+        btnVolver = new JButton("Volver");
+        btnVolver.setFont(new Font("Arial", Font.PLAIN, 12));
+        btnVolver.setPreferredSize(new Dimension(150, 30));
+        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        panelInferior.add(btnVolver);
 
         add(panel, BorderLayout.CENTER);
+        add(panelInferior, BorderLayout.SOUTH);
     }
-    // no usado por ahora
 
-    // private JButton crearBoton(String texto) {
-    // JButton boton = new JButton(texto);
-    // boton.setFont(new Font("Arial", Font.PLAIN, 16));
-    // boton.setPreferredSize(new Dimension(250, 50));
-    // boton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-    // boton.setAlignmentX(Component.CENTER_ALIGNMENT);
-    // boton.setFocusPainted(false);
-    // return boton;
-    // }
+    // No es necesario el método actualizarVuelos aquí, lo manejará el controlador.
 }

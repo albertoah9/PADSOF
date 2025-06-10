@@ -1,7 +1,7 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class VistaOperadorVuelos extends JFrame {
 
@@ -31,6 +31,10 @@ public class VistaOperadorVuelos extends JFrame {
         panel.add(lblTitulo);
 
         // Botones
+        btnMostrarVuelos = crearBoton("Ver Vuelos Programados");
+        panel.add(btnMostrarVuelos);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+
         btnCrearVuelo = crearBoton("Crear Nuevo Vuelo");
         panel.add(btnCrearVuelo);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
@@ -41,10 +45,6 @@ public class VistaOperadorVuelos extends JFrame {
 
         btnEliminarVuelo = crearBoton("Eliminar Vuelo");
         panel.add(btnEliminarVuelo);
-        panel.add(Box.createRigidArea(new Dimension(0, 15)));
-
-        btnMostrarVuelos = crearBoton("Ver Vuelos Programados");
-        panel.add(btnMostrarVuelos);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         btnVolver = crearBoton("Volver al Menú Principal");

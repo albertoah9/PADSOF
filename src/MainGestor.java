@@ -1,7 +1,8 @@
+import javax.swing.SwingUtilities;
+
 import modelo.Aeropuerto; // Asegúrate de importar la clase Aeropuerto
 import modelo.GestorAeropuerto;
 import vista.VistaGestorPrincipal;
-import javax.swing.SwingUtilities;
 
 public class MainGestor {
 
@@ -20,8 +21,6 @@ public class MainGestor {
             VistaGestorPrincipal vista = new VistaGestorPrincipal(gestor);
             vista.setVisible(true); // Hacer visible la vista principal
 
-            // No necesitamos instanciar controladores individuales aquí para la visualización básica
-            // Los controladores se instanciarán donde se necesiten para la interacción
         });
     }
 }
