@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Notificacion {
 	private int id;
     private boolean activada;
@@ -132,13 +131,4 @@ public class Notificacion {
         }
     }
 
-
-
-
-
-	
-	
-	
-
-	
 }

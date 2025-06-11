@@ -1,6 +1,6 @@
 package modelo;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 
 public abstract class Usuario {
 	private ArrayList<Notificacion> notificaciones;
@@ -9,7 +9,12 @@ public abstract class Usuario {
 	private String nombre;
 
 	private static int contador = 0;
-	
+
+	// Atributos login
+	private boolean bloqueado = false;
+	private boolean necesitaResetear = false;
+	private int intentosFallidos = 0;
+
 	/* Constructor */
 	public Usuario(String nombre, String contraseña) {
 		this.id = ++contador;
@@ -18,6 +23,7 @@ public abstract class Usuario {
 		this.notificaciones = new ArrayList<>();
 	}
 	
+	// Métodos de notificaciones
 	public void enviarNotificacion(Notificacion notificacion) {
 		notificaciones.add(notificacion);
 	}
@@ -38,9 +44,10 @@ public abstract class Usuario {
 
 	public void recibirNotificacion(Notificacion notificacion){
 		notificaciones.add(notificacion);
-		System.out.println("Nueva notificacion para " + nombre + ": " + notificacion.getMensaje());
+		System.out.println("Nueva notificación para " + nombre + ": " + notificacion.getMensaje());
 	}
 
+	// Getters y setters principales
 	public int getId() {
 		return id;
 	}
@@ -61,9 +68,38 @@ public abstract class Usuario {
 		this.nombre = nombre;
 	}
 	
+	// NUEVOS MÉTODOS
+	public boolean isBloqueado() {
+		return bloqueado;
+	}
+
+	public void setBloqueado(boolean bloqueado) {
+		this.bloqueado = bloqueado;
+	}
+
+	public boolean necesitaResetear() {
+		return necesitaResetear;
+	}
+
+	public void setNecesitaResetear(boolean necesitaResetear) {
+		this.necesitaResetear = necesitaResetear;
+	}
+
+	public int getIntentosFallidos() {
+		return intentosFallidos;
+	}
+
+	public void setIntentosFallidos(int intentosFallidos) {
+		this.intentosFallidos = intentosFallidos;
+	}
+
+	public void incrementarIntentosFallidos() {
+		this.intentosFallidos++;
+	}
+
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", contraseña=" + contraseña + ", nombre=" + nombre + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", bloqueado=" + bloqueado +
+		       ", necesitaResetear=" + necesitaResetear + ", intentosFallidos=" + intentosFallidos + "]";
 	}
-	
 }

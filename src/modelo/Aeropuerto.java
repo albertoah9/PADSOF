@@ -3,7 +3,6 @@ package modelo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class Aeropuerto {
@@ -57,18 +56,32 @@ public class Aeropuerto {
         this.usosElementosAeropuerto = new ArrayList<>();
     }
 
-    // --- Métodos para Vuelos ---
+    public String getCiudad() {
+        return this.ciudad;
+    }
+
     public void addVuelo(Vuelo vuelo) {
         if (vuelo == null) throw new IllegalArgumentException("El vuelo no puede ser nulo.");
         this.vuelos.add(vuelo);
-        // Podrías añadir lógica para asignar recursos o notificar aquí
+    }
+
+    public boolean eliminarVuelo(int idVuelo) {
+        Iterator<Vuelo> iterator = vuelos.iterator();
+        while (iterator.hasNext()) {
+            Vuelo vuelo = iterator.next();
+            if (vuelo.getId() == idVuelo) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Vuelo> getVuelos() {
-        return new ArrayList<>(vuelos); // Retorna una copia
+        return new ArrayList<>(vuelos);
     }
 
-    public List<Vuelo> getVuelosAerolinea(Aerolinea aerolinea) { // Añadido si no estaba
+    public List<Vuelo> getVuelosAerolinea(Aerolinea aerolinea) {
         List<Vuelo> vuelosAerolinea = new ArrayList<>();
         for (Vuelo v : this.vuelos) {
             if (v.getAerolinea().equals(aerolinea)) {
@@ -78,14 +91,13 @@ public class Aeropuerto {
         return vuelosAerolinea;
     }
 
-    public Vuelo buscarVuelo(int idVuelo) { // Añadido si no estaba
+    public Vuelo buscarVuelo(int idVuelo) {
         return vuelos.stream()
                      .filter(v -> v.getId() == idVuelo)
                      .findFirst()
                      .orElse(null);
     }
 
-    // --- Métodos para Aerolineas ---
     public void addAerolinea(Aerolinea aerolinea) {
         if (aerolinea == null) throw new IllegalArgumentException("La aerolínea no puede ser nula.");
         this.aerolineas.add(aerolinea);
@@ -95,7 +107,6 @@ public class Aeropuerto {
         return new ArrayList<>(aerolineas);
     }
 
-    // --- Métodos para Notificaciones ---
     public void addNotificacion(Notificacion notificacion) {
         if (notificacion == null) throw new IllegalArgumentException("La notificación no puede ser nula.");
         this.notificaciones.add(notificacion);
@@ -105,7 +116,6 @@ public class Aeropuerto {
         return new ArrayList<>(notificaciones);
     }
 
-    // --- Métodos para Controladores Aéreos ---
     public void agregarControladorAereo(ControladorAereo controlador) {
         if (controlador == null) {
             throw new IllegalArgumentException("El controlador aéreo no puede ser nulo.");
@@ -114,7 +124,7 @@ public class Aeropuerto {
             System.out.println("El controlador aéreo " + controlador.getNombre() + " ya está registrado en el aeropuerto.");
         } else {
             this.controladores.add(controlador);
-            this.usuarios.add(controlador); // Asumiendo que todos los controladores son usuarios
+            this.usuarios.add(controlador); 
             System.out.println("Controlador aéreo " + controlador.getNombre() + " añadido con éxito al aeropuerto.");
         }
     }
@@ -124,7 +134,7 @@ public class Aeropuerto {
             throw new IllegalArgumentException("El controlador aéreo no puede ser nulo.");
         }
         if (this.controladores.remove(controlador)) {
-            this.usuarios.remove(controlador); // Eliminar también de la lista general de usuarios
+            this.usuarios.remove(controlador);
             System.out.println("Controlador aéreo " + controlador.getNombre() + " eliminado del aeropuerto con éxito.");
             return true;
         }
@@ -135,7 +145,6 @@ public class Aeropuerto {
         return new ArrayList<>(controladores);
     }
 
-    // --- Métodos para Operadores Aéreos ---
     public void agregarOperadorAereo(OperadorAereo operador) {
         if (operador == null) {
             throw new IllegalArgumentException("El operador aéreo no puede ser nulo.");
@@ -144,7 +153,7 @@ public class Aeropuerto {
             System.out.println("El operador aéreo " + operador.getNombre() + " ya está registrado en el aeropuerto.");
         } else {
             this.operadores.add(operador);
-            this.usuarios.add(operador); // Asumiendo que todos los operadores son usuarios
+            this.usuarios.add(operador);
             System.out.println("Operador aéreo " + operador.getNombre() + " añadido con éxito al aeropuerto.");
         }
     }
@@ -174,7 +183,6 @@ public class Aeropuerto {
         return null;
     }
 
-    // --- Métodos para Usuarios Generales ---
     public void addUsuario(Usuario usuario) {
         if (usuario != null && !this.usuarios.contains(usuario)) {
             this.usuarios.add(usuario);
@@ -193,7 +201,6 @@ public class Aeropuerto {
         this.usuarioActivo = usuarioActivo;
     }
 
-    // --- Métodos para Puertas de Embarque ---
     public void addPuertaEmbarque(PuertaEmbarque puerta) {
         if (puerta == null) throw new IllegalArgumentException("La puerta de embarque no puede ser nula.");
         this.puertasEmbarque.add(puerta);
@@ -203,7 +210,6 @@ public class Aeropuerto {
         return new ArrayList<>(puertasEmbarque);
     }
 
-    // --- Métodos para Terminales ---
     public void addTerminal(Terminal terminal) {
         if (terminal == null) throw new IllegalArgumentException("La terminal no puede ser nula.");
         this.terminales.add(terminal);
@@ -220,7 +226,6 @@ public class Aeropuerto {
                          .orElse(null);
     }
 
-    // --- Métodos para Pistas ---
     public void addPista(Pista pista) {
         if (pista == null) throw new IllegalArgumentException("La pista no puede ser nula.");
         this.pistas.add(pista);
@@ -230,7 +235,6 @@ public class Aeropuerto {
         return new ArrayList<>(pistas);
     }
 
-    // --- Métodos para Hangares ---
     public void addHangar(Hangar hangar) {
         if (hangar == null) throw new IllegalArgumentException("El hangar no puede ser nulo.");
         this.hangares.add(hangar);
@@ -240,7 +244,6 @@ public class Aeropuerto {
         return new ArrayList<>(hangares);
     }
 
-    // --- Métodos para Zonas de Aparcamiento ---
     public void addZonaAparcamiento(ZonaAparcamiento zona) {
         if (zona == null) throw new IllegalArgumentException("La zona de aparcamiento no puede ser nula.");
         this.aparcamientos.add(zona);
@@ -250,7 +253,6 @@ public class Aeropuerto {
         return new ArrayList<>(aparcamientos);
     }
 
-    // --- Métodos para Usos de Elementos del Aeropuerto ---
     public void addUsoElementoAeropuerto(UsoElementoAeropuerto uso) {
         if (uso == null) throw new IllegalArgumentException("El uso del elemento no puede ser nulo.");
         this.usosElementosAeropuerto.add(uso);
@@ -260,7 +262,6 @@ public class Aeropuerto {
         return new ArrayList<>(usosElementosAeropuerto);
     }
 
-    // --- Métodos para Aeropuertos de Destino ---
     public void addAeropuertoDestino(AeropuertoDestino aeropuertoDestino) {
         if (aeropuertoDestino == null) throw new IllegalArgumentException("El aeropuerto de destino no puede ser nulo.");
         this.aeropuertosDestino.add(aeropuertoDestino);
@@ -270,7 +271,6 @@ public class Aeropuerto {
         return new ArrayList<>(aeropuertosDestino);
     }
 
-    // Función de lectura de aeropuertos de un fichero externo
     public void cargarAeropuertosDesdeArchivo(String nombreArchivo) {
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
