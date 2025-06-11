@@ -35,9 +35,9 @@ public class ControladorVistaOperadorNotificaciones {
                     int index = vista.listaNotificaciones.getSelectedIndex();
                     if (index >= 0 && index < notificaciones.size()) {
                         Notificacion noti = notificaciones.get(index);
-                        noti.marcarComoLeida();  // ✅ Marca como leída
+                        noti.marcarComoLeida();
                         JOptionPane.showMessageDialog(vista, noti.getMensaje(), "Contenido de la Notificación", JOptionPane.INFORMATION_MESSAGE);
-                        cargarNotificaciones(); // ✅ Refresca la vista con el nuevo estado
+                        cargarNotificaciones(); 
                     }
                 }
             }
