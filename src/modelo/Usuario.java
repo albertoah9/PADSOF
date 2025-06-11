@@ -23,8 +23,7 @@ public abstract class Usuario {
 		this.notificaciones = new ArrayList<>();
 	}
 	
-	// Métodos de notificaciones
-	public void enviarNotificacion(Notificacion notificacion) {
+	public void recibirNotificacion(Notificacion notificacion) {
 		notificaciones.add(notificacion);
 	}
 	
@@ -42,12 +41,6 @@ public abstract class Usuario {
 		return notificaciones;
 	}
 
-	public void recibirNotificacion(Notificacion notificacion){
-		notificaciones.add(notificacion);
-		System.out.println("Nueva notificación para " + nombre + ": " + notificacion.getMensaje());
-	}
-
-	// Getters y setters principales
 	public int getId() {
 		return id;
 	}
@@ -68,7 +61,6 @@ public abstract class Usuario {
 		this.nombre = nombre;
 	}
 	
-	// NUEVOS MÉTODOS
 	public boolean isBloqueado() {
 		return bloqueado;
 	}

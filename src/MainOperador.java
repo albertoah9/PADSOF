@@ -36,9 +36,8 @@ public class MainOperador {
         aeropuerto.addVuelo(vuelo2);
 
         Notificacion noti1 = new Notificacion("El vuelo a París ha sido actualizado.", Arrays.asList(operador));
-        Notificacion noti2 = new Notificacion("Nueva política de seguridad disponible.", Arrays.asList(operador));
-        operador.recibirNotificacion(noti1);
-        operador.recibirNotificacion(noti2);
+
+        Notificacion noti2 = new Notificacion("Nueva política de despegues de la UE.", Arrays.asList(operador));
 
         Factura factura1 = new Factura(3500.75);
         Factura factura2 = new Factura(1200.00);

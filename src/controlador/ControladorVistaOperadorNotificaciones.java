@@ -1,15 +1,14 @@
 package controlador;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.*;
 import modelo.Aeropuerto;
 import modelo.Notificacion;
 import modelo.Usuario;
 import vista.VistaOperadorNotificaciones;
 import vista.VistaOperadorPrincipal;
-
-import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
 
 public class ControladorVistaOperadorNotificaciones {
 
@@ -36,8 +35,9 @@ public class ControladorVistaOperadorNotificaciones {
                     int index = vista.listaNotificaciones.getSelectedIndex();
                     if (index >= 0 && index < notificaciones.size()) {
                         Notificacion noti = notificaciones.get(index);
-                        noti.marcarComoLeida();
+                        noti.marcarComoLeida();  // ✅ Marca como leída
                         JOptionPane.showMessageDialog(vista, noti.getMensaje(), "Contenido de la Notificación", JOptionPane.INFORMATION_MESSAGE);
+                        cargarNotificaciones(); // ✅ Refresca la vista con el nuevo estado
                     }
                 }
             }

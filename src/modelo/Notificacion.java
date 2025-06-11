@@ -21,6 +21,10 @@ public class Notificacion {
 		this.destinatarios = destinatarios;
 		this.activada = true;
 		this.leida = false;
+
+		for (Usuario u : this.destinatarios) {
+			u.recibirNotificacion(this);
+		}
 	}
 
 	public int getId() {
@@ -71,9 +75,11 @@ public class Notificacion {
 	        System.out.println("Notificación ID: " + id);
 	        System.out.println("Mensaje: " + mensaje);
 	        System.out.println("Destinatarios: ");
+			
 	        for (Usuario destinatario : destinatarios) {
 	            System.out.println("- " + destinatario.getNombre());
 	        }
+
 	        System.out.println("Activada: " + (activada ? "Sí" : "No"));
 	        System.out.println("Leída: " + (leida ? "Sí" : "No"));
 	    }
@@ -97,7 +103,6 @@ public class Notificacion {
     public String obtenerEstadoNotificacion() {
         return "ID: " + id + ", Activada: " + (activada ? "Sí" : "No") + ", Leída: " + (leida ? "Sí" : "No");
     }
-
     
     public void agregarDestinatario(Usuario nuevoDestinatario) {
         if (!destinatarios.contains(nuevoDestinatario)) {

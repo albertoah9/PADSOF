@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import modelo.Notificacion;
-import modelo.Usuario;
-
 
 public class ControladorAereo extends Usuario {
     private Terminal terminalAsignada;
@@ -45,15 +42,12 @@ public class ControladorAereo extends Usuario {
         if (vuelo != null) {
             vuelo.setEstado(nuevoEstado); 
             Notificacion notificacion = new Notificacion("El vuelo " + vuelo.getId() + " ha cambiado su estado a " + nuevoEstado,  List.of(this));
-            this.enviarNotificacion(notificacion);
         }
     }
-
 
     public void notificarCambioEstado(Vuelo vuelo) {
         Vuelo.EstadoVuelo estadoActual = vuelo.getEstado();
         
-        // Actualizar el contador de vuelos para ese estado
         vuelosPorEstado.put(estadoActual, vuelosPorEstado.get(estadoActual) + 1);
         
         switch (estadoActual) {

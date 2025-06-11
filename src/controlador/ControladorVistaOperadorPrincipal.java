@@ -21,7 +21,6 @@ public class ControladorVistaOperadorPrincipal {
         this.aeropuerto = aeropuerto;
         this.aerolinea = aerolinea;
 
-        // Eventos
         this.vista.btnVuelos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 vista.setVisible(false);
