@@ -27,10 +27,6 @@ public class PuertaEmbarque {
         this.tipoPuerta = tipoPuerta;
     }
 
-    public PuertaEmbarque(String string) {
-        //TODO Auto-generated constructor stub
-    }
-
     public int getId() {
         return id;
     }

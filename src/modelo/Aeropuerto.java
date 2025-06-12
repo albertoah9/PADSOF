@@ -56,6 +56,9 @@ public class Aeropuerto {
         this.usuarios = new ArrayList<>();
         this.usosElementosAeropuerto = new ArrayList<>();
     }
+    public String getNombre() {
+        return nombre;
+    }
 
     // --- Métodos para Vuelos ---
     public void addVuelo(Vuelo vuelo) {
