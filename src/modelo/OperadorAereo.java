@@ -2,9 +2,6 @@ package modelo;
 
 import java.util.List;
 
-import modelo.Notificacion;
-import modelo.Usuario;
-
 public class OperadorAereo extends Usuario {
     private Aerolinea aerolineaAsignada;
 
@@ -45,12 +42,11 @@ public class OperadorAereo extends Usuario {
         if (vuelo != null && vuelo.getAerolinea() == this.aerolineaAsignada) {
             vuelo.setEstado(nuevoEstado); // Pasamos 'this' como usuario que realiza el cambio
             Notificacion notificacion = new Notificacion("El vuelo " + vuelo.getId() + " ha cambiado su estado a " + nuevoEstado, List.of(this));
-            this.enviarNotificacion(notificacion);
         }
     }
     
     public void recibirNotificacion(Notificacion notificacion){
-        if(!notificacion.getDestinatarios().contains(this)){
+        if(notificacion.getDestinatarios().contains(this)){
             super.recibirNotificacion(notificacion);
         }
     }

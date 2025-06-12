@@ -1,9 +1,8 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 import modelo.GestorAeropuerto;
-import vista.*;
 
 
 public class VistaGestorPrincipal extends JFrame {
@@ -46,12 +45,8 @@ public class VistaGestorPrincipal extends JFrame {
         // 5. Pestaña: Seguridad de Vuelo (¡NUEVA!)
         vistaGestorSeguridadVuelo = new VistaGestorSeguridadVuelo(gestor);
         tabbedPane.addTab("Seguridad de Vuelo", vistaGestorSeguridadVuelo);
-
-        // Nota: La pestaña "Operador" se mantiene fuera de esta estructura principal
-        // como se ha especificado.
     }
 
-    // --- Métodos Getters para los paneles ---
 
     public VistaGestionesAsignaciones getVistaGestionesAsignaciones() {
         return vistaGestionesAsignaciones;
@@ -61,7 +56,6 @@ public class VistaGestorPrincipal extends JFrame {
         return vistaHistorial;
     }
 
-    // Nuevos Getters
     public VistaGestorPagosFacturas getVistaGestorPagosFacturas() {
         return vistaGestorPagosFacturas;
     }
@@ -74,7 +68,6 @@ public class VistaGestorPrincipal extends JFrame {
         return vistaGestorSeguridadVuelo;
     }
 
-    // Método para mostrar una pestaña específica (útil para la navegación programática)
     public void mostrarVista(JPanel panel) {
         int index = tabbedPane.indexOfComponent(panel);
         if (index != -1) {

@@ -6,10 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import modelo.*;
-
-import modelo.Aeropuerto.Status; // Si Status está en Aeropuerto
-import modelo.EventoHistorial; 
+import modelo.Aeropuerto.Status; 
 
 /**
  * Clase principal del modelo que gestiona todas las operaciones y datos del aeropuerto.
@@ -52,7 +49,6 @@ public class GestorAeropuerto extends Usuario {
         registrarEvento("INICIO_GESTOR", "Gestor Aeropuerto iniciado.");
     }
 
-    // --- Métodos que gestionan Eventos de Historial (propios de GestorAeropuerto) ---
     public List<EventoHistorial> getHistorialEventos() {
         return Collections.unmodifiableList(historialEventos);
     }
@@ -62,7 +58,6 @@ public class GestorAeropuerto extends Usuario {
         System.out.println("EVENTO REGISTRADO: [" + tipo + "] " + descripcion); // Para depuración
     }
 
-    // --- Métodos que gestionan Facturas (propios de GestorAeropuerto) ---
     public void addFactura(Factura factura) {
         if (factura == null) throw new IllegalArgumentException("La factura no puede ser nula.");
         this.facturas.add(factura);
@@ -80,7 +75,6 @@ public class GestorAeropuerto extends Usuario {
         return null;
     }
 
-    // --- Métodos que gestionan Pagos (propios de GestorAeropuerto) ---
     public void addPago(Pago pago) {
         if (pago == null) throw new IllegalArgumentException("El pago no puede ser nulo.");
         this.pagos.add(pago);
@@ -111,7 +105,6 @@ public class GestorAeropuerto extends Usuario {
     }
 
 
-    // --- Métodos que gestionan Incidentes de Seguridad (propios de GestorAeropuerto) ---
     public void addIncidenteSeguridad(IncidenteSeguridad incidente) {
         if (incidente == null) throw new IllegalArgumentException("El incidente de seguridad no puede ser nulo.");
         this.incidentesSeguridad.add(incidente);
@@ -130,7 +123,6 @@ public class GestorAeropuerto extends Usuario {
         return null;
     }
 
-    // --- Métodos de gestión de Controladores Aéreos (Delegación a Aeropuerto) ---
 
     /**
      * Da de alta un nuevo ControladorAereo y lo añade al aeropuerto.
@@ -181,7 +173,6 @@ public class GestorAeropuerto extends Usuario {
         return this.aeropuerto.getControladores(); // Delega la obtención al aeropuerto
     }
 
-    // --- Métodos de gestión de Operadores Aéreos (Delegación a Aeropuerto) ---
 
     /**
      * Da de alta un nuevo OperadorAereo y lo añade al aeropuerto.
@@ -230,13 +221,12 @@ public class GestorAeropuerto extends Usuario {
      * @return Una lista inmutable de OperadoresAereos.
      */
     public List<OperadorAereo> getOperadoresAereos() {
-        return this.aeropuerto.getOperadores(); // Delega la obtención al aeropuerto
+        return this.aeropuerto.getOperadores();
     }
 
-    //...............................................................................
 
     public OperadorAereo buscarOperadorPorContrasena(String contrasena) {
-        for (OperadorAereo op : operadores ) { // Suponiendo que 'operadores' es tu lista en GestorAeropuerto
+        for (OperadorAereo op : operadores ) { 
             if (op.getContraseña().equals(contrasena)) {
                 return op;
             }
@@ -245,11 +235,10 @@ public class GestorAeropuerto extends Usuario {
     }
 
 
-    // Adaptar el método de edición para buscar por contraseña y actualizar
     public boolean editarOperador(String contrasenaActual, String nuevoNombre, String nuevaContrasena, Aerolinea nuevaAerolinea) {
         OperadorAereo operador = buscarOperadorPorContrasena(contrasenaActual);
         if (operador == null) {
-            return false; // Operador no encontrado
+            return false; 
         }
 
         boolean cambios = false;
@@ -262,12 +251,11 @@ public class GestorAeropuerto extends Usuario {
             cambios = true;
         }
         if (nuevaAerolinea != null && (operador.getAerolineaAsignada() == null || !operador.getAerolineaAsignada().equals(nuevaAerolinea))) {
-            // Si la aerolínea ha cambiado, eliminar de la antigua y añadir a la nueva
             if (operador.getAerolineaAsignada() != null) {
-                operador.getAerolineaAsignada().eliminarOperador(operador); // Asegúrate de tener este método
+                operador.getAerolineaAsignada().eliminarOperador(operador); 
             }
             operador.setAerolineaAsignada(nuevaAerolinea);
-            nuevaAerolinea.agregarOperador(operador); // Asegúrate de tener este método
+            nuevaAerolinea.agregarOperador(operador); 
             cambios = true;
         }
         if (cambios) {
@@ -276,7 +264,6 @@ public class GestorAeropuerto extends Usuario {
         return cambios;
     }
 
-    // Adaptar el método de eliminación para buscar por contraseña
     public boolean eliminarOperador(String contrasena) {
         OperadorAereo operador = buscarOperadorPorContrasena(contrasena);
         if (operador == null) {
@@ -292,7 +279,6 @@ public class GestorAeropuerto extends Usuario {
         return eliminado;
     }
 
-    // --- Métodos que acceden a las colecciones del Aeropuerto (DELEGACIÓN) ---
 
     // Vuelos
     public void addVuelo(Vuelo vuelo) {
@@ -315,8 +301,6 @@ public class GestorAeropuerto extends Usuario {
         registrarEvento("ERROR", "Intento de actualizar estado de vuelo no encontrado: " + idVuelo);
         return Status.ERROR;
     }
-    // Puedes añadir un método para eliminar vuelos en GestorAeropuerto que use la lista de aeropuerto
-    // public void eliminarVuelo(Vuelo vuelo) { aeropuerto.eliminarVuelo(vuelo); }
 
     // Aerolineas
     public List<Aerolinea> getAerolineas() {
@@ -333,8 +317,7 @@ public class GestorAeropuerto extends Usuario {
                 .orElse(null);
     }
 
-    // Notificaciones (aunque Aeropuerto también las tenga, GestorAeropuerto puede tener las suyas o delegar)
-    public List<Notificacion> getNotificacionesAeropuerto() { // Nombre diferente para evitar confusión
+    public List<Notificacion> getNotificacionesAeropuerto() {
         return aeropuerto.getNotificaciones();
     }
     public void addNotificacionAeropuerto(Notificacion notificacion) { // Nombre diferente
@@ -342,11 +325,7 @@ public class GestorAeropuerto extends Usuario {
         registrarEvento("NOTIFICACION_AEROPUERTO", "Nueva notificación general en el aeropuerto: " + notificacion.getMensaje());
     }
 
-    // Controladores Aéreos (getters para mantener la coherencia con el resto de métodos delegados)
-    // El método 'getControladores()' ya ha sido renombrado a 'getControladoresAereos()' para evitar colisiones
-    // y mantener la claridad.
 
-    // Usuarios
     public List<Usuario> getUsuarios() {
         return aeropuerto.getUsuarios();
     }
@@ -419,7 +398,6 @@ public class GestorAeropuerto extends Usuario {
         registrarEvento("USO_ELEMENTO_REGISTRADO", "Uso registrado para elemento: " + uso.getElementoAeropuerto().getClass().getSimpleName() + " " + uso.getElementoAeropuerto().getId());
     }
 
-    // Aeropuertos de Destino
     public List<AeropuertoDestino> getAeropuertosDestino() {
         return aeropuerto.getAeropuertosDestino();
     }
@@ -428,12 +406,10 @@ public class GestorAeropuerto extends Usuario {
         registrarEvento("AEROPUERTO_DESTINO_AGREGADO", "Aeropuerto de destino " + aeropuertoDestino.getNombre() + " agregado.");
     }
 
-    // Getter para la instancia de Aeropuerto (necesario para controladores)
     public Aeropuerto getAeropuerto() {
         return this.aeropuerto;
     }
 
-    // Métodos de negocio específicos que combinan lógicas de Aeropuerto y GestorAeropuerto
     public Status verificarEstadoDeVuelo(int idVuelo) {
         Vuelo vuelo = aeropuerto.buscarVuelo(idVuelo);
         if (vuelo == null) {
