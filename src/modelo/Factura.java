@@ -1,51 +1,67 @@
 package modelo;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Factura {
     private static int contador = 0;
 
     private final int id;
-    private final LocalDateTime fechaEmision;  // Cambiado a String
-    private final LocalDateTime fechaVencimiento;  // Cambiado a String
+    private final LocalDateTime fechaEmision;
+    private final LocalDateTime fechaVencimiento;
     private double monto;
     private EstadoFactura estado;
     private Aerolinea aerolinea;
+
+    private List<Descuento> descuentosAplicados;
+    private double montoOriginal;
 
     public enum EstadoFactura {
         PENDIENTE_DE_PAGO, PAGADO
     }
 
-    // Constructor para crear una factura solo con monto y fecha de vencimiento
-    public Factura(double monto) {
+    public Factura(double montoOriginal, Aerolinea aerolinea) {
         this.id = ++contador;
-        this.fechaEmision = java.time.LocalDateTime.now();
-        this.fechaVencimiento = java.time.LocalDateTime.now().plusDays(30);
-        this.monto = monto;
+        this.fechaEmision = LocalDateTime.now();
+        this.fechaVencimiento = LocalDateTime.now().plusDays(30);
+        this.monto = montoOriginal;
+        this.montoOriginal = montoOriginal;
         this.estado = EstadoFactura.PENDIENTE_DE_PAGO;
         this.aerolinea = aerolinea;
+        this.descuentosAplicados = new ArrayList<>();
     }
 
-    // Getter para el monto
+    public void aplicarDescuentos(List<Descuento> descuentos, Aerolinea aerolinea, LocalDate mesFactura, int vuelosMes) {
+        this.descuentosAplicados = new ArrayList<>();
+        this.montoOriginal = this.monto;
+
+        for (Descuento d : descuentos) {
+            if (d.estaActivoEn(mesFactura) && d.cumpleCondicion(aerolinea, monto, vuelosMes)) {
+                double base = monto;
+                double nuevoMonto = d.aplicarDescuento(base);
+                monto -= (base - nuevoMonto);
+                descuentosAplicados.add(d);
+            }
+        }
+    }
+
     public double getMonto() {
         return monto;
     }
 
-    // Getter para el ID
     public int getId() {
         return id;
     }
 
-    // Getter para la fecha de emisión
     public LocalDateTime getFechaEmision() {
         return fechaEmision;
     }
 
-    // Getter para la fecha de vencimiento
     public LocalDateTime getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    // Estado de la factura
     public EstadoFactura getEstado() {
         return estado;
     }
@@ -54,9 +70,12 @@ public class Factura {
         return aerolinea;
     }
 
-    // Marcar factura como pagada
     public void marcarComoPagado() {
         this.estado = EstadoFactura.PAGADO;
+    }
+
+    public List<Descuento> getDescuentosAplicados() {
+        return descuentosAplicados;
     }
 
     @Override
