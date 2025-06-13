@@ -35,7 +35,6 @@ public class VistaControladorBuscarVuelo extends JFrame {
         JScrollPane scrollPane = new JScrollPane(tablaVuelos);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Panel de filtros
         JPanel panelFiltro = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelFiltro.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
@@ -62,7 +61,6 @@ public class VistaControladorBuscarVuelo extends JFrame {
 
         add(panelFiltro, BorderLayout.NORTH);
 
-        // Botón volver abajo
         btnVolver = new JButton("Volver");
         JPanel panelBoton = new JPanel();
         panelBoton.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 10));

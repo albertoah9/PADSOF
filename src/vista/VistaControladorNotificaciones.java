@@ -19,14 +19,12 @@ public class VistaControladorNotificaciones extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Título
         lblTitulo = new JLabel("Notificaciones", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         panel.add(lblTitulo);
 
-        // Panel para las notificaciones
         panelNotificaciones = new JPanel();
         panelNotificaciones.setLayout(new BoxLayout(panelNotificaciones, BoxLayout.Y_AXIS));
         panelNotificaciones.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
@@ -38,7 +36,6 @@ public class VistaControladorNotificaciones extends JFrame {
 
         add(panel, BorderLayout.CENTER);
 
-        // Panel inferior con botón "Volver"
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
         btnVolver = new JButton("Volver");
         btnVolver.setPreferredSize(new Dimension(100, 30));
@@ -46,11 +43,6 @@ public class VistaControladorNotificaciones extends JFrame {
         add(panelInferior, BorderLayout.SOUTH);
     }
 
-    /**
-     * Actualiza las notificaciones en pantalla.
-     * 
-     * @param notificaciones Array de strings con los mensajes de notificación.
-     */
     public void actualizarNotificaciones(String[] notificaciones) {
         panelNotificaciones.removeAll();
 

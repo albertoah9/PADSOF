@@ -11,7 +11,7 @@ public class ControladorVistaControladorNotificaciones {
 
     private VistaControladorNotificaciones vista;
     private JFrame vistaAnterior;
-    private List<String> listaNotificaciones; // Lista de mensajes de notificación
+    private List<String> listaNotificaciones;
 
     public ControladorVistaControladorNotificaciones(VistaControladorNotificaciones vista, JFrame vistaAnterior,
             List<String> listaNotificaciones) {
