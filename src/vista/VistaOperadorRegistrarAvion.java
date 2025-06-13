@@ -13,9 +13,8 @@ public class VistaOperadorRegistrarAvion extends JFrame {
     public JTextField txtUltimaRevision;
     public JTextField txtAnyoCompra;
 
-    // Específicos
-    public JTextField txtCapacidad; // pasajeros
-    public JTextField txtCargaMax; // carga
+    public JTextField txtCapacidad;
+    public JTextField txtCargaMax;
     public JCheckBox chkMercPeligrosas;
     public JCheckBox chkControlTemperatura;
 

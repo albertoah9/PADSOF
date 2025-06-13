@@ -23,7 +23,7 @@ public class ControladorVistaOperadorCrearVuelo {
     private VistaOperadorCrearVuelo vista;
     private Aeropuerto aeropuerto;
     private Aerolinea aerolinea;
-    private HashMap<String, Avion> mapaAviones; // Para mapear nombre visible a objeto Avion
+    private HashMap<String, Avion> mapaAviones;
 
     public ControladorVistaOperadorCrearVuelo(VistaOperadorCrearVuelo vista, Aeropuerto aeropuerto, Aerolinea aerolinea) {
         this.vista = vista;
