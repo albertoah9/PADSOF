@@ -34,7 +34,6 @@ public class ControladorVistaControladorPrincipal {
 
         this.listaNotificaciones = new ArrayList<>();
 
-        // Eventos
         this.vista.btnVuelos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 vista.setVisible(false);

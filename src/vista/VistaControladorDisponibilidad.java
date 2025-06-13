@@ -23,7 +23,6 @@ public class VistaControladorDisponibilidad extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
 
-        // Título
         lblTitulo = new JLabel("Gestión de las disponibilidades de los elementos del aeropuerto",
                 SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
@@ -31,7 +30,6 @@ public class VistaControladorDisponibilidad extends JFrame {
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
         panel.add(lblTitulo);
 
-        // Panel de filtros
         JPanel panelControles = new JPanel();
         panelControles.setLayout(new GridBagLayout());
         panelControles.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
@@ -39,7 +37,6 @@ public class VistaControladorDisponibilidad extends JFrame {
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Fila 1: Tipo + ID
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0.2;
@@ -62,7 +59,6 @@ public class VistaControladorDisponibilidad extends JFrame {
         txtId.setPreferredSize(new Dimension(200, 30));
         panelControles.add(txtId, gbc);
 
-        // Fila 2: Estado + Costo
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weightx = 0.2;
@@ -86,7 +82,6 @@ public class VistaControladorDisponibilidad extends JFrame {
 
         panel.add(panelControles);
 
-        // Botón Filtrar
         btnFiltrar = new JButton("Filtrar");
         btnFiltrar.setFont(new Font("Arial", Font.PLAIN, 14));
         btnFiltrar.setPreferredSize(new Dimension(120, 35));
@@ -95,7 +90,6 @@ public class VistaControladorDisponibilidad extends JFrame {
         panel.add(Box.createVerticalStrut(20));
         panel.add(btnFiltrar);
 
-        // Área de texto resultados
         areaTexto = new JTextArea();
         areaTexto.setLineWrap(false);
         areaTexto.setEditable(false);
