@@ -7,7 +7,7 @@ import modelo.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.SwingUtilities;
-import java.util.UUID; // Para IDs de IncidentesSeguridad
+import java.util.UUID;
 
 public class MainGestor {
     public static void main(String[] args) {
@@ -95,23 +95,23 @@ public class MainGestor {
                 // --- Personal (Operadores y Controladores) ---
                 ControladorAereo cont1 = gestorAeropuerto.darDeAltaControladorAereo("Maria", "passC1", terminal1);
                 ControladorAereo cont2 = gestorAeropuerto.darDeAltaControladorAereo("Carlos", "passC2", terminal2);
-                aeropuerto.agregarControladorAereo(cont1); // Asegurarse de que el aeropuerto también los tiene
+                aeropuerto.agregarControladorAereo(cont1);
                 aeropuerto.agregarControladorAereo(cont2);
 
                 OperadorAereo op1 = gestorAeropuerto.darDeAltaOperadorAereo("Juan", "passO1", aerolinea1);
                 OperadorAereo op2 = gestorAeropuerto.darDeAltaOperadorAereo("Ana", "passO2", aerolinea2);
-                aeropuerto.agregarOperadorAereo(op1); // Asegurarse de que el aeropuerto también los tiene
+                aeropuerto.agregarOperadorAereo(op1); 
                 aeropuerto.agregarOperadorAereo(op2);
 
                 // --- Facturas y Pagos ---
-                Factura factura1 = new Factura(250.75); // Monto
+                Factura factura1 = new Factura(250.75);
                 Factura factura2 = new Factura(1200.00);
                 gestorAeropuerto.addFactura(factura1);
                 gestorAeropuerto.addFactura(factura2);
 
                 Pago pago1 = new Pago(factura1.getId(), 250.75, LocalDateTime.now());
                 gestorAeropuerto.addPago(pago1);
-                factura1.marcarComoPagado(); // Marcar la factura como pagada si el pago es completo
+                factura1.marcarComoPagado();
                 gestorAeropuerto.registrarEvento("PAGO_REALIZADO", "Pago de factura " + factura1.getId() + " completado.");
 
                 // --- Incidentes de Seguridad ---
@@ -145,7 +145,7 @@ public class MainGestor {
 
                 // Si tienes un controlador de login (que manejaría la autenticación inicial):
                 // ControladorLogin controladorLogin = new ControladorLogin(vistaLogin, gestorAeropuerto);
-                // controladorLogin.iniciar(); // Esto mostraría la ventana de login primero
+                // controladorLogin.iniciar(); // Esto mostraría la ventana de login primero    
 
                 // Finalmente, haz visible la ventana principal
                 ventanaPrincipal.setVisible(true);
