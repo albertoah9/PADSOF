@@ -8,15 +8,12 @@ public class UsoElementoAeropuerto {
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
     
-
-    /* Precios */
     private double costoVuelo;
     private double costeFingerPorHora;
     private double costeHangerPorHora;
     private double costeHangarCargaPorHora;
     private double costeAparcamientoPorHora;
 
-    // Constructor
     public UsoElementoAeropuerto(ElementoAeropuerto elementoAeropuerto, Aerolinea aerolinea,
                                   LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         this.elementoAeropuerto = elementoAeropuerto;
@@ -25,7 +22,6 @@ public class UsoElementoAeropuerto {
         this.fechaHoraFin = fechaHoraFin;
     }
 
-    // Getters y Setters
     public ElementoAeropuerto getElementoAeropuerto() {
         return elementoAeropuerto;
     }
@@ -98,13 +94,11 @@ public class UsoElementoAeropuerto {
         this.costeAparcamientoPorHora = costeAparcamientoPorHora;
     }
 
-    // Método para calcular la duración del uso en horas (redondeado hacia arriba)
     public long getDuracionEnHoras() {
         long minutos = Duration.between(fechaHoraInicio, fechaHoraFin).toMinutes();
-        return (minutos + 59) / 60; // redondea hacia arriba
+        return (minutos + 59) / 60;
     }
 
-    // Método para calcular el coste total según el tipo de elemento
     public double calcularCosteTotal() {
         double horas = getDuracionEnHoras();
 

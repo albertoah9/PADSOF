@@ -2,7 +2,7 @@ package controlador;
 
 import modelo.Aeropuerto;
 import modelo.Vuelo;
-import vista.VistaSearchFlights; // Ahora es una clase JFrame
+import vista.VistaSearchFlights;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

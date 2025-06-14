@@ -18,19 +18,16 @@ public class VistaOperadorPrincipal extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Panel principal con márgenes
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50)); // márgenes superior, izquierdo, inferior, derecho
 
-        // Título
         lblTitulo = new JLabel("Panel del Operador de Aerolíneas", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
         panel.add(lblTitulo);
 
-        // Botones con espaciado
         btnVuelos = crearBoton("Gestionar Vuelos");
         panel.add(btnVuelos);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));

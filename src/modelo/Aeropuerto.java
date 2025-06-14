@@ -26,11 +26,11 @@ public class Aeropuerto {
     private ArrayList<Aerolinea> aerolineas;
     private ArrayList<Notificacion> notificaciones;
     private ArrayList<ControladorAereo> controladores;
-    private ArrayList<OperadorAereo> operadores; // ¡NUEVO! Lista de operadores
-    private GestorAeropuerto gestor; // Esta referencia es opcional si el gestor se pasa como parámetro o se gestiona externamente.
+    private ArrayList<OperadorAereo> operadores;
+    private GestorAeropuerto gestor;
     private ArrayList<Hangar> hangares;
     private ArrayList<ZonaAparcamiento> aparcamientos;
-    private ArrayList<Usuario> usuarios; // Lista general de todos los usuarios
+    private ArrayList<Usuario> usuarios;
     private Usuario usuarioActivo;
     private ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto;
 
@@ -49,7 +49,7 @@ public class Aeropuerto {
         this.aerolineas = new ArrayList<>();
         this.notificaciones = new ArrayList<>();
         this.controladores = new ArrayList<>();
-        this.operadores = new ArrayList<>(); // ¡Inicializar aquí!
+        this.operadores = new ArrayList<>();
         this.hangares = new ArrayList<>();
         this.aparcamientos = new ArrayList<>();
         this.usuarios = new ArrayList<>();

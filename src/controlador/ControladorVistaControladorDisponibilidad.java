@@ -29,7 +29,7 @@ public class ControladorVistaControladorDisponibilidad {
 
     private void inicializarComboTipos() {
         vista.comboTipoElemento.removeAllItems();
-        vista.comboTipoElemento.addItem(""); // opción vacío para todos
+        vista.comboTipoElemento.addItem("");
         vista.comboTipoElemento.addItem("PuertaEmbarque");
         vista.comboTipoElemento.addItem("PistaDespegue");
         vista.comboTipoElemento.addItem("PistaAterrizaje");
@@ -57,7 +57,6 @@ public class ControladorVistaControladorDisponibilidad {
 
         for (ElementoAeropuerto elemento : elementos) {
 
-            // Filtrar por tipo
             if (tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
                 String claseElemento = elemento.getClass().getSimpleName();
                 if (!claseElemento.equals(tipoSeleccionado)) {
@@ -65,7 +64,6 @@ public class ControladorVistaControladorDisponibilidad {
                 }
             }
 
-            // Filtrar por ID
             if (!idTexto.isEmpty()) {
                 try {
                     int id = Integer.parseInt(idTexto);
@@ -78,7 +76,6 @@ public class ControladorVistaControladorDisponibilidad {
                 }
             }
 
-            // Filtrar por estado
             boolean ocupado = elemento.isOcupado(ahora, usos);
             if (estadoSeleccionado != null && !estadoSeleccionado.isEmpty()) {
                 boolean coincideEstado = false;
@@ -92,7 +89,6 @@ public class ControladorVistaControladorDisponibilidad {
                 }
             }
 
-            // Mostrar info del elemento
             resultado.append(elemento.toString()).append("\n---------------------\n");
         }
 

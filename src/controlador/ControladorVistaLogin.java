@@ -14,7 +14,6 @@ public class ControladorVistaLogin {
         this.vista = vista;
         this.aeropuerto = aeropuerto;
 
-        // Agrega el listener al botón
         this.vista.btnIniciarSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,7 +29,7 @@ public class ControladorVistaLogin {
         for (Usuario u : aeropuerto.getUsuarios()) {
             if (u.getNombre().equals(usuarioIngresado)) {
                 if (u.isBloqueado()) {
-                    vista.mostrarMensaje("Cuenta bloqueada. Contacte al gestor.");
+                    vista.mostrarMensaje("Cuenta bloqueada.");
                     return;
                 }
 
@@ -71,7 +70,7 @@ public class ControladorVistaLogin {
 
                     if (u.getIntentosFallidos() >= 3) {
                         u.setBloqueado(true);
-                        vista.mostrarMensaje("Cuenta bloqueada. Contacte al gestor.");
+                        vista.mostrarMensaje("Cuenta bloqueada.");
                     }
                     return;
                 }

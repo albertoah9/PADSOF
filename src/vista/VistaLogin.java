@@ -18,19 +18,16 @@ public class VistaLogin extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Panel principal con márgenes
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
 
-        // Título
         lblTitulo = new JLabel("Iniciar Sesión", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         panel.add(lblTitulo);
 
-        // Campo Usuario
         JLabel lblUsuario = new JLabel("Usuario:");
         lblUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
         lblUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -42,7 +39,6 @@ public class VistaLogin extends JFrame {
         panel.add(txtUsuario);
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        // Campo Contraseña
         JLabel lblContrasena = new JLabel("Contraseña:");
         lblContrasena.setFont(new Font("Arial", Font.PLAIN, 14));
         lblContrasena.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -54,7 +50,6 @@ public class VistaLogin extends JFrame {
         panel.add(txtContrasena);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        // Botón de Iniciar Sesión
         btnIniciarSesion = new JButton("Iniciar Sesión");
         btnIniciarSesion.setFont(new Font("Arial", Font.PLAIN, 16));
         btnIniciarSesion.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
@@ -62,7 +57,6 @@ public class VistaLogin extends JFrame {
         panel.add(btnIniciarSesion);
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        // Mensaje de estado
         lblMensaje = new JLabel("", SwingConstants.CENTER);
         lblMensaje.setForeground(Color.RED);
         lblMensaje.setFont(new Font("Arial", Font.PLAIN, 12));

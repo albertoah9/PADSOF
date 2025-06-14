@@ -2,13 +2,11 @@ package modelo;
 
 
 public class Hangar extends ElementoAeropuerto {
-    /* Atributos */
     private double ancho;
     private double alto;
     private double largo;
     private int numPlazas;
 
-    /* Constructor */
     public Hangar(double ancho, double alto, double largo, int numPlazas){
         super();
         this.alto = alto;
@@ -17,7 +15,6 @@ public class Hangar extends ElementoAeropuerto {
         this.numPlazas = numPlazas;
     }
 
-    /* Getters y setters */
     public double getAncho() {
         return ancho;
     }

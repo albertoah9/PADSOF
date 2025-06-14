@@ -15,10 +15,8 @@ public class ControladorVistaControladorModificarVuelo {
     private Aeropuerto aeropuerto;
     private JFrame vistaAnterior;
 
-    // Para asociar cada vuelo con su JComboBox de estado
     private List<VueloEstadoPanel> vueloEstadoPanels;
 
-    // Clase auxiliar para mapear vuelo y su combobox en la vista
     private static class VueloEstadoPanel {
         Vuelo vuelo;
         JComboBox<String> comboEstado;
@@ -38,7 +36,6 @@ public class ControladorVistaControladorModificarVuelo {
         this.vistaAnterior = vistaAnterior;
         this.vueloEstadoPanels = new ArrayList<>();
 
-        // Configurar botones
         this.vista.btnVolver.addActionListener(e -> {
             vista.dispose();
             vistaAnterior.setVisible(true);
@@ -48,7 +45,6 @@ public class ControladorVistaControladorModificarVuelo {
 
         this.vista.btnConfirmar.addActionListener(e -> confirmarCambios());
 
-        // Carga inicial
         cargarVuelos();
     }
 
@@ -56,7 +52,7 @@ public class ControladorVistaControladorModificarVuelo {
         vista.panelVuelos.removeAll();
         vueloEstadoPanels.clear();
 
-        List<Vuelo> vuelos = aeropuerto.getVuelos(); // Método que devuelve la lista completa de vuelos
+        List<Vuelo> vuelos = aeropuerto.getVuelos();
 
         String[] estados = { "ESPERANDO_PISTA", "ESPERANDO_ATERRIZAJE", "EN_PREPARACION", "APARCADO", "EN_HANGAR",
                 "EMBARCANDO", "ESPERANDO_DESPEGUE", "DESPEGADO", "RETRASADO", "EN_HORA" };
@@ -93,7 +89,6 @@ public class ControladorVistaControladorModificarVuelo {
         for (VueloEstadoPanel vep : vueloEstadoPanels) {
             String estadoSeleccionado = (String) vep.comboEstado.getSelectedItem();
             if (estadoSeleccionado != null && !vep.vuelo.getEstado().name().equals(estadoSeleccionado)) {
-                // Cambiar estado del vuelo
                 try {
                     Vuelo.EstadoVuelo nuevoEstado = Vuelo.EstadoVuelo.valueOf(estadoSeleccionado);
                     vep.vuelo.setEstado(nuevoEstado);
@@ -105,7 +100,7 @@ public class ControladorVistaControladorModificarVuelo {
         }
         JOptionPane.showMessageDialog(vista, "Estados de vuelos actualizados correctamente.", "Éxito",
                 JOptionPane.INFORMATION_MESSAGE);
-        cargarVuelos(); // Recarga para refrescar la vista
+        cargarVuelos();
     }
 
     public void iniciar() {

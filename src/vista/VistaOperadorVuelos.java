@@ -23,14 +23,12 @@ public class VistaOperadorVuelos extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50)); // Márgenes
 
-        // Título
         lblTitulo = new JLabel("Gestión de Vuelos de la Aerolínea", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
         panel.add(lblTitulo);
 
-        // Botones
         btnMostrarVuelos = crearBoton("Ver Vuelos Programados");
         panel.add(btnMostrarVuelos);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
