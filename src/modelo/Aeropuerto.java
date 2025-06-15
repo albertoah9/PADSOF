@@ -83,8 +83,6 @@ public class Aeropuerto {
             usuariosDestinatarios.add(o);
         }
 
-        System.out.println(usuarios);
-        System.out.println(usuariosDestinatarios);
         Notificacion n = new Notificacion("Nuevo vuelo - ID: " + vuelo.getId(), usuariosDestinatarios); 
     }
 
@@ -196,6 +194,10 @@ public class Aeropuerto {
     public void addUsuario(Usuario usuario) {
         if (usuario != null && !this.usuarios.contains(usuario)) {
             this.usuarios.add(usuario);
+        }
+
+        if (usuario instanceof OperadorAereo) {
+            ((OperadorAereo) usuario).getAerolineaAsignada().agregarOperador((OperadorAereo)usuario);
         }
     }
 
