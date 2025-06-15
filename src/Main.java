@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import modelo.GestorAeropuerto;
+import modelo.*;
 
 public class Main {
    public static void main(String[] args) {
@@ -38,18 +38,20 @@ public class Main {
 
       // Controladores
       ControladorAereo controlador1 = new ControladorAereo("Juan", "abcd", tPasajeros);
-      aeropuerto.addControlador(controlador1);
+      aeropuerto.addUsuario(controlador1);
       ControladorAereo controlador2 = new ControladorAereo("Pedro", "abcd1234", tCarga);
-      aeropuerto.addControlador(controlador2);
+      aeropuerto.addUsuario(controlador2);
 
       // Aerolíneas y operadores
       Aerolinea aerolinea1 = new Aerolinea("American Airways","A1212459");
       Aerolinea aerolinea2 = new Aerolinea("Qatar Airways", "T276582");
 
       OperadorAereo operador1 = new OperadorAereo("Mike", "ggg222", aerolinea1);
-      aeropuerto.añadirOperador(operador1, aerolinea1);
+      operador1.setAerolineaAsignada(aerolinea1);
+      aeropuerto.addUsuario(operador1);
       OperadorAereo operador2 = new OperadorAereo("Aron", "fgfgfg", aerolinea2);
-      aeropuerto.añadirOperador(operador2, aerolinea2);
+      operador2.setAerolineaAsignada(aerolinea2);
+      aeropuerto.addUsuario(operador2);
 
       // Vuelos
       Avion avion1 = new AvionPasajeros("Boeing", "737", "AA-123", 180, LocalDate.of(2025, 1, 26), LocalDate.of(2015, 3, 26), 120, aerolinea1);
@@ -57,8 +59,8 @@ public class Main {
       aeropuerto.addVuelo(vuelo1);
 
       // Simulación de operaciones
-      aeropuerto.asignarTerminalAVuelo(vuelo1);
-      vuelo1.setEstado(Vuelo.EstadoVuelo.EMBARCANDO);
-      System.out.println("Vuelo actualizado: " + vuelo1.getEstado());
+
+
+      
    }
 }

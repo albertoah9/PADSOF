@@ -24,7 +24,6 @@ public class GestorAeropuerto extends Usuario {
 
     // ESTAS LISTAS PERMANECEN EN GESTOR AEROPUERTO:
     private List<EventoHistorial> historialEventos;
-    private List<Factura> facturas;
     private List<Pago> pagos;
     private List<IncidenteSeguridad> incidentesSeguridad;
 
@@ -40,7 +39,6 @@ public class GestorAeropuerto extends Usuario {
 
         this.preferenciasNotificaciones = new HashSet<>();
         this.historialEventos = new ArrayList<>();
-        this.facturas = new ArrayList<>();
         this.pagos = new ArrayList<>();
         this.incidentesSeguridad = new ArrayList<>();
         this.operadores = new ArrayList<>();
@@ -56,22 +54,30 @@ public class GestorAeropuerto extends Usuario {
 
     public void registrarEvento(String tipo, String descripcion) {
         historialEventos.add(new EventoHistorial(LocalDateTime.now(), tipo, descripcion));
-        System.out.println("EVENTO REGISTRADO: [" + tipo + "] " + descripcion); // Para depuración
     }
 
     public void addFactura(Factura factura) {
         if (factura == null)
             throw new IllegalArgumentException("La factura no puede ser nula.");
-        this.facturas.add(factura);
+        Aerolinea a = factura.getAerolinea();
+        a.añadirFactura(factura);
         registrarEvento("FACTURA_GENERADA", "Factura ID " + factura.getId() + " generada.");
     }
 
     public List<Factura> getFacturas() {
-        return Collections.unmodifiableList(facturas);
+        List<Factura> facturas = new ArrayList<>();
+
+        for (Aerolinea a : aeropuerto.getAerolineas()) {
+            for (Factura f : a.getFacturas()) {
+                facturas.add(f);
+            }
+        }
+
+        return facturas;
     }
 
     public Factura buscarFacturaPorId(int id) {
-        for (Factura f : facturas) {
+        for (Factura f : this.getFacturas()) {
             if (f.getId() == id) {
                 return f;
             }
@@ -92,12 +98,12 @@ public class GestorAeropuerto extends Usuario {
     }
 
     public void registrarPagoParaFactura(int idFactura, double montoPago) {
-        Factura factura = buscarFacturaPorId(idFactura); // Usa el método propio del gestor
+        Factura factura = buscarFacturaPorId(idFactura);
         if (factura != null) {
             if (factura.getMonto() >= montoPago && factura.getEstado() == Factura.EstadoFactura.PENDIENTE_DE_PAGO) {
                 LocalDateTime fechaPago = LocalDateTime.now();
-                Pago nuevoPago = new Pago(idFactura, montoPago, fechaPago); // Suponiendo constructor de Pago
-                addPago(nuevoPago); // Usa el addPago propio del gestor
+                Pago nuevoPago = new Pago(idFactura, montoPago, fechaPago);
+                addPago(nuevoPago);
                 if (factura.getMonto() == montoPago) {
                     factura.marcarComoPagado();
                     registrarEvento("FACTURA_PAGADA", "Factura " + idFactura + " pagada completamente.");
@@ -129,9 +135,9 @@ public class GestorAeropuerto extends Usuario {
         return Collections.unmodifiableList(incidentesSeguridad);
     }
 
-    public IncidenteSeguridad buscarIncidenteSeguridadPorId(String id) {
+    public IncidenteSeguridad buscarIncidenteSeguridadPorId(int id) {
         for (IncidenteSeguridad i : incidentesSeguridad) {
-            if (i.getId().equals(id)) {
+            if (i.getId() == id) {
                 return i;
             }
         }
@@ -152,11 +158,10 @@ public class GestorAeropuerto extends Usuario {
             throw new IllegalArgumentException("Nombre y contraseña del controlador no pueden estar vacíos.");
         }
         ControladorAereo nuevoControlador = new ControladorAereo(nombre, contraseña, terminalAsignada);
-        this.aeropuerto.agregarControladorAereo(nuevoControlador); // Delega la adición al aeropuerto
+        this.aeropuerto.agregarControladorAereo(nuevoControlador);
 
-        // Si se asigna una terminal, también hay que gestionarlo
         if (terminalAsignada != null) {
-            terminalAsignada.agregarControlador(nuevoControlador); // Asigna al controlador a la terminal
+            terminalAsignada.agregarControlador(nuevoControlador);
             registrarEvento("ALTA_CONTROLADOR", "Controlador Aéreo '" + nombre + "' dado de alta y asignado a Terminal "
                     + terminalAsignada.getId() + ".");
         } else {
@@ -175,7 +180,7 @@ public class GestorAeropuerto extends Usuario {
         if (controlador == null) {
             throw new IllegalArgumentException("El controlador aéreo no puede ser nulo.");
         }
-        if (this.aeropuerto.eliminarControladorAereo(controlador)) { // Delega la eliminación al aeropuerto
+        if (this.aeropuerto.eliminarControladorAereo(controlador)) {
             registrarEvento("BAJA_CONTROLADOR", "Controlador Aéreo '" + controlador.getNombre() + "' dado de baja.");
             return true;
         }
@@ -209,8 +214,8 @@ public class GestorAeropuerto extends Usuario {
             throw new IllegalArgumentException("El operador debe estar asociado a una aerolínea.");
         }
         OperadorAereo nuevoOperador = new OperadorAereo(nombre, contraseña, aerolinea);
-        this.aeropuerto.agregarOperadorAereo(nuevoOperador); // Delega la adición al aeropuerto
-        aerolinea.agregarOperador(nuevoOperador); // Asegurarse de que la aerolínea también lo tenga
+        this.aeropuerto.agregarOperadorAereo(nuevoOperador);
+        aerolinea.agregarOperador(nuevoOperador);
         registrarEvento("ALTA_OPERADOR",
                 "Operador Aéreo '" + nombre + "' dado de alta y asociado a aerolínea '" + aerolinea.getNombre() + "'.");
         return nuevoOperador;
@@ -226,8 +231,7 @@ public class GestorAeropuerto extends Usuario {
         if (operador == null) {
             throw new IllegalArgumentException("El operador aéreo no puede ser nulo.");
         }
-        if (this.aeropuerto.eliminarOperadorAereo(operador)) { // Delega la eliminación al aeropuerto
-            // También eliminarlo de su aerolínea asociada si es necesario
+        if (this.aeropuerto.eliminarOperadorAereo(operador)) {
             if (operador.getAerolineaAsignada() != null) {
                 operador.getAerolineaAsignada().eliminarOperador(operador);
             }
@@ -296,9 +300,9 @@ public class GestorAeropuerto extends Usuario {
             return false;
         }
         if (operador.getAerolineaAsignada() != null) {
-            operador.getAerolineaAsignada().eliminarOperador(operador); // Asegúrate de tener este método
+            operador.getAerolineaAsignada().eliminarOperador(operador);
         }
-        boolean eliminado = this.operadores.remove(operador); // Eliminar de la lista del gestor
+        boolean eliminado = this.operadores.remove(operador);
         if (eliminado) {
             registrarEvento("ELIMINACION_OPERADOR",
                     "Operador " + operador.getNombre() + " (" + contrasena + ") eliminado.");

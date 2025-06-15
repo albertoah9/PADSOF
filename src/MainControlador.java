@@ -1,10 +1,8 @@
-import controlador.ControladorVistaControladorDisponibilidad;
 import controlador.ControladorVistaControladorPrincipal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import java.util.Arrays;
 import modelo.*;
-
 import vista.VistaControladorPrincipal;
 
 public class MainControlador {
@@ -15,10 +13,11 @@ public class MainControlador {
                 Aerolinea aerolinea = new Aerolinea("Iberia", "A2345");
                 aeropuerto.addAerolinea(aerolinea);
 
-                OperadorAereo operador = new OperadorAereo("Alberto", aerolinea);
-                aeropuerto.setUsuarioActivo(operador);
+                TerminalPasajeros t1 = new TerminalPasajeros(450);
 
-                TerminalPasajeros TerminalPasajeros = new TerminalPasajeros(450);
+                ControladorAereo controlador = new ControladorAereo("Robert", "123", t1);
+                aeropuerto.setUsuarioActivo(controlador);
+
 
                 // Aviones
                 AvionCarga avionCarga = new AvionCarga("Boeing", "737", "1234 JBDN", 3354, LocalDate.of(2027, 7, 23),
@@ -64,8 +63,8 @@ public class MainControlador {
                 finger1.agregarPuertaEmbarque(puerta2);
                 finger2.agregarPuertaEmbarque(puerta3);
 
-                TerminalPasajeros.addFinger(finger1);
-                TerminalPasajeros.addFinger(finger2);
+                t1.addFinger(finger1);
+                t1.addFinger(finger2);
 
                 Hangar hangar1 = new Hangar(2, 2, 2, 500);
                 Hangar hangar2 = new Hangar(2, 2, 2, 750);
@@ -79,9 +78,12 @@ public class MainControlador {
                 aeropuerto.addPista(pistaDespegue);
                 aeropuerto.addPista(pistaAterrizaje);
 
+                Notificacion noti1 = new Notificacion("El vuelo a París ha sido actualizado.", Arrays.asList(controlador));
+                Notificacion noti2 = new Notificacion("Nueva política de despegues de la UE.", Arrays.asList(controlador));
+
                 VistaControladorPrincipal vista = new VistaControladorPrincipal();
-                ControladorVistaControladorPrincipal controlador = new ControladorVistaControladorPrincipal(vista,
+                ControladorVistaControladorPrincipal controladorVista = new ControladorVistaControladorPrincipal(vista,
                                 aeropuerto, aerolinea, vista);
-                controlador.iniciar();
+                controladorVista.iniciar();
         }
 }

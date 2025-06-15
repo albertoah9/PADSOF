@@ -1,9 +1,9 @@
 package vista;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import modelo.GestorAeropuerto; // Para interactuar con el modelo
 
 public class VistaGestorSeguridadVuelo extends JPanel {
@@ -65,7 +65,7 @@ public class VistaGestorSeguridadVuelo extends JPanel {
 
         gbc.gridx = 0; gbc.gridy = 0; panelReportarIncidente.add(new JLabel("Tipo de Incidente:"), gbc);
         gbc.gridx = 1;
-        cmbTipoIncidente = new JComboBox<>(new String[]{"Retraso", "Desvío", "Emergencia Médica", "Fallo Técnico", "Amenaza de Seguridad", "Otro"});
+        cmbTipoIncidente = new JComboBox<>(new String[] {"Retraso", "Desvío", "Emergencia Médica", "Fallo Técnico", "Amenaza de Seguridad", "Otro"});
         panelReportarIncidente.add(cmbTipoIncidente, gbc);
 
         gbc.gridx = 0; gbc.gridy = 1; panelReportarIncidente.add(new JLabel("ID Vuelo Afectado:"), gbc);

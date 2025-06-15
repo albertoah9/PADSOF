@@ -1,13 +1,9 @@
 import controlador.*;
-
-import vista.*;
-
-import modelo.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.SwingUtilities;
-import java.util.UUID;
+import modelo.*;
+import vista.*;
 
 public class MainGestor {
     public static void main(String[] args) {
@@ -104,8 +100,8 @@ public class MainGestor {
                 aeropuerto.agregarOperadorAereo(op2);
 
                 // --- Facturas y Pagos ---
-                Factura factura1 = new Factura(250.75);
-                Factura factura2 = new Factura(1200.00);
+                Factura factura1 = new Factura(250.75, aerolinea1);
+                Factura factura2 = new Factura(1200.00, aerolinea2);
                 gestorAeropuerto.addFactura(factura1);
                 gestorAeropuerto.addFactura(factura2);
 

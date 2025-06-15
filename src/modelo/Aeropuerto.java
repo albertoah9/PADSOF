@@ -319,14 +319,13 @@ public class Aeropuerto {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(",");
-                if (partes.length == 5) {
-                    int id = Integer.parseInt(partes[0]);
-                    String nombre = partes[1];
-                    String ciudad = partes[2];
-                    String pais = partes[3];
-                    AeropuertoDestino.UbiRelCiudad ubicacion = AeropuertoDestino.UbiRelCiudad.valueOf(partes[4]);
+                if (partes.length == 4) {
+                    String nombre = partes[0];
+                    String ciudad = partes[1];
+                    String pais = partes[2];
+                    AeropuertoDestino.UbiRelCiudad ubicacion = AeropuertoDestino.UbiRelCiudad.valueOf(partes[3]);
 
-                    AeropuertoDestino aeropuerto = new AeropuertoDestino(id, nombre, ciudad, pais, ubicacion);
+                    AeropuertoDestino aeropuerto = new AeropuertoDestino(nombre, ciudad, pais, ubicacion);
                     aeropuertosDestino.add(aeropuerto);
                 }
             }
