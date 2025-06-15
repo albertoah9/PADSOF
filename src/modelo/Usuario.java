@@ -10,7 +10,6 @@ public abstract class Usuario {
 
 	private static int contador = 0;
 
-	// Atributos login
 	private boolean bloqueado = false;
 	private boolean necesitaResetear = false;
 	private int intentosFallidos = 0;

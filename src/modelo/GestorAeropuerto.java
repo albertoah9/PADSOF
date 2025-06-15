@@ -158,7 +158,7 @@ public class GestorAeropuerto extends Usuario {
             throw new IllegalArgumentException("Nombre y contraseña del controlador no pueden estar vacíos.");
         }
         ControladorAereo nuevoControlador = new ControladorAereo(nombre, contraseña, terminalAsignada);
-        this.aeropuerto.agregarControladorAereo(nuevoControlador);
+        this.aeropuerto.addUsuario(nuevoControlador);
 
         if (terminalAsignada != null) {
             terminalAsignada.agregarControlador(nuevoControlador);
@@ -214,7 +214,7 @@ public class GestorAeropuerto extends Usuario {
             throw new IllegalArgumentException("El operador debe estar asociado a una aerolínea.");
         }
         OperadorAereo nuevoOperador = new OperadorAereo(nombre, contraseña, aerolinea);
-        this.aeropuerto.agregarOperadorAereo(nuevoOperador);
+        this.aeropuerto.addUsuario(nuevoOperador);
         aerolinea.agregarOperador(nuevoOperador);
         registrarEvento("ALTA_OPERADOR",
                 "Operador Aéreo '" + nombre + "' dado de alta y asociado a aerolínea '" + aerolinea.getNombre() + "'.");
