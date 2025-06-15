@@ -1,10 +1,11 @@
 package vista;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class VistaControladorGraficos extends JFrame {
-    public JLabel lblTitulo;
+
+    private JLabel lblTitulo;
     private JPanel panelEstadoVuelos;
     private JPanel panelTraficoAereo;
     private JPanel panelRetrasosAerolinea;
@@ -19,48 +20,44 @@ public class VistaControladorGraficos extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        // Panel principal vertical
+        JPanel panelPrincipal = new JPanel();
+        panelPrincipal.setLayout(new BoxLayout(panelPrincipal, BoxLayout.Y_AXIS));
+        panelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        // Título
         lblTitulo = new JLabel("Visualización de los gráficos para el Controlador Aéreo", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-        panel.add(lblTitulo);
+        panelPrincipal.add(lblTitulo);
 
-        JPanel panelGraficos = new JPanel();
-        panelGraficos.setLayout(new GridLayout(2, 2, 10, 10));
+        // Paneles de estadísticas en grid
+        JPanel panelGraficos = new JPanel(new GridLayout(2, 2, 10, 10));
 
-        panelEstadoVuelos = new JPanel();
-        panelEstadoVuelos.setBorder(BorderFactory.createTitledBorder("Estado de los vuelos activos"));
-        panelEstadoVuelos.setPreferredSize(new Dimension(350, 200));
+        panelEstadoVuelos = crearPanelGrafico("Estado de los vuelos activos");
         panelGraficos.add(panelEstadoVuelos);
 
-        panelTraficoAereo = new JPanel();
-        panelTraficoAereo.setBorder(BorderFactory.createTitledBorder("Tráfico aéreo por hora"));
-        panelTraficoAereo.setPreferredSize(new Dimension(350, 200));
+        panelTraficoAereo = crearPanelGrafico("Tráfico aéreo por hora");
         panelGraficos.add(panelTraficoAereo);
 
-        panelRetrasosAerolinea = new JPanel();
-        panelRetrasosAerolinea.setBorder(BorderFactory.createTitledBorder("Retrasos promedio por aerolínea"));
-        panelRetrasosAerolinea.setPreferredSize(new Dimension(350, 200));
+        panelRetrasosAerolinea = crearPanelGrafico("Retrasos promedio por aerolínea");
         panelGraficos.add(panelRetrasosAerolinea);
 
-        panelUsoTerminales = new JPanel();
-        panelUsoTerminales.setBorder(BorderFactory.createTitledBorder("Uso de terminales"));
-        panelUsoTerminales.setPreferredSize(new Dimension(350, 200));
+        panelUsoTerminales = crearPanelGrafico("Uso de terminales");
         panelGraficos.add(panelUsoTerminales);
 
-        panel.add(panelGraficos);
+        panelPrincipal.add(panelGraficos);
 
-        lblHoraActual = new JLabel("Hora actual: 10:35 PM CEST, 03/06/2025", SwingConstants.CENTER);
+        // Hora actual (puedes actualizar esto desde el controlador si quieres)
+        lblHoraActual = new JLabel("Hora actual: ", SwingConstants.CENTER);
         lblHoraActual.setFont(new Font("Arial", Font.PLAIN, 12));
         lblHoraActual.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        panel.add(lblHoraActual);
+        panelPrincipal.add(lblHoraActual);
 
-        add(panel, BorderLayout.CENTER);
+        add(panelPrincipal, BorderLayout.CENTER);
 
+        // Botón inferior
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
         btnVolver = new JButton("Volver");
         btnVolver.setPreferredSize(new Dimension(100, 30));
@@ -69,9 +66,31 @@ public class VistaControladorGraficos extends JFrame {
         add(panelInferior, BorderLayout.SOUTH);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new VistaControladorGraficos().setVisible(true);
-        });
+    private JPanel crearPanelGrafico(String titulo) {
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createTitledBorder(titulo));
+        panel.setLayout(new BorderLayout());
+        return panel;
+    }
+
+    // Getters para que el controlador pueda acceder a los paneles
+    public JPanel getPanelEstadoVuelos() {
+        return panelEstadoVuelos;
+    }
+
+    public JPanel getPanelTraficoAereo() {
+        return panelTraficoAereo;
+    }
+
+    public JPanel getPanelRetrasosAerolinea() {
+        return panelRetrasosAerolinea;
+    }
+
+    public JPanel getPanelUsoTerminales() {
+        return panelUsoTerminales;
+    }
+
+    public JLabel getLblHoraActual() {
+        return lblHoraActual;
     }
 }

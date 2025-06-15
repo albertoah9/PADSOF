@@ -8,9 +8,13 @@ import java.util.List;
 import javax.swing.*;
 import modelo.Aerolinea;
 import modelo.Aeropuerto;
+import modelo.ControladorAereo;
+import vista.VistaControladorAsignarAlVuelo;
 import vista.VistaControladorBuscarVuelo;
 import vista.VistaControladorModificarVuelo;
 import vista.VistaControladorVuelos;
+import vista.VistaControladorAsignarAlVuelo;
+import vista.VistaControladorVerificaciones;
 
 public class ControladorVistaControladorVuelos {
 
@@ -18,6 +22,7 @@ public class ControladorVistaControladorVuelos {
     private Aeropuerto aeropuerto;
     private Aerolinea aerolinea;
     private JFrame vistaAnterior;
+    private ControladorAereo controladorAereo;
 
     public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, Aerolinea aerolinea,
             JFrame vistaPrincipal, JFrame vistaAnterior) {
@@ -41,6 +46,28 @@ public class ControladorVistaControladorVuelos {
                 ControladorVistaControladorModificarVuelo controladorModificarVuelo = new ControladorVistaControladorModificarVuelo(
                         vistaModificarVuelo, aeropuerto, vista);
                 controladorModificarVuelo.iniciar();
+                vista.setVisible(false);
+
+            }
+        });
+
+        this.vista.btnAsignacionesVuelo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                VistaControladorAsignarAlVuelo vistaAsignarAlVuelo = new VistaControladorAsignarAlVuelo();
+                ControladorVistaControladorAsignarAlVuelo controladorAsignarAlVuelo = new ControladorVistaControladorAsignarAlVuelo(
+                        vistaAsignarAlVuelo, controladorAereo, aeropuerto, aerolinea, vista);
+                controladorAsignarAlVuelo.iniciar();
+                vista.setVisible(false);
+
+            }
+        });
+
+        this.vista.btnVerificaciones.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                VistaControladorVerificaciones vistaVerificaciones = new VistaControladorVerificaciones();
+                ControladorVistaControladorVerificaciones controladorVerificaciones = new ControladorVistaControladorVerificaciones(
+                        vistaVerificaciones, aeropuerto, aerolinea, vista);
+                controladorVerificaciones.iniciar();
                 vista.setVisible(false);
 
             }

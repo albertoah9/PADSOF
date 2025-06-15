@@ -1,6 +1,8 @@
 package modelo;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IncidenteSeguridad {
     private int id;
@@ -9,6 +11,7 @@ public class IncidenteSeguridad {
     private String descripcion;
     private LocalDateTime fechaHoraReporte;
     private EstadoIncidente estado;
+    private List<IncidenteSeguridad> incidentes = new ArrayList<>();
 
     private static int contador = 0;
 
@@ -16,7 +19,8 @@ public class IncidenteSeguridad {
         REPORTADO, EN_INVESTIGACION, RESUELTO, CERRADO
     }
 
-    public IncidenteSeguridad(String tipoIncidente, Vuelo vueloAfectado, String descripcion, LocalDateTime fechaHoraReporte, EstadoIncidente estado) {
+    public IncidenteSeguridad(String tipoIncidente, Vuelo vueloAfectado, String descripcion,
+            LocalDateTime fechaHoraReporte, EstadoIncidente estado) {
         this.id = ++contador;
         this.tipoIncidente = tipoIncidente;
         this.vueloAfectado = vueloAfectado;
@@ -25,14 +29,39 @@ public class IncidenteSeguridad {
         this.estado = estado;
     }
 
-    public int getId() { return id; }
-    public String getTipoIncidente() { return tipoIncidente; }
-    public Vuelo getVueloAfectado() { return vueloAfectado; }
-    public String getDescripcion() { return descripcion; }
-    public LocalDateTime getFechaHoraReporte() { return fechaHoraReporte; }
-    public EstadoIncidente getEstado() { return estado; }
+    public int getId() {
+        return id;
+    }
+
+    public String getTipoIncidente() {
+        return tipoIncidente;
+    }
+
+    public Vuelo getVueloAfectado() {
+        return vueloAfectado;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public LocalDateTime getFechaHoraReporte() {
+        return fechaHoraReporte;
+    }
+
+    public EstadoIncidente getEstado() {
+        return estado;
+    }
 
     public void cambiarEstado(EstadoIncidente nuevoEstado) {
         this.estado = nuevoEstado;
+    }
+
+    public void agregarIncidente(IncidenteSeguridad incidente) {
+        incidentes.add(incidente);
+    }
+
+    public List<IncidenteSeguridad> getIncidentes() {
+        return incidentes;
     }
 }

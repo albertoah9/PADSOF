@@ -1,3 +1,5 @@
+package modelo;
+
 import modelo.Notificacion;
 
 public interface Observador {
