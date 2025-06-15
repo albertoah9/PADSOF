@@ -19,6 +19,10 @@ public class Hangar extends ElementoAeropuerto {
         return vueloAsignado != null;
     }
 
+    public void ocupar(Vuelo vuelo) {
+        this.vueloAsignado = vuelo;
+    }
+
     public void asignarVuelo(Vuelo vuelo) {
         this.vueloAsignado = vuelo;
     }

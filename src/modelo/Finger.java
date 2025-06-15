@@ -26,6 +26,10 @@ public class Finger extends ElementoAeropuerto {
         this.vueloAsignado = vuelo;
     }
 
+    public void ocupar(Vuelo vuelo) {
+        this.vueloAsignado = vuelo;
+    }
+
     public void liberar() {
         this.vueloAsignado = null;
     }
