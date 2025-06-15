@@ -23,7 +23,6 @@ public class ControladorVistaControladorAsignarAlVuelo {
         this.aeropuerto = aeropuerto;
         this.aerolinea = aerolinea;
         this.vistaAnterior = vistaAnterior;
-        // No llamar inicializar aquí, se hará en iniciar()
     }
 
     public void iniciar() {

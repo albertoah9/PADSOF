@@ -62,10 +62,8 @@ public class ControladorVistaControladorDisponibilidad {
     private void cargarElementos(Integer idFiltro, String tipoFiltro, String disponibilidadFiltro) {
         vista.limpiarTabla();
 
-        // Fecha actual para validar disponibilidad
         LocalDateTime ahora = LocalDateTime.now();
 
-        // Buscar entre elementos del aeropuerto (Hangar, Finger, ZonaAparcamiento)
         for (ElementoAeropuerto elem : elementosAeropuerto) {
             if (cumpleFiltro(elem.getId(), elem.getClass().getSimpleName(), elem.isOcupado(ahora, usos), idFiltro,
                     tipoFiltro, disponibilidadFiltro)) {
@@ -78,7 +76,6 @@ public class ControladorVistaControladorDisponibilidad {
             }
         }
 
-        // Buscar entre pistas
         for (Pista pista : pistas) {
             boolean ocupada = pista.isOcupada();
             if (cumpleFiltro(pista.getId(), pista.getClass().getSimpleName(), ocupada, idFiltro, tipoFiltro,
