@@ -4,9 +4,9 @@ import modelo.*;
 import vista.VistaControladorAsignarAlVuelo;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.awt.*;
 
 public class ControladorVistaControladorAsignarAlVuelo {
     private VistaControladorAsignarAlVuelo vista;
@@ -23,7 +23,12 @@ public class ControladorVistaControladorAsignarAlVuelo {
         this.aeropuerto = aeropuerto;
         this.aerolinea = aerolinea;
         this.vistaAnterior = vistaAnterior;
+        // No llamar inicializar aquí, se hará en iniciar()
+    }
+
+    public void iniciar() {
         inicializar();
+        vista.setVisible(true);
     }
 
     private void inicializar() {
@@ -172,89 +177,112 @@ public class ControladorVistaControladorAsignarAlVuelo {
 
     private void asignarPistaAterrizaje(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
-        if (idx >= 0) {
-            Vuelo vuelo = vuelos.get(idx);
-            Pista pistaLibre = aeropuerto.obtenerPistaLibre();
-            if (pistaLibre != null) {
-                vuelo.setPista(pistaLibre);
-                vuelo.marcarVueloCercaDelAeropuerto();
-                vuelo.VueloEsperandoAterrizaje();
-                controladorAereo.cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.ESPERANDO_ATERRIZAJE);
-                JOptionPane.showMessageDialog(vista,
-                        "Pista de aterrizaje asignada y estado cambiado a ESPERANDO_ATERRIZAJE: vuelo "
-                                + vuelo.getId());
-                cargarPestañaAterrizaje();
-            } else
-                JOptionPane.showMessageDialog(vista, "No hay pista de aterrizaje disponible.");
-        } else
+        if (idx < 0) {
             JOptionPane.showMessageDialog(vista, "Seleccione un vuelo primero.");
+            return;
+        }
+        Vuelo vuelo = vuelos.get(idx);
+
+        Pista pistaLibre = aeropuerto.obtenerPistaLibre();
+        if (pistaLibre != null) {
+            vuelo.setPista(pistaLibre);
+            pistaLibre.setOcupada(true);
+
+            controladorAereo.cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.ESPERANDO_ATERRIZAJE);
+            JOptionPane.showMessageDialog(vista,
+                    "Pista de aterrizaje asignada y estado cambiado a ESPERANDO_ATERRIZAJE: vuelo " + vuelo.getId());
+            cargarPestañaAterrizaje();
+        } else {
+            JOptionPane.showMessageDialog(vista, "No hay pista de aterrizaje disponible.");
+        }
     }
 
     private void asignarPistaDespegue(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
-        if (idx >= 0) {
-            Vuelo vuelo = vuelos.get(idx);
-            Pista pistaLibre = aeropuerto.obtenerPistaLibre();
-            if (pistaLibre != null) {
-                controladorAereo.addPista(vuelo, pistaLibre);
-                JOptionPane.showMessageDialog(vista,
-                        "Pista de despegue asignada y estado cambiado a ESPERANDO_DESPEGUE: vuelo " + vuelo.getId());
-                cargarPestañaDespegue();
-            } else
-                JOptionPane.showMessageDialog(vista, "No hay pista de despegue disponible.");
-        } else
+        if (idx < 0) {
             JOptionPane.showMessageDialog(vista, "Seleccione un vuelo primero.");
+            return;
+        }
+        Vuelo vuelo = vuelos.get(idx);
+
+        Pista pistaLibre = aeropuerto.obtenerPistaLibre();
+        if (pistaLibre != null) {
+            vuelo.setPista(pistaLibre);
+            pistaLibre.setOcupada(true);
+
+            controladorAereo.cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.ESPERANDO_DESPEGUE);
+            JOptionPane.showMessageDialog(vista,
+                    "Pista de despegue asignada y estado cambiado a ESPERANDO_DESPEGUE: vuelo " + vuelo.getId());
+            cargarPestañaDespegue();
+        } else {
+            JOptionPane.showMessageDialog(vista, "No hay pista de despegue disponible.");
+        }
     }
 
     private void asignarAparcamiento(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
-        if (idx >= 0) {
-            Vuelo vuelo = vuelos.get(idx);
-            controladorAereo.cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.APARCADO);
-            JOptionPane.showMessageDialog(vista,
-                    "Aparcamiento asignado y estado cambiado a APARCADO: vuelo " + vuelo.getId());
-            cargarPestañaAparcamiento();
-        } else
+        if (idx < 0) {
             JOptionPane.showMessageDialog(vista, "Seleccione un vuelo primero.");
+            return;
+        }
+
+        Vuelo vuelo = vuelos.get(idx);
+        ZonaAparcamiento zonaLibre = aeropuerto.obtenerZonaAparcamientoLibre();
+
+        if (zonaLibre != null) {
+            int idPlaza = zonaLibre.ocuparPlaza();
+            if (idPlaza != -1) {
+                vuelo.setAparcamiento(zonaLibre);
+
+                JOptionPane.showMessageDialog(vista,
+                        "Aparcamiento asignado al vuelo " + vuelo.getId() + ", plaza ID: " + idPlaza);
+                cargarPestañaAparcamiento();
+            } else {
+                JOptionPane.showMessageDialog(vista, "No hay plazas libres en la zona asignada.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(vista, "No hay zona de aparcamiento disponible.");
+        }
     }
 
     private void asignarHangar(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
-        if (idx >= 0) {
-            Vuelo vuelo = vuelos.get(idx);
-            Hangar hangarLibre = aeropuerto.obtenerHangarLibre();
-            if (hangarLibre != null) {
-                controladorAereo.asignarHangar(vuelo, hangarLibre);
-                JOptionPane.showMessageDialog(vista,
-                        "Hangar asignado y estado cambiado a EN_HANGAR: vuelo " + vuelo.getId());
-                cargarPestañaHangar();
-            } else
-                JOptionPane.showMessageDialog(vista, "No hay hangar disponible.");
-        } else
+        if (idx < 0) {
             JOptionPane.showMessageDialog(vista, "Seleccione un vuelo primero.");
+            return;
+        }
+
+        Vuelo vuelo = vuelos.get(idx);
+
+        Hangar hangarLibre = aeropuerto.obtenerHangarLibre();
+
+        if (hangarLibre != null) {
+            vuelo.setHangar(hangarLibre);
+            hangarLibre.ocupar(vuelo);
+            JOptionPane.showMessageDialog(vista, "Hangar asignado al vuelo " + vuelo.getId());
+            cargarPestañaHangar();
+        } else {
+            JOptionPane.showMessageDialog(vista, "No hay hangar disponible.");
+        }
     }
 
     private void asignarFinger(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
-        if (idx >= 0) {
-            Vuelo vuelo = vuelos.get(idx);
-            if (vuelo.getClaseVuelo() == Vuelo.ClaseVuelo.PASAJEROS) {
-                Finger fingerLibre = aeropuerto.obtenerFingerLibre();
-                if (fingerLibre != null) {
-                    vuelo.setFinger(fingerLibre);
-                    controladorAereo.cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.EMBARCANDO);
-                    JOptionPane.showMessageDialog(vista,
-                            "Finger asignado y estado cambiado a EMBARCANDO: vuelo " + vuelo.getId());
-                    cargarPestañaFinger();
-                } else
-                    JOptionPane.showMessageDialog(vista, "No hay finger disponible.");
-            } else
-                JOptionPane.showMessageDialog(vista, "Solo vuelos de pasajeros pueden usar finger.");
-        } else
+        if (idx < 0) {
             JOptionPane.showMessageDialog(vista, "Seleccione un vuelo primero.");
-    }
+            return;
+        }
 
-    public void iniciar() {
-        vista.setVisible(true);
+        Vuelo vuelo = vuelos.get(idx);
+        Finger fingerLibre = aeropuerto.obtenerFingerLibre();
+
+        if (fingerLibre != null) {
+            vuelo.setFinger(fingerLibre);
+            fingerLibre.ocupar(vuelo);
+            JOptionPane.showMessageDialog(vista, "Finger asignado al vuelo " + vuelo.getId());
+            cargarPestañaFinger();
+        } else {
+            JOptionPane.showMessageDialog(vista, "No hay finger disponible.");
+        }
     }
 }

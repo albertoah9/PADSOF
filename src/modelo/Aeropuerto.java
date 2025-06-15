@@ -285,6 +285,15 @@ public class Aeropuerto {
         return new ArrayList<>(hangares);
     }
 
+    public ZonaAparcamiento obtenerZonaAparcamientoLibre() {
+        for (ZonaAparcamiento zona : aparcamientos) {
+            if (zona.tienePlazaLibre()) {
+                return zona;
+            }
+        }
+        return null;
+    }
+
     public void addZonaAparcamiento(ZonaAparcamiento zona) {
         if (zona == null)
             throw new IllegalArgumentException("La zona de aparcamiento no puede ser nula.");
@@ -335,5 +344,16 @@ public class Aeropuerto {
         } catch (IllegalArgumentException e) {
             System.out.println("Error en los datos del archivo: " + e.getMessage());
         }
+    }
+
+    public List<ElementoAeropuerto> getElementosAeropuerto() {
+        List<ElementoAeropuerto> elementos = new ArrayList<>();
+        for (Hangar hangar : hangares) {
+            elementos.add(hangar);
+        }
+        for (ZonaAparcamiento zona : aparcamientos) {
+            elementos.add(zona);
+        }
+        return elementos;
     }
 }

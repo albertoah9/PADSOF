@@ -26,6 +26,7 @@ public class ControladorVistaControladorPrincipal {
     private List<ElementoAeropuerto> elementos;
     private ArrayList<UsoElementoAeropuerto> usos;
     private List<String> listaNotificaciones;
+    private List<Pista> pista;
 
     public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto,
             Aerolinea aerolinea, JFrame vistaAnterior) {
@@ -36,6 +37,9 @@ public class ControladorVistaControladorPrincipal {
         this.vistaAnterior = vistaAnterior;
 
         this.listaNotificaciones = new ArrayList<>();
+        this.elementos = aeropuerto.getElementosAeropuerto();
+        this.pista = aeropuerto.getPistas();
+        this.usos = new ArrayList<>();
 
         this.vista.btnVuelos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -52,8 +56,14 @@ public class ControladorVistaControladorPrincipal {
                 VistaControladorDisponibilidad vistaDisponibilidades = new VistaControladorDisponibilidad();
 
                 ControladorVistaControladorDisponibilidad controladorDisponibilidad = new ControladorVistaControladorDisponibilidad(
-                        vistaDisponibilidades, elementos, usos);
+                        vistaDisponibilidades,
+                        elementos,
+                        pista,
+                        usos,
+                        vista);
+
                 controladorDisponibilidad.iniciar();
+                vista.setVisible(false);
             }
         });
 

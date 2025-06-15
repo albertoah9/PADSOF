@@ -57,6 +57,7 @@ public class Vuelo {
     private Hangar hangar;
     private List<Usuario> observadores;
     private Periodicidad periodicidad;
+    private ZonaAparcamiento aparcamiento;
 
     public Vuelo(String origen, String destino, LocalDateTime fechaHoraLlegada, LocalDateTime fechaHoraSalida,
             Terminal terminal, Avion avion, Pista pista, PuertaEmbarque puertaEmbarque, EstadoVuelo estado,
@@ -79,6 +80,14 @@ public class Vuelo {
         this.observadores = new ArrayList<>();
         this.origen = origen;
         this.destino = destino;
+    }
+
+    public ZonaAparcamiento getAparcamiento() {
+        return aparcamiento;
+    }
+
+    public void setAparcamiento(ZonaAparcamiento aparcamiento) {
+        this.aparcamiento = aparcamiento;
     }
 
     public String getOrigen() {

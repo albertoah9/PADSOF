@@ -4,50 +4,52 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VistaControladorAsignarAlVuelo extends JFrame {
+    public JTabbedPane tabbedPane;
 
-    public JButton btnVolver;
-    public JTabbedPane pestañas;
-
+    public JPanel panelAsignarPistaAterrizaje;
+    public JPanel panelAsignarPistaDespegue;
     public JPanel panelAsignarAparcamiento;
     public JPanel panelAsignarHangar;
     public JPanel panelAsignarFinger;
-    public JPanel panelAsignarPistaAterrizaje;
-    public JPanel panelAsignarPistaDespegue;
+
+    public JButton btnVolver;
 
     public VistaControladorAsignarAlVuelo() {
-        setTitle("Asignaciones al Vuelo");
-        setSize(600, 400);
+        setTitle("Asignar Elementos a Vuelo");
+        setSize(700, 500);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        pestañas = new JTabbedPane();
+        tabbedPane = new JTabbedPane();
 
-        panelAsignarAparcamiento = crearPanelSimple("Aquí se asigna un aparcamiento");
-        panelAsignarHangar = crearPanelSimple("Aquí se asigna un hangar");
-        panelAsignarFinger = crearPanelSimple("Aquí se asigna un finger");
-        panelAsignarPistaAterrizaje = crearPanelSimple("Aquí se asigna una pista de aterrizaje");
-        panelAsignarPistaDespegue = crearPanelSimple("Aquí se asigna una pista de despegue");
+        panelAsignarPistaAterrizaje = new JPanel();
+        panelAsignarPistaAterrizaje.setLayout(new BorderLayout());
 
-        pestañas.addTab("Aparcamiento", panelAsignarAparcamiento);
-        pestañas.addTab("Hangar", panelAsignarHangar);
-        pestañas.addTab("Finger", panelAsignarFinger);
-        pestañas.addTab("Pista Aterrizaje", panelAsignarPistaAterrizaje);
-        pestañas.addTab("Pista Despegue", panelAsignarPistaDespegue);
+        panelAsignarPistaDespegue = new JPanel();
+        panelAsignarPistaDespegue.setLayout(new BorderLayout());
 
-        add(pestañas, BorderLayout.CENTER);
+        panelAsignarAparcamiento = new JPanel();
+        panelAsignarAparcamiento.setLayout(new BorderLayout());
+
+        panelAsignarHangar = new JPanel();
+        panelAsignarHangar.setLayout(new BorderLayout());
+
+        panelAsignarFinger = new JPanel();
+        panelAsignarFinger.setLayout(new BorderLayout());
+
+        tabbedPane.addTab("Pista Aterrizaje", panelAsignarPistaAterrizaje);
+        tabbedPane.addTab("Pista Despegue", panelAsignarPistaDespegue);
+        tabbedPane.addTab("Aparcamiento", panelAsignarAparcamiento);
+        tabbedPane.addTab("Hangar", panelAsignarHangar);
+        tabbedPane.addTab("Finger", panelAsignarFinger);
 
         btnVolver = new JButton("Volver");
-        JPanel panelBoton = new JPanel();
-        panelBoton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panelBoton.add(btnVolver);
-        add(panelBoton, BorderLayout.SOUTH);
-    }
 
-    private JPanel crearPanelSimple(String texto) {
-        JPanel panel = new JPanel(new BorderLayout());
-        JLabel etiqueta = new JLabel(texto, SwingConstants.CENTER);
-        panel.add(etiqueta, BorderLayout.CENTER);
-        return panel;
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelBotones.add(btnVolver);
+
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(tabbedPane, BorderLayout.CENTER);
+        getContentPane().add(panelBotones, BorderLayout.SOUTH);
     }
 }
