@@ -20,19 +20,16 @@ public class VistaControladorGraficos extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Panel principal vertical
         JPanel panelPrincipal = new JPanel();
         panelPrincipal.setLayout(new BoxLayout(panelPrincipal, BoxLayout.Y_AXIS));
         panelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Título
         lblTitulo = new JLabel("Visualización de los gráficos para el Controlador Aéreo", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         panelPrincipal.add(lblTitulo);
 
-        // Paneles de estadísticas en grid
         JPanel panelGraficos = new JPanel(new GridLayout(2, 2, 10, 10));
 
         panelEstadoVuelos = crearPanelGrafico("Estado de los vuelos activos");
@@ -49,7 +46,6 @@ public class VistaControladorGraficos extends JFrame {
 
         panelPrincipal.add(panelGraficos);
 
-        // Hora actual (puedes actualizar esto desde el controlador si quieres)
         lblHoraActual = new JLabel("Hora actual: ", SwingConstants.CENTER);
         lblHoraActual.setFont(new Font("Arial", Font.PLAIN, 12));
         lblHoraActual.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
@@ -57,7 +53,6 @@ public class VistaControladorGraficos extends JFrame {
 
         add(panelPrincipal, BorderLayout.CENTER);
 
-        // Botón inferior
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
         btnVolver = new JButton("Volver");
         btnVolver.setPreferredSize(new Dimension(100, 30));
@@ -73,7 +68,6 @@ public class VistaControladorGraficos extends JFrame {
         return panel;
     }
 
-    // Getters para que el controlador pueda acceder a los paneles
     public JPanel getPanelEstadoVuelos() {
         return panelEstadoVuelos;
     }

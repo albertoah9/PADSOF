@@ -22,14 +22,12 @@ public class VistaControladorVerificaciones extends JFrame {
 
         tabbedPanePrincipal = new JTabbedPane();
 
-        // Panel principal para permitir
         JPanel panelPermitir = new JPanel(new GridLayout(1, 2));
         panelPermitirAterrizaje = new JPanel();
         panelPermitirDespegue = new JPanel();
         panelPermitir.add(createScrollablePanel(panelPermitirAterrizaje, "Permitir Aterrizaje"));
         panelPermitir.add(createScrollablePanel(panelPermitirDespegue, "Permitir Despegue"));
 
-        // Panel principal para confirmar
         JPanel panelConfirmar = new JPanel(new GridLayout(1, 2));
         panelConfirmarAterrizaje = new JPanel();
         panelConfirmarDespegue = new JPanel();
@@ -39,12 +37,10 @@ public class VistaControladorVerificaciones extends JFrame {
         tabbedPanePrincipal.addTab("Permitir", panelPermitir);
         tabbedPanePrincipal.addTab("Confirmar", panelConfirmar);
 
-        // Botón volver
         btnVolver = new JButton("Volver");
         JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelBoton.add(btnVolver);
 
-        // Añadir todo al Frame
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(tabbedPanePrincipal, BorderLayout.CENTER);
         getContentPane().add(panelBoton, BorderLayout.SOUTH);

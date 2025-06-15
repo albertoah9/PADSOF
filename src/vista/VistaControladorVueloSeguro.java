@@ -18,7 +18,6 @@ public class VistaControladorVueloSeguro extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        // Pestaña reporte de incidente
         JPanel panelIncidentes = new JPanel(new BorderLayout());
 
         JPanel panelArriba = new JPanel(new BorderLayout());
@@ -35,7 +34,6 @@ public class VistaControladorVueloSeguro extends JFrame {
 
         tabbedPane.addTab("Reportar Incidente", panelIncidentes);
 
-        // Pestaña para mostrar lista de incidentes
         JPanel panelLista = new JPanel(new BorderLayout());
         listaModelIncidentes = new DefaultListModel<>();
         listaIncidentes = new JList<>(listaModelIncidentes);
@@ -43,7 +41,6 @@ public class VistaControladorVueloSeguro extends JFrame {
         panelLista.add(scrollLista, BorderLayout.CENTER);
         tabbedPane.addTab("Incidentes Reportados", panelLista);
 
-        // Botón volver
         btnVolver = new JButton("Volver");
         JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelBoton.add(btnVolver);

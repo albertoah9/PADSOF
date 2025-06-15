@@ -2,8 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.swing.*;
 import modelo.Aerolinea;
@@ -13,7 +12,6 @@ import vista.VistaControladorAsignarAlVuelo;
 import vista.VistaControladorBuscarVuelo;
 import vista.VistaControladorModificarVuelo;
 import vista.VistaControladorVuelos;
-import vista.VistaControladorAsignarAlVuelo;
 import vista.VistaControladorVerificaciones;
 
 public class ControladorVistaControladorVuelos {

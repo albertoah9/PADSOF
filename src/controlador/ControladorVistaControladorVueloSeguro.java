@@ -1,7 +1,6 @@
 package controlador;
 
-import modelo.IncidenteSeguridad;
-import modelo.Vuelo;
+import modelo.*;
 import vista.VistaControladorVueloSeguro;
 
 import javax.swing.*;
@@ -26,7 +25,6 @@ public class ControladorVistaControladorVueloSeguro {
     }
 
     private void inicializar() {
-        // Acción reportar incidente
         vista.btnReportar.addActionListener(e -> {
             String descripcion = vista.areaDescripcion.getText().trim();
             if (descripcion.isEmpty()) {
@@ -35,8 +33,8 @@ public class ControladorVistaControladorVueloSeguro {
             }
 
             IncidenteSeguridad incidente = new IncidenteSeguridad(
-                    "General", // Tipo fijo, sin selección
-                    null, // No hay vuelo afectado
+                    "General",
+                    null,
                     descripcion,
                     LocalDateTime.now(),
                     IncidenteSeguridad.EstadoIncidente.REPORTADO);
@@ -48,7 +46,6 @@ public class ControladorVistaControladorVueloSeguro {
             JOptionPane.showMessageDialog(vista, "Incidente reportado correctamente");
         });
 
-        // Botón volver
         vista.btnVolver.addActionListener(e -> {
             vista.dispose();
             if (vistaAnterior != null)

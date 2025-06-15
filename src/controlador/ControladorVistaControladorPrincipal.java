@@ -65,7 +65,7 @@ public class ControladorVistaControladorPrincipal {
                         aeropuerto.getHangares(),
                         aeropuerto.getAparcamientos(),
                         aeropuerto.getPuertasEmbarque(),
-                        List.of(vuelo.getFinger()), // ✅ Lo convertimos en lista
+                        List.of(vuelo.getFinger()),
                         aeropuerto.getVuelos());
 
                 ControladorVistaControladorGraficos controladorGraficos = new ControladorVistaControladorGraficos(

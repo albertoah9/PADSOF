@@ -21,17 +21,14 @@ public class VistaControladorAsignarAlVuelo extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Crear el contenedor de pestañas
         pestañas = new JTabbedPane();
 
-        // Crear cada panel para cada pestaña
         panelAsignarAparcamiento = crearPanelSimple("Aquí se asigna un aparcamiento");
         panelAsignarHangar = crearPanelSimple("Aquí se asigna un hangar");
         panelAsignarFinger = crearPanelSimple("Aquí se asigna un finger");
         panelAsignarPistaAterrizaje = crearPanelSimple("Aquí se asigna una pista de aterrizaje");
         panelAsignarPistaDespegue = crearPanelSimple("Aquí se asigna una pista de despegue");
 
-        // Añadir pestañas al JTabbedPane
         pestañas.addTab("Aparcamiento", panelAsignarAparcamiento);
         pestañas.addTab("Hangar", panelAsignarHangar);
         pestañas.addTab("Finger", panelAsignarFinger);
@@ -40,7 +37,6 @@ public class VistaControladorAsignarAlVuelo extends JFrame {
 
         add(pestañas, BorderLayout.CENTER);
 
-        // Botón volver
         btnVolver = new JButton("Volver");
         JPanel panelBoton = new JPanel();
         panelBoton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
