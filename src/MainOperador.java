@@ -19,13 +19,17 @@ public class MainOperador {
         Aeropuerto aeropuerto = new Aeropuerto("Adolfo Suárez", "Madrid", "España", Aeropuerto.UbiRelCiudad.ESTE);
 
         AeropuertoDestino aeropuertoBruselas = new AeropuertoDestino("Brussels International Airport", "Bruselas", "Belgica", AeropuertoDestino.UbiRelCiudad.NORTE);
+        aeropuerto.addAeropuertoDestino(aeropuertoBruselas);
         AeropuertoDestino aeropuertoParis = new AeropuertoDestino("Paris Airport", "Paris", "Francia", AeropuertoDestino.UbiRelCiudad.SUR);
+        aeropuerto.addAeropuertoDestino(aeropuertoParis);
         AeropuertoDestino aeropuertoNY = new AeropuertoDestino("New York International Airport", "Nueva York", "EEUU", AeropuertoDestino.UbiRelCiudad.OESTE);
+        aeropuerto.addAeropuertoDestino(aeropuertoNY);
 
         Aerolinea aerolinea = new Aerolinea("Iberia", "A2345");
         aeropuerto.addAerolinea(aerolinea);
 
         OperadorAereo operador = new OperadorAereo("Alberto", aerolinea);
+        aeropuerto.addUsuario(operador);
         aeropuerto.setUsuarioActivo(operador);
 
         Avion avionCarga = new AvionCarga("Boeing", "737", "1234 JBDN", 3354, LocalDate.of(2027, 7, 23), LocalDate.of(2027, 7, 23), false, 3500, false, aerolinea);
