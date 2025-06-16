@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import modelo.Aeropuerto;
 import modelo.GestorAeropuerto;
 import vista.VistaGestorPrincipal;
+import vista.VistaGestorUsuarios;
 
 public class ControladorVistaGestorPrincipal {
 
@@ -19,7 +20,11 @@ public class ControladorVistaGestorPrincipal {
 
         this.vista.btnUsuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir gestión de usuarios");
+                VistaGestorUsuarios vistaUsuarios = new VistaGestorUsuarios();
+                ControladorVistaGestorUsuarios controladorUsuarios = new ControladorVistaGestorUsuarios(
+                    vistaUsuarios, aeropuerto, gestor, vista
+                );
+                controladorUsuarios.iniciar();
             }
         });
 

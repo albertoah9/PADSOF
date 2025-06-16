@@ -10,11 +10,11 @@ public class ControladorAereo extends Usuario {
 
     public ControladorAereo(String nombre, String contraseña, Terminal terminalAsignada) {
         super(nombre, contraseña);
-        this.terminalAsignada = null;// Se asigna con agregarControlador() en Terminal
+        this.terminalAsignada = null;
         terminalAsignada.agregarObservador(this);
         vuelosPorEstado = new HashMap<>();
         for (Vuelo.EstadoVuelo estado : Vuelo.EstadoVuelo.values()) {
-            vuelosPorEstado.put(estado, 0); // Inicializa cada estado con un contador en 0
+            vuelosPorEstado.put(estado, 0);
         }
     }
 
@@ -24,11 +24,11 @@ public class ControladorAereo extends Usuario {
 
     public void setTerminalAsignada(Terminal nuevaTerminal) {
         if (this.terminalAsignada != null) {
-            this.terminalAsignada.eliminarControlador(this); // Elimina de la terminal anterior
+            this.terminalAsignada.eliminarControlador(this); 
         }
         this.terminalAsignada = nuevaTerminal;
         if (nuevaTerminal != null) {
-            nuevaTerminal.agregarControlador(this); // Agrega a la nueva terminal
+            nuevaTerminal.agregarControlador(this); 
         }
     }
 
@@ -36,7 +36,7 @@ public class ControladorAereo extends Usuario {
         this.terminalAsignada = nuevaTerminal;
     }
 
-    public void cambiarEstadoVuelo(Vuelo vuelo, Vuelo.EstadoVuelo nuevoEstado) { // notifica al cambiar estado
+    public void cambiarEstadoVuelo(Vuelo vuelo, Vuelo.EstadoVuelo nuevoEstado) {
         if (vuelo != null) {
             vuelo.setEstado(nuevoEstado);
             Notificacion notificacion = new Notificacion(

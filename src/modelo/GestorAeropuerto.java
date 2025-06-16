@@ -416,7 +416,6 @@ public class GestorAeropuerto extends Usuario {
         registrarEvento("HANGAR_AGREGADO", "Hangar " + hangar.getId() + " agregado.");
     }
 
-    // Zonas de Aparcamiento
     public List<ZonaAparcamiento> getAparcamientos() {
         return aeropuerto.getAparcamientos();
     }
@@ -426,7 +425,6 @@ public class GestorAeropuerto extends Usuario {
         registrarEvento("ZONA_APARCAMIENTO_AGREGADA", "Zona de aparcamiento " + zona.getId() + " agregada.");
     }
 
-    // Usos de Elementos del Aeropuerto
     public List<UsoElementoAeropuerto> getUsosElementosAeropuerto() {
         return aeropuerto.getUsosElementosAeropuerto();
     }
@@ -527,5 +525,28 @@ public class GestorAeropuerto extends Usuario {
         return true;
     }
 
+    public boolean desbloquearOperador(String nombreUsuario) {
+        if (nombreUsuario == null || nombreUsuario.trim().isEmpty()) {
+            registrarEvento("ERROR_DESBLOQUEO", "Nombre de usuario inválido para desbloqueo.");
+            return false;
+        }
+
+        for (OperadorAereo operador : aeropuerto.getOperadores()) {
+            if (operador.getNombre().equals(nombreUsuario)) {
+                if (!operador.isBloqueado()) {
+                    registrarEvento("DESBLOQUEO_NO_NECESARIO", "El operador " + nombreUsuario + " ya estaba desbloqueado.");
+                    return true;
+                }
+
+                operador.setBloqueado(false);
+                operador.setIntentosFallidos(0);
+                registrarEvento("OPERADOR_DESBLOQUEADO", "Operador " + nombreUsuario + " fue desbloqueado.");
+                return true;
+            }
+        }
+
+        registrarEvento("ERROR_DESBLOQUEO", "No se encontró operador con nombre: " + nombreUsuario);
+        return false;
+    }
 
 }
