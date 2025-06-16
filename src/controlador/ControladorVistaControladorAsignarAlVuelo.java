@@ -188,6 +188,12 @@ public class ControladorVistaControladorAsignarAlVuelo {
             pistaLibre.setOcupada(true);
 
             controladorAereo.cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.ESPERANDO_ATERRIZAJE);
+
+            // String mensaje = "Se ha asignado pista de aterrizaje al vuelo " +
+            // vuelo.getId();
+            // Notificacion notificacion = new Notificacion();
+            // aeropuerto.getUsuarioActivo().recibirNotificacion(notificacion);
+
             JOptionPane.showMessageDialog(vista,
                     "Pista de aterrizaje asignada y estado cambiado a ESPERANDO_ATERRIZAJE: vuelo " + vuelo.getId());
             cargarPestañaAterrizaje();

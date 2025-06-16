@@ -89,7 +89,7 @@ public class ControladorVistaControladorPrincipal {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorNotificaciones vistaNotificaciones = new VistaControladorNotificaciones();
                 ControladorVistaControladorNotificaciones controladorNotificaciones = new ControladorVistaControladorNotificaciones(
-                        vistaNotificaciones, vista, listaNotificaciones);
+                        vistaNotificaciones, aeropuerto, vista);
                 controladorNotificaciones.iniciar();
                 vista.setVisible(false);
             }

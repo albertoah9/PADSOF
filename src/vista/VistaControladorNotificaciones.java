@@ -1,80 +1,49 @@
 package vista;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class VistaControladorNotificaciones extends JFrame {
-    public JLabel lblTitulo;
-    private JPanel panelNotificaciones;
+
     public JButton btnVolver;
+    private DefaultListModel<String> modeloLista;
+    private JList<String> listaNotificaciones;
 
     public VistaControladorNotificaciones() {
-        setTitle("Notificaciones");
+        setTitle("Notificaciones del Controlador");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(450, 400);
+        setSize(500, 400);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        modeloLista = new DefaultListModel<>();
+        listaNotificaciones = new JList<>(modeloLista);
+        listaNotificaciones.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        JScrollPane scrollPane = new JScrollPane(listaNotificaciones);
 
-        lblTitulo = new JLabel("Notificaciones", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
-        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-        panel.add(lblTitulo);
-
-        panelNotificaciones = new JPanel();
-        panelNotificaciones.setLayout(new BoxLayout(panelNotificaciones, BoxLayout.Y_AXIS));
-        panelNotificaciones.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-        JScrollPane scrollPane = new JScrollPane(panelNotificaciones,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(400, 250));
-        panel.add(scrollPane);
-
-        add(panel, BorderLayout.CENTER);
-
-        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
         btnVolver = new JButton("Volver");
-        btnVolver.setPreferredSize(new Dimension(100, 30));
-        panelInferior.add(btnVolver);
-        add(panelInferior, BorderLayout.SOUTH);
+
+        JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
+        panelPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        panelPrincipal.add(new JLabel("Lista de notificaciones:"), BorderLayout.NORTH);
+        panelPrincipal.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelBoton.add(btnVolver);
+        panelPrincipal.add(panelBoton, BorderLayout.SOUTH);
+
+        setContentPane(panelPrincipal);
     }
 
-    public void actualizarNotificaciones(String[] notificaciones) {
-        panelNotificaciones.removeAll();
+    public void limpiarLista() {
+        modeloLista.clear();
+    }
 
-        if (notificaciones.length == 0) {
-            JLabel noNotif = new JLabel("No hay notificaciones.");
-            noNotif.setFont(new Font("Arial", Font.ITALIC, 14));
-            noNotif.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            panelNotificaciones.add(noNotif);
-        } else {
-            for (int i = 0; i < notificaciones.length; i++) {
-                JPanel notifPanel = new JPanel(new BorderLayout());
-                notifPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    public void agregarNotificacion(String texto) {
+        modeloLista.addElement(texto);
+    }
 
-                JTextArea textoNotif = new JTextArea(notificaciones[i]);
-                textoNotif.setLineWrap(true);
-                textoNotif.setWrapStyleWord(true);
-                textoNotif.setEditable(false);
-                textoNotif.setFont(new Font("Arial", Font.PLAIN, 12));
-                textoNotif.setBackground(notifPanel.getBackground());
-                textoNotif.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-                notifPanel.add(textoNotif, BorderLayout.CENTER);
-
-                panelNotificaciones.add(notifPanel);
-
-                if (i < notificaciones.length - 1) {
-                    panelNotificaciones.add(new JSeparator());
-                }
-            }
-        }
-
-        panelNotificaciones.revalidate();
-        panelNotificaciones.repaint();
+    public JList<String> getListaNotificaciones() {
+        return listaNotificaciones;
     }
 }

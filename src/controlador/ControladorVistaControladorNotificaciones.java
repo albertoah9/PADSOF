@@ -1,40 +1,69 @@
 package controlador;
 
+import modelo.Aeropuerto;
+import modelo.Notificacion;
+import modelo.Usuario;
 import vista.VistaControladorNotificaciones;
+import vista.VistaControladorPrincipal;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class ControladorVistaControladorNotificaciones {
 
     private VistaControladorNotificaciones vista;
-    private JFrame vistaAnterior;
-    private List<String> listaNotificaciones;
+    private VistaControladorPrincipal vistaAnterior;
+    private Aeropuerto aeropuerto;
+    private Usuario usuario;
+    private List<Notificacion> notificaciones;
 
-    public ControladorVistaControladorNotificaciones(VistaControladorNotificaciones vista, JFrame vistaAnterior,
-            List<String> listaNotificaciones) {
+    public ControladorVistaControladorNotificaciones(
+            VistaControladorNotificaciones vista,
+            Aeropuerto aeropuerto,
+            VistaControladorPrincipal vistaAnterior) {
+
         this.vista = vista;
+        this.aeropuerto = aeropuerto;
         this.vistaAnterior = vistaAnterior;
-        this.listaNotificaciones = listaNotificaciones;
+        this.usuario = aeropuerto.getUsuarioActivo();
 
-        this.vista.btnVolver.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                vista.dispose();
-                vistaAnterior.setVisible(true);
+        this.notificaciones = usuario.getNotificaciones();
+
+        cargarNotificaciones();
+
+        this.vista.getListaNotificaciones().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int index = vista.getListaNotificaciones().getSelectedIndex();
+                    if (index >= 0 && index < notificaciones.size()) {
+                        Notificacion noti = notificaciones.get(index);
+                        noti.marcarComoLeida();
+                        JOptionPane.showMessageDialog(vista, noti.getMensaje(), "Contenido de la Notificación",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        cargarNotificaciones();
+                    }
+                }
             }
+        });
+
+        this.vista.btnVolver.addActionListener(e -> {
+            vista.dispose();
+            vistaAnterior.setVisible(true);
         });
     }
 
-    public void iniciar() {
-        actualizarVista();
-        vista.setVisible(true);
+    private void cargarNotificaciones() {
+        vista.limpiarLista();
+        for (Notificacion n : notificaciones) {
+            String estado = n.isLeida() ? "Leída" : "No leída";
+            String texto = String.format("(%s) [%s] %s", n.getFecha(), estado, n.getMensaje());
+            vista.agregarNotificacion(texto);
+        }
     }
 
-    public void actualizarVista() {
-        String[] arrayNotificaciones = listaNotificaciones.toArray(new String[0]);
-        vista.actualizarNotificaciones(arrayNotificaciones);
+    public void iniciar() {
+        vista.setVisible(true);
     }
 }

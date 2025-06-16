@@ -1,6 +1,8 @@
 package controlador;
 
 import modelo.Aeropuerto;
+import modelo.Notificacion;
+import modelo.Usuario;
 import modelo.Vuelo;
 import vista.VistaControladorModificarVuelo;
 
@@ -86,21 +88,32 @@ public class ControladorVistaControladorModificarVuelo {
     }
 
     private void confirmarCambios() {
+        boolean huboCambio = false;
+
         for (VueloEstadoPanel vep : vueloEstadoPanels) {
             String estadoSeleccionado = (String) vep.comboEstado.getSelectedItem();
             if (estadoSeleccionado != null && !vep.vuelo.getEstado().name().equals(estadoSeleccionado)) {
                 try {
                     Vuelo.EstadoVuelo nuevoEstado = Vuelo.EstadoVuelo.valueOf(estadoSeleccionado);
                     vep.vuelo.setEstado(nuevoEstado);
+                    huboCambio = true;
+
+                    String mensaje = "El estado del vuelo " + vep.vuelo.getId() + " ha cambiado a " + estadoSeleccionado
+                            + ".";
+                    new Notificacion(mensaje, List.of(aeropuerto.getUsuarioActivo()));
+
                 } catch (IllegalArgumentException ex) {
                     JOptionPane.showMessageDialog(vista, "Estado inválido para vuelo " + vep.vuelo.getId(),
                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
-        JOptionPane.showMessageDialog(vista, "Estados de vuelos actualizados correctamente.", "Éxito",
-                JOptionPane.INFORMATION_MESSAGE);
-        cargarVuelos();
+
+        if (huboCambio) {
+            JOptionPane.showMessageDialog(vista, "Estados de vuelos actualizados correctamente.", "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
+            cargarVuelos();
+        }
     }
 
     public void iniciar() {
