@@ -8,21 +8,13 @@ import java.util.List;
 import java.util.Set;
 import modelo.Aeropuerto.Status;
 
-/**
- * Clase principal del modelo que gestiona todas las operaciones y datos del
- * aeropuerto.
- * Sirve como el punto central para interactuar con la lógica de negocio.
- */
 public class GestorAeropuerto extends Usuario {
-
-    // Atributo para acceder a la instancia del Aeropuerto
     private Aeropuerto aeropuerto;
 
     private Set<String> preferenciasNotificaciones;
     private int horasVentanaTerminal = 48;
     private int minutosDesocupacion = 30;
 
-    // ESTAS LISTAS PERMANECEN EN GESTOR AEROPUERTO:
     private List<EventoHistorial> historialEventos;
     private List<Pago> pagos;
     private List<IncidenteSeguridad> incidentesSeguridad;
@@ -35,7 +27,7 @@ public class GestorAeropuerto extends Usuario {
         if (aeropuerto == null) {
             throw new IllegalArgumentException("El objeto Aeropuerto no puede ser nulo para GestorAeropuerto.");
         }
-        this.aeropuerto = aeropuerto; // Asignar la instancia de Aeropuerto
+        this.aeropuerto = aeropuerto;
 
         this.preferenciasNotificaciones = new HashSet<>();
         this.historialEventos = new ArrayList<>();
@@ -44,7 +36,6 @@ public class GestorAeropuerto extends Usuario {
         this.operadores = new ArrayList<>();
         this.controladores = new ArrayList<>();
 
-        // Registrar un evento de inicio del gestor (en su propio historial)
         registrarEvento("INICIO_GESTOR", "Gestor Aeropuerto iniciado.");
     }
 
@@ -502,4 +493,39 @@ public class GestorAeropuerto extends Usuario {
                 "El estado del vuelo " + idVuelo + " no ha cambiado automáticamente en esta verificación.");
         return Status.OK;
     }
+
+    public boolean desbloquearOperador(OperadorAereo operador) {
+        if (operador == null) {
+            return false;
+        }
+
+        List<OperadorAereo> operadores = aeropuerto.getOperadores();
+        if (!operadores.contains(operador)) {
+            registrarEvento("ERROR_DESBLOQUEO", "Intento de desbloquear operador no registrado: " + operador.getNombre());
+            return false;
+        }
+
+        operador.setBloqueado(false);
+        operador.setIntentosFallidos(0);
+        registrarEvento("OPERADOR_DESBLOQUEADO", "Operador " + operador.getNombre() + " fue desbloqueado.");
+        return true;
+    }
+
+    public boolean forzarReseteoContrasena(OperadorAereo operador) {
+        if (operador == null) {
+            return false;
+        }
+
+        List<OperadorAereo> operadores = aeropuerto.getOperadores();
+        if (!operadores.contains(operador)) {
+            registrarEvento("ERROR_RESETEO", "Intento de resetear contraseña de operador no registrado: " + operador.getNombre());
+            return false;
+        }
+
+        operador.setNecesitaResetear(true);
+        registrarEvento("RESETEO_FORZADO", "Se forzó el cambio de contraseña del operador " + operador.getNombre());
+        return true;
+    }
+
+
 }

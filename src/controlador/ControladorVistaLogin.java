@@ -28,31 +28,37 @@ public class ControladorVistaLogin {
 
         for (Usuario u : aeropuerto.getUsuarios()) {
             if (u.getNombre().equals(usuarioIngresado)) {
-                if (u.isBloqueado()) {
-                    vista.mostrarMensaje("Cuenta bloqueada.");
-                    return;
-                }
 
-                if (u.necesitaResetear()) {
-                    vista.mostrarMensaje("Debe cambiar su contraseña. Introduzca nueva:");
-                    String nueva = javax.swing.JOptionPane.showInputDialog(vista, "Nueva contraseña:");
-                    if (nueva != null && !nueva.isBlank()) {
-                        u.setContraseña(nueva);
-                        u.setNecesitaResetear(false);
-                        u.setIntentosFallidos(0);
-                        vista.mostrarMensaje("Contraseña actualizada. Inicie sesión nuevamente.");
-                        vista.limpiarCampos();
+                if (u instanceof OperadorAereo operador) {
+                    if (operador.isBloqueado()) {
+                        vista.mostrarMensaje("Cuenta bloqueada.");
+                        return;
                     }
-                    return;
+
+                    if (operador.necesitaResetear()) {
+                        vista.mostrarMensaje("Debe cambiar su contraseña. Introduzca nueva:");
+                        String nueva = javax.swing.JOptionPane.showInputDialog(vista, "Nueva contraseña:");
+                        if (nueva != null && !nueva.isBlank()) {
+                            operador.setContraseña(nueva);
+                            operador.setNecesitaResetear(false);
+                            operador.setIntentosFallidos(0);
+                            vista.mostrarMensaje("Contraseña actualizada. Inicie sesión nuevamente.");
+                            vista.limpiarCampos();
+                        }
+                        return;
+                    }
                 }
 
                 if (u.getContraseña().equals(contrasenaIngresada)) {
-                    u.setIntentosFallidos(0);
+                    if (u instanceof OperadorAereo operador) {
+                        operador.setIntentosFallidos(0);
+                    }
+
                     aeropuerto.setUsuarioActivo(u);
                     vista.dispose();
 
-                    if (u instanceof GestorAeropuerto) {
-                        VistaGestorPrincipal vistaGestor = new VistaGestorPrincipal((GestorAeropuerto)aeropuerto.getUsuarioActivo());
+                    if (u instanceof GestorAeropuerto gestor) {
+                        VistaGestorPrincipal vistaGestor = new VistaGestorPrincipal(gestor);
                         vistaGestor.setVisible(true);
                     } else if (u instanceof OperadorAereo) {
                         VistaOperadorPrincipal vistaOperador = new VistaOperadorPrincipal();
@@ -63,14 +69,19 @@ public class ControladorVistaLogin {
                     } else {
                         vista.mostrarMensaje("Tipo de usuario desconocido.");
                     }
+
                     return;
                 } else {
-                    u.incrementarIntentosFallidos();
-                    vista.mostrarMensaje("Contraseña incorrecta. Intento " + u.getIntentosFallidos() + "/3");
+                    if (u instanceof OperadorAereo operador) {
+                        operador.incrementarIntentosFallidos();
+                        vista.mostrarMensaje("Contraseña incorrecta. Intento " + operador.getIntentosFallidos() + "/3");
 
-                    if (u.getIntentosFallidos() >= 3) {
-                        u.setBloqueado(true);
-                        vista.mostrarMensaje("Cuenta bloqueada.");
+                        if (operador.getIntentosFallidos() >= 3) {
+                            operador.setBloqueado(true);
+                            vista.mostrarMensaje("Cuenta bloqueada.");
+                        }
+                    } else {
+                        vista.mostrarMensaje("Contraseña incorrecta.");
                     }
                     return;
                 }
