@@ -25,7 +25,7 @@ public class ControladorVistaGestorRegistrarUsuario {
             }
         });
 
-        this.vista.btnCancelar.addActionListener(new ActionListener() {
+        this.vista.btnCancelar.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarYVolver();
