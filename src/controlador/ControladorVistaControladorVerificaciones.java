@@ -4,7 +4,6 @@ import modelo.*;
 import vista.VistaControladorVerificaciones;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,7 @@ public class ControladorVistaControladorVerificaciones {
     }
 
     private void inicializar() {
-        vista.btnVolver.addActionListener(e -> {
+        vista.btnVolver.addActionListener(_ -> {
             vista.dispose();
             if (vistaAnterior != null) {
                 vistaAnterior.setVisible(true);
@@ -48,7 +47,7 @@ public class ControladorVistaControladorVerificaciones {
 
         for (Vuelo vuelo : vuelos) {
             JCheckBox checkbox = new JCheckBox(vuelo.toString());
-            checkbox.addActionListener(e -> {
+            checkbox.addActionListener(_ -> {
                 int opcion = JOptionPane.showConfirmDialog(vista,
                         "¿Está seguro de permitir el aterrizaje?",
                         "Confirmar permiso", JOptionPane.YES_NO_OPTION);
@@ -77,7 +76,7 @@ public class ControladorVistaControladorVerificaciones {
 
         for (Vuelo vuelo : vuelos) {
             JCheckBox checkbox = new JCheckBox(vuelo.toString());
-            checkbox.addActionListener(e -> {
+            checkbox.addActionListener(_ -> {
                 int opcion = JOptionPane.showConfirmDialog(vista,
                         "¿Está seguro de permitir el despegue?",
                         "Confirmar permiso", JOptionPane.YES_NO_OPTION);
@@ -106,7 +105,7 @@ public class ControladorVistaControladorVerificaciones {
 
         for (Vuelo vuelo : vuelos) {
             JCheckBox checkbox = new JCheckBox(vuelo.toString());
-            checkbox.addActionListener(e -> {
+            checkbox.addActionListener(_ -> {
                 int opcion = JOptionPane.showConfirmDialog(vista,
                         "¿Confirmar que el vuelo ha aterrizado?",
                         "Confirmar aterrizaje", JOptionPane.YES_NO_OPTION);
@@ -135,7 +134,7 @@ public class ControladorVistaControladorVerificaciones {
 
         for (Vuelo vuelo : vuelos) {
             JCheckBox checkbox = new JCheckBox(vuelo.toString());
-            checkbox.addActionListener(e -> {
+            checkbox.addActionListener(_ -> {
                 int opcion = JOptionPane.showConfirmDialog(vista,
                         "¿Confirmar que el vuelo ha salido correctamente?",
                         "Confirmar despegue", JOptionPane.YES_NO_OPTION);

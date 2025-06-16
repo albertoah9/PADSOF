@@ -5,37 +5,26 @@ import java.awt.*;
 
 public class VistaControladorAsignarAlVuelo extends JFrame {
     public JTabbedPane tabbedPane;
-
     public JPanel panelAsignarPistaAterrizaje;
     public JPanel panelAsignarPistaDespegue;
     public JPanel panelAsignarAparcamiento;
     public JPanel panelAsignarHangar;
     public JPanel panelAsignarFinger;
-
     public JButton btnVolver;
 
     public VistaControladorAsignarAlVuelo() {
-        setTitle("Asignar Elementos a Vuelo");
-        setSize(700, 500);
-        setLocationRelativeTo(null);
+        setTitle("Asignar Elementos a Vuelos");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(700, 450);
+        setLocationRelativeTo(null);
 
         tabbedPane = new JTabbedPane();
 
-        panelAsignarPistaAterrizaje = new JPanel();
-        panelAsignarPistaAterrizaje.setLayout(new BorderLayout());
-
-        panelAsignarPistaDespegue = new JPanel();
-        panelAsignarPistaDespegue.setLayout(new BorderLayout());
-
-        panelAsignarAparcamiento = new JPanel();
-        panelAsignarAparcamiento.setLayout(new BorderLayout());
-
-        panelAsignarHangar = new JPanel();
-        panelAsignarHangar.setLayout(new BorderLayout());
-
-        panelAsignarFinger = new JPanel();
-        panelAsignarFinger.setLayout(new BorderLayout());
+        panelAsignarPistaAterrizaje = new JPanel(new BorderLayout());
+        panelAsignarPistaDespegue = new JPanel(new BorderLayout());
+        panelAsignarAparcamiento = new JPanel(new BorderLayout());
+        panelAsignarHangar = new JPanel(new BorderLayout());
+        panelAsignarFinger = new JPanel(new BorderLayout());
 
         tabbedPane.addTab("Pista Aterrizaje", panelAsignarPistaAterrizaje);
         tabbedPane.addTab("Pista Despegue", panelAsignarPistaDespegue);
@@ -45,7 +34,7 @@ public class VistaControladorAsignarAlVuelo extends JFrame {
 
         btnVolver = new JButton("Volver");
 
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel panelBotones = new JPanel();
         panelBotones.add(btnVolver);
 
         getContentPane().setLayout(new BorderLayout());

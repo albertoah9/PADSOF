@@ -24,12 +24,12 @@ public class ControladorVistaControladorBuscarVuelos {
 
         cargarVuelos(null, null, null, null);
 
-        this.vista.btnVolver.addActionListener(e -> {
+        this.vista.btnVolver.addActionListener(_ -> {
             vista.dispose();
             vistaAnterior.setVisible(true);
         });
 
-        this.vista.btnFiltrar.addActionListener(e -> {
+        this.vista.btnFiltrar.addActionListener(_ -> {
             String origen = vista.txtFiltroOrigen.getText().trim();
             String destino = vista.txtFiltroDestino.getText().trim();
             String estado = (String) vista.comboFiltroEstado.getSelectedItem();

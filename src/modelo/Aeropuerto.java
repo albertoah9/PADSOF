@@ -74,7 +74,7 @@ public class Aeropuerto {
         if (this.gestor != null) {
             usuariosDestinatarios.add(this.gestor);
         }
-        
+
         for (ControladorAereo c : this.getControladores()) {
             usuariosDestinatarios.add(c);
         }
@@ -83,7 +83,7 @@ public class Aeropuerto {
             usuariosDestinatarios.add(o);
         }
 
-        Notificacion n = new Notificacion("Nuevo vuelo - ID: " + vuelo.getId(), usuariosDestinatarios); 
+        Notificacion n = new Notificacion("Nuevo vuelo - ID: " + vuelo.getId(), usuariosDestinatarios);
     }
 
     public boolean eliminarVuelo(int idVuelo) {
@@ -152,7 +152,7 @@ public class Aeropuerto {
     }
 
     public List<ControladorAereo> getControladores() {
-        List<ControladorAereo> controladores= new ArrayList<>();
+        List<ControladorAereo> controladores = new ArrayList<>();
         for (Usuario u : this.usuarios) {
             if (u instanceof ControladorAereo ca) {
                 controladores.add(ca);
@@ -197,7 +197,7 @@ public class Aeropuerto {
         }
 
         if (usuario instanceof OperadorAereo) {
-            ((OperadorAereo) usuario).getAerolineaAsignada().agregarOperador((OperadorAereo)usuario);
+            ((OperadorAereo) usuario).getAerolineaAsignada().agregarOperador((OperadorAereo) usuario);
         }
     }
 
@@ -314,6 +314,25 @@ public class Aeropuerto {
 
     public List<UsoElementoAeropuerto> getUsosElementosAeropuerto() {
         return new ArrayList<>(usosElementosAeropuerto);
+    }
+
+    public List<Hangar> getHangaresDisponibles() {
+        return hangares.stream()
+                .filter(h -> !h.estaOcupado())
+                .toList();
+    }
+
+    public List<ZonaAparcamiento> getZonasAparcamientoDisponibles() {
+        return aparcamientos.stream()
+                .filter(ZonaAparcamiento::tienePlazaLibre)
+                .toList();
+    }
+
+    public List<Finger> getFingersDisponibles() {
+        return puertasEmbarque.stream()
+                .filter(p -> !p.estaOcupado() && p.getFinger() != null)
+                .map(PuertaEmbarque::getFinger)
+                .toList();
     }
 
     public void addAeropuertoDestino(AeropuertoDestino aeropuertoDestino) {

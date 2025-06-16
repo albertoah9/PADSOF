@@ -18,7 +18,6 @@ public class MainControlador {
                 ControladorAereo controlador = new ControladorAereo("Robert", "123", t1);
                 aeropuerto.setUsuarioActivo(controlador);
 
-
                 // Aviones
                 AvionCarga avionCarga = new AvionCarga("Boeing", "737", "1234 JBDN", 3354, LocalDate.of(2027, 7, 23),
                                 LocalDate.of(2027, 7, 23), false, 3500, false, aerolinea);
@@ -78,8 +77,10 @@ public class MainControlador {
                 aeropuerto.addPista(pistaDespegue);
                 aeropuerto.addPista(pistaAterrizaje);
 
-                Notificacion noti1 = new Notificacion("El vuelo a París ha sido actualizado.", Arrays.asList(controlador));
-                Notificacion noti2 = new Notificacion("Nueva política de despegues de la UE.", Arrays.asList(controlador));
+                Notificacion noti1 = new Notificacion("El vuelo a París ha sido actualizado.",
+                                Arrays.asList(controlador));
+                Notificacion noti2 = new Notificacion("Nueva política de despegues de la UE.",
+                                Arrays.asList(controlador));
 
                 VistaControladorPrincipal vista = new VistaControladorPrincipal();
                 ControladorVistaControladorPrincipal controladorVista = new ControladorVistaControladorPrincipal(vista,

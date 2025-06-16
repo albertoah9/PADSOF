@@ -1,4 +1,5 @@
 package modelo;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public abstract class ElementoAeropuerto {
                 return true;
             }
         }
-        
+
         return false;
     }
 }

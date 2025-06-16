@@ -1,7 +1,6 @@
 package controlador;
 
-import modelo.Aeropuerto;
-import modelo.Vuelo;
+import modelo.*;
 import vista.VistaControladorModificarVuelo;
 
 import javax.swing.*;
@@ -36,14 +35,14 @@ public class ControladorVistaControladorModificarVuelo {
         this.vistaAnterior = vistaAnterior;
         this.vueloEstadoPanels = new ArrayList<>();
 
-        this.vista.btnVolver.addActionListener(e -> {
+        this.vista.btnVolver.addActionListener(_ -> {
             vista.dispose();
             vistaAnterior.setVisible(true);
         });
 
-        this.vista.btnActualizar.addActionListener(e -> cargarVuelos());
+        this.vista.btnActualizar.addActionListener(_ -> cargarVuelos());
 
-        this.vista.btnConfirmar.addActionListener(e -> confirmarCambios());
+        this.vista.btnConfirmar.addActionListener(_ -> confirmarCambios());
 
         cargarVuelos();
     }
@@ -86,21 +85,32 @@ public class ControladorVistaControladorModificarVuelo {
     }
 
     private void confirmarCambios() {
+        boolean huboCambio = false;
+
         for (VueloEstadoPanel vep : vueloEstadoPanels) {
             String estadoSeleccionado = (String) vep.comboEstado.getSelectedItem();
             if (estadoSeleccionado != null && !vep.vuelo.getEstado().name().equals(estadoSeleccionado)) {
                 try {
                     Vuelo.EstadoVuelo nuevoEstado = Vuelo.EstadoVuelo.valueOf(estadoSeleccionado);
                     vep.vuelo.setEstado(nuevoEstado);
+                    huboCambio = true;
+
+                    String mensaje = "El estado del vuelo " + vep.vuelo.getId() + " ha cambiado a " + estadoSeleccionado
+                            + ".";
+                    new Notificacion(mensaje, List.of(aeropuerto.getUsuarioActivo()));
+
                 } catch (IllegalArgumentException ex) {
                     JOptionPane.showMessageDialog(vista, "Estado inválido para vuelo " + vep.vuelo.getId(),
                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
-        JOptionPane.showMessageDialog(vista, "Estados de vuelos actualizados correctamente.", "Éxito",
-                JOptionPane.INFORMATION_MESSAGE);
-        cargarVuelos();
+
+        if (huboCambio) {
+            JOptionPane.showMessageDialog(vista, "Estados de vuelos actualizados correctamente.", "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
+            cargarVuelos();
+        }
     }
 
     public void iniciar() {

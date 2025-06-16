@@ -108,6 +108,11 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
 
     public int getPlazasDisponibles() {
         return (int) plazas.stream().filter(p -> !p.isOcupada()).count();
+
+    }
+
+    public int plazasOcupadas() {
+        return (int) plazas.stream().filter(PlazaAparcamiento::isOcupada).count();
     }
 
     public List<PlazaAparcamiento> getPlazas() {

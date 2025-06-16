@@ -30,12 +30,12 @@ public class ControladorVistaControladorDisponibilidad {
 
         cargarElementos(null, null, null);
 
-        this.vista.btnVolver.addActionListener(e -> {
+        this.vista.btnVolver.addActionListener(_ -> {
             vista.dispose();
             vistaAnterior.setVisible(true);
         });
 
-        this.vista.btnFiltrar.addActionListener(e -> {
+        this.vista.btnFiltrar.addActionListener(_ -> {
             String idStr = vista.txtFiltroID.getText().trim();
             Integer idFiltro = null;
             try {
@@ -61,32 +61,30 @@ public class ControladorVistaControladorDisponibilidad {
 
     private void cargarElementos(Integer idFiltro, String tipoFiltro, String disponibilidadFiltro) {
         vista.limpiarTabla();
-
-        // Fecha actual para validar disponibilidad
         LocalDateTime ahora = LocalDateTime.now();
 
-        // Buscar entre elementos del aeropuerto (Hangar, Finger, ZonaAparcamiento)
         for (ElementoAeropuerto elem : elementosAeropuerto) {
-            if (cumpleFiltro(elem.getId(), elem.getClass().getSimpleName(), elem.isOcupado(ahora, usos), idFiltro,
-                    tipoFiltro, disponibilidadFiltro)) {
+            boolean ocupado = estaOcupado(elem, ahora);
+
+            if (cumpleFiltro(elem.getId(), elem.getClass().getSimpleName(), ocupado, idFiltro, tipoFiltro,
+                    disponibilidadFiltro)) {
                 Object[] fila = {
                         elem.getId(),
                         elem.getClass().getSimpleName(),
-                        elem.isOcupado(ahora, usos) ? "Ocupado" : "Libre"
+                        ocupado ? "Ocupado" : "Libre"
                 };
                 vista.agregarElemento(fila);
             }
         }
 
-        // Buscar entre pistas
         for (Pista pista : pistas) {
-            boolean ocupada = pista.isOcupada();
-            if (cumpleFiltro(pista.getId(), pista.getClass().getSimpleName(), ocupada, idFiltro, tipoFiltro,
+            boolean ocupado = pista.isOcupada();
+            if (cumpleFiltro(pista.getId(), pista.getClass().getSimpleName(), ocupado, idFiltro, tipoFiltro,
                     disponibilidadFiltro)) {
                 Object[] fila = {
                         pista.getId(),
                         pista.getClass().getSimpleName(),
-                        ocupada ? "Ocupado" : "Libre"
+                        ocupado ? "Ocupado" : "Libre"
                 };
                 vista.agregarElemento(fila);
             }
@@ -96,10 +94,24 @@ public class ControladorVistaControladorDisponibilidad {
         vista.tablaElementos.repaint();
     }
 
+    private boolean estaOcupado(ElementoAeropuerto elem, LocalDateTime ahora) {
+        if (elem instanceof Hangar) {
+            Hangar hangar = (Hangar) elem;
+            return hangar.estaOcupado();
+        } else if (elem instanceof ZonaAparcamiento) {
+            ZonaAparcamiento zona = (ZonaAparcamiento) elem;
+            return zona.plazasOcupadas() > 0;
+        } else if (elem instanceof Finger) {
+            Finger finger = (Finger) elem;
+            return finger.estaOcupado();
+        } else {
+
+            return elem.isOcupado(ahora, usos);
+        }
+    }
+
     private boolean cumpleFiltro(int id, String tipo, boolean ocupado, Integer filtroID, String filtroTipo,
             String filtroDisponibilidad) {
-        boolean disponible = !ocupado;
-
         if (filtroID != null && id != filtroID)
             return false;
 
