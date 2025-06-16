@@ -1,4 +1,5 @@
 package modelo;
+
 import java.util.*;
 
 public class ZonaAparcamiento extends ElementoAeropuerto {
@@ -18,7 +19,7 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
         this.plazas = new ArrayList<>();
         this.numPlazas = numPlazas;
 
-        for (int i=0; i<numPlazas; i++) {
+        for (int i = 0; i < numPlazas; i++) {
             plazas.add(new PlazaAparcamiento(ancho, largo));
         }
     }
@@ -72,7 +73,7 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
             return "Plaza " + id + " [" + ancho + "m x " + largo + "m] - " + (ocupada ? "Ocupada" : "Libre");
         }
     }
-    
+
     public double getCostePorHora() {
         return costePorHora;
     }
@@ -107,6 +108,11 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
 
     public int getPlazasDisponibles() {
         return (int) plazas.stream().filter(p -> !p.isOcupada()).count();
+
+    }
+
+    public int plazasOcupadas() {
+        return (int) plazas.stream().filter(PlazaAparcamiento::isOcupada).count();
     }
 
     public List<PlazaAparcamiento> getPlazas() {
@@ -116,9 +122,8 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
     // METODOS
     public void agregarPlaza(double ancho, double largo) {
         plazas.add(new PlazaAparcamiento(ancho, largo));
-        numPlazas+=1;
+        numPlazas += 1;
     }
-
 
     public double calcularArea() {
         return ancho * largo;
@@ -143,12 +148,15 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
         }
     }
 
+    public boolean tienePlazaLibre() {
+        return getPlazasDisponibles() > 0;
+    }
 
     @Override
     public String toString() {
         return "Zona de Aparcamiento ID: " + getId() + "\n" +
-            "Tamaño: " + ancho + "m x " + largo + "m (" + calcularArea() + "m²)\n" +
-            "Coste por hora: " + costePorHora + "€/hora\n" +
-            "Plazas disponibles: " + getPlazasDisponibles();
+                "Tamaño: " + ancho + "m x " + largo + "m (" + calcularArea() + "m²)\n" +
+                "Coste por hora: " + costePorHora + "€/hora\n" +
+                "Plazas disponibles: " + getPlazasDisponibles();
     }
 }

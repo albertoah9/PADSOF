@@ -10,8 +10,10 @@ public class AeropuertoDestino {
     private String pais;
     private UbiRelCiudad ubiRelCiudad;
 
-    public AeropuertoDestino(int id, String nombre, String ciudad, String pais, UbiRelCiudad ubiRelCiudad) {
-        this.id = id;
+    private static int contador = 0;
+
+    public AeropuertoDestino(String nombre, String ciudad, String pais, UbiRelCiudad ubiRelCiudad) {
+        this.id = ++contador;
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.pais = pais;

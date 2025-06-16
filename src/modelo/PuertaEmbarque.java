@@ -1,4 +1,5 @@
 package modelo;
+
 import java.time.LocalTime;
 
 public class PuertaEmbarque {
@@ -96,6 +97,10 @@ public class PuertaEmbarque {
     }
 
     public boolean estaDisponible() {
+        return !ocupado;
+    }
+
+    public boolean estaOcupado() {
         return ocupado;
     }
 
@@ -120,7 +125,8 @@ public class PuertaEmbarque {
         System.out.println("Puerta de Embarque ID: " + id);
         System.out.println("Tipo de avión: " + tipoPuerta);
         System.out.println("Finger asociado: " + (finger != null ? finger.getId() : "No asignado"));
-        System.out.println("Zona de aparcamiento: " + (zonaAparcamiento != null ? zonaAparcamiento.getId() : "No asignada"));
+        System.out.println(
+                "Zona de aparcamiento: " + (zonaAparcamiento != null ? zonaAparcamiento.getId() : "No asignada"));
         System.out.println("Aforo máximo: " + aforoMaximo);
         System.out.println("Hora de inicio: " + (horaInicio != null ? horaInicio : "No asignada"));
         System.out.println("Hora de fin: " + (horaFin != null ? horaFin : "No asignada"));

@@ -8,7 +8,8 @@ import modelo.PuertaEmbarque.TipoPuerta; // Importar el enum TipoPuerta
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.SwingUtilities;
-import java.util.UUID;
+import modelo.*;
+import vista.*;
 
 public class MainGestor {
     public static void main(String[] args) {

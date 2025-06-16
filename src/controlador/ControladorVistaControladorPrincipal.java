@@ -9,20 +9,24 @@ import javax.swing.*;
 
 import modelo.*;
 import vista.VistaControladorPrincipal;
+import vista.VistaControladorVueloSeguro;
 import vista.VistaControladorVuelos;
 import vista.VistaControladorDisponibilidad;
 import vista.VistaControladorGraficos;
 import vista.VistaControladorNotificaciones;
+import vista.VistaControladorVueloSeguro;
 
 public class ControladorVistaControladorPrincipal {
 
     private VistaControladorPrincipal vista;
     private Aeropuerto aeropuerto;
+    private Vuelo vuelo;
     private Aerolinea aerolinea;
     private JFrame vistaAnterior;
     private List<ElementoAeropuerto> elementos;
     private ArrayList<UsoElementoAeropuerto> usos;
     private List<String> listaNotificaciones;
+    private List<Pista> pista;
 
     public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto,
             Aerolinea aerolinea, JFrame vistaAnterior) {
@@ -33,6 +37,9 @@ public class ControladorVistaControladorPrincipal {
         this.vistaAnterior = vistaAnterior;
 
         this.listaNotificaciones = new ArrayList<>();
+        this.elementos = aeropuerto.getElementosAeropuerto();
+        this.pista = aeropuerto.getPistas();
+        this.usos = new ArrayList<>();
 
         this.vista.btnVuelos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -49,16 +56,30 @@ public class ControladorVistaControladorPrincipal {
                 VistaControladorDisponibilidad vistaDisponibilidades = new VistaControladorDisponibilidad();
 
                 ControladorVistaControladorDisponibilidad controladorDisponibilidad = new ControladorVistaControladorDisponibilidad(
-                        vistaDisponibilidades, elementos, usos);
+                        vistaDisponibilidades,
+                        elementos,
+                        pista,
+                        usos,
+                        vista);
+
                 controladorDisponibilidad.iniciar();
+                vista.setVisible(false);
             }
         });
 
         this.vista.btnGraficos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                VistaControladorGraficos VistaGraficos = new VistaControladorGraficos();
+                VistaControladorGraficos vistaGraficos = new VistaControladorGraficos();
+
+                Estadisticas estadisticas = new Estadisticas(
+                        aeropuerto.getHangares(),
+                        aeropuerto.getAparcamientos(),
+                        aeropuerto.getPuertasEmbarque(),
+                        List.of(vuelo.getFinger()),
+                        aeropuerto.getVuelos());
+
                 ControladorVistaControladorGraficos controladorGraficos = new ControladorVistaControladorGraficos(
-                        VistaGraficos, vista);
+                        vistaGraficos, vista, estadisticas);
                 controladorGraficos.iniciar();
                 vista.setVisible(false);
             }
@@ -68,8 +89,18 @@ public class ControladorVistaControladorPrincipal {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorNotificaciones vistaNotificaciones = new VistaControladorNotificaciones();
                 ControladorVistaControladorNotificaciones controladorNotificaciones = new ControladorVistaControladorNotificaciones(
-                        vistaNotificaciones, vista, listaNotificaciones);
+                        vistaNotificaciones, aeropuerto, vista);
                 controladorNotificaciones.iniciar();
+                vista.setVisible(false);
+            }
+        });
+
+        this.vista.btnVueloSeguro.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                VistaControladorVueloSeguro vistaVueloSeguro = new VistaControladorVueloSeguro();
+                ControladorVistaControladorVueloSeguro controladorVueloSeguro = new ControladorVistaControladorVueloSeguro(
+                        vistaVueloSeguro, vista);
+                controladorVueloSeguro.iniciar();
                 vista.setVisible(false);
             }
         });

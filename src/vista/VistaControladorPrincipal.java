@@ -10,6 +10,7 @@ public class VistaControladorPrincipal extends JFrame {
     public JButton btnGraficos;
     public JButton btnNotificaciones;
     public JLabel lblTitulo;
+    public JButton btnVueloSeguro;
 
     public VistaControladorPrincipal() {
         setTitle("Gestión del Controlador Aéreo");
@@ -42,6 +43,11 @@ public class VistaControladorPrincipal extends JFrame {
 
         btnNotificaciones = crearBoton("Ver Notificaciones");
         panel.add(btnNotificaciones);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        btnVueloSeguro = crearBoton("Vuelo Seguro");
+        panel.add(btnVueloSeguro);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         add(panel, BorderLayout.CENTER);
     }

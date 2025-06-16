@@ -1,18 +1,34 @@
 package modelo;
 
-
 public class Hangar extends ElementoAeropuerto {
     private double ancho;
     private double alto;
     private double largo;
     private int numPlazas;
+    private Vuelo vueloAsignado;
 
-    public Hangar(double ancho, double alto, double largo, int numPlazas){
+    public Hangar(double ancho, double alto, double largo, int numPlazas) {
         super();
         this.alto = alto;
         this.ancho = ancho;
         this.largo = largo;
         this.numPlazas = numPlazas;
+    }
+
+    public boolean estaOcupado() {
+        return vueloAsignado != null;
+    }
+
+    public void ocupar(Vuelo vuelo) {
+        this.vueloAsignado = vuelo;
+    }
+
+    public void asignarVuelo(Vuelo vuelo) {
+        this.vueloAsignado = vuelo;
+    }
+
+    public void liberar() {
+        this.vueloAsignado = null;
     }
 
     public double getAncho() {
@@ -48,6 +64,5 @@ public class Hangar extends ElementoAeropuerto {
     }
 
     /* Métodos */
-
 
 }

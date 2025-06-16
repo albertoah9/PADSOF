@@ -7,6 +7,8 @@ public class VistaControladorVuelos extends JFrame {
     public JButton btnModificarVuelo;
     public JButton btnBuscarVuelo;
     public JButton btnVolver;
+    public JButton btnAsignacionesVuelo;
+    public JButton btnVerificaciones;
     public JLabel lblTitulo;
 
     public VistaControladorVuelos() {
@@ -32,6 +34,14 @@ public class VistaControladorVuelos extends JFrame {
 
         btnModificarVuelo = crearBoton("Modificar Estado del Vuelo");
         panel.add(btnModificarVuelo);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        btnAsignacionesVuelo = crearBoton("Asignar al Vuelo");
+        panel.add(btnAsignacionesVuelo);
+        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        btnVerificaciones = crearBoton("Verificaciones");
+        panel.add(btnVerificaciones);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         btnVolver = crearBoton("Volver");

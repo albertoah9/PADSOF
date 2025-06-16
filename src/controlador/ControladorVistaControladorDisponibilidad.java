@@ -3,8 +3,7 @@ package controlador;
 import modelo.*;
 import vista.VistaControladorDisponibilidad;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,94 +11,120 @@ import java.util.List;
 public class ControladorVistaControladorDisponibilidad {
 
     private VistaControladorDisponibilidad vista;
-
-    private List<ElementoAeropuerto> elementos;
+    private JFrame vistaAnterior;
+    private List<ElementoAeropuerto> elementosAeropuerto;
+    private List<Pista> pistas;
     private ArrayList<UsoElementoAeropuerto> usos;
 
-    public ControladorVistaControladorDisponibilidad(VistaControladorDisponibilidad vista,
-            List<ElementoAeropuerto> elementos,
-            ArrayList<UsoElementoAeropuerto> usos) {
+    public ControladorVistaControladorDisponibilidad(
+            VistaControladorDisponibilidad vista,
+            List<ElementoAeropuerto> elementosAeropuerto,
+            List<Pista> pistas,
+            ArrayList<UsoElementoAeropuerto> usos,
+            JFrame vistaAnterior) {
         this.vista = vista;
-        this.elementos = elementos;
+        this.elementosAeropuerto = elementosAeropuerto;
+        this.pistas = pistas;
         this.usos = usos;
+        this.vistaAnterior = vistaAnterior;
 
-        inicializarComboTipos();
-        agregarEventos();
-    }
+        cargarElementos(null, null, null);
 
-    private void inicializarComboTipos() {
-        vista.comboTipoElemento.removeAllItems();
-        vista.comboTipoElemento.addItem("");
-        vista.comboTipoElemento.addItem("PuertaEmbarque");
-        vista.comboTipoElemento.addItem("PistaDespegue");
-        vista.comboTipoElemento.addItem("PistaAterrizaje");
-        vista.comboTipoElemento.addItem("ZonaAparcamiento");
-        vista.comboTipoElemento.addItem("Finger");
-    }
-
-    private void agregarEventos() {
-        vista.btnFiltrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                filtrarElementos();
-            }
+        this.vista.btnVolver.addActionListener(_ -> {
+            vista.dispose();
+            vistaAnterior.setVisible(true);
         });
-    }
 
-    private void filtrarElementos() {
-        String tipoSeleccionado = (String) vista.comboTipoElemento.getSelectedItem();
-        String estadoSeleccionado = (String) vista.comboEstado.getSelectedItem();
-        String idTexto = vista.txtId.getText().trim();
-
-        LocalDateTime ahora = LocalDateTime.now();
-
-        StringBuilder resultado = new StringBuilder();
-
-        for (ElementoAeropuerto elemento : elementos) {
-
-            if (tipoSeleccionado != null && !tipoSeleccionado.isEmpty()) {
-                String claseElemento = elemento.getClass().getSimpleName();
-                if (!claseElemento.equals(tipoSeleccionado)) {
-                    continue;
+        this.vista.btnFiltrar.addActionListener(_ -> {
+            String idStr = vista.txtFiltroID.getText().trim();
+            Integer idFiltro = null;
+            try {
+                if (!idStr.isEmpty()) {
+                    idFiltro = Integer.parseInt(idStr);
                 }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(vista, "ID debe ser un número.");
+                return;
             }
 
-            if (!idTexto.isEmpty()) {
-                try {
-                    int id = Integer.parseInt(idTexto);
-                    if (elemento.getId() != id) {
-                        continue;
-                    }
-                } catch (NumberFormatException ex) {
-                    vista.mostrarElementos("ID inválido, debe ser un número entero.");
-                    return;
-                }
-            }
+            String tipoFiltro = vista.txtFiltroTipo.getText().trim();
+            String disponibilidadFiltro = vista.txtFiltroDisponibilidad.getText().trim().toLowerCase();
 
-            boolean ocupado = elemento.isOcupado(ahora, usos);
-            if (estadoSeleccionado != null && !estadoSeleccionado.isEmpty()) {
-                boolean coincideEstado = false;
-                if (estadoSeleccionado.equalsIgnoreCase("Disponible")) {
-                    coincideEstado = !ocupado;
-                } else if (estadoSeleccionado.equalsIgnoreCase("No disponible")) {
-                    coincideEstado = ocupado;
-                }
-                if (!coincideEstado) {
-                    continue;
-                }
-            }
-
-            resultado.append(elemento.toString()).append("\n---------------------\n");
-        }
-
-        if (resultado.length() == 0) {
-            vista.mostrarElementos("No se encontraron elementos con los criterios indicados.");
-        } else {
-            vista.mostrarElementos(resultado.toString());
-        }
+            cargarElementos(idFiltro, tipoFiltro.isEmpty() ? null : tipoFiltro,
+                    disponibilidadFiltro.isEmpty() ? null : disponibilidadFiltro);
+        });
     }
 
     public void iniciar() {
         vista.setVisible(true);
+    }
+
+    private void cargarElementos(Integer idFiltro, String tipoFiltro, String disponibilidadFiltro) {
+        vista.limpiarTabla();
+        LocalDateTime ahora = LocalDateTime.now();
+
+        for (ElementoAeropuerto elem : elementosAeropuerto) {
+            boolean ocupado = estaOcupado(elem, ahora);
+
+            if (cumpleFiltro(elem.getId(), elem.getClass().getSimpleName(), ocupado, idFiltro, tipoFiltro,
+                    disponibilidadFiltro)) {
+                Object[] fila = {
+                        elem.getId(),
+                        elem.getClass().getSimpleName(),
+                        ocupado ? "Ocupado" : "Libre"
+                };
+                vista.agregarElemento(fila);
+            }
+        }
+
+        for (Pista pista : pistas) {
+            boolean ocupado = pista.isOcupada();
+            if (cumpleFiltro(pista.getId(), pista.getClass().getSimpleName(), ocupado, idFiltro, tipoFiltro,
+                    disponibilidadFiltro)) {
+                Object[] fila = {
+                        pista.getId(),
+                        pista.getClass().getSimpleName(),
+                        ocupado ? "Ocupado" : "Libre"
+                };
+                vista.agregarElemento(fila);
+            }
+        }
+
+        vista.tablaElementos.revalidate();
+        vista.tablaElementos.repaint();
+    }
+
+    private boolean estaOcupado(ElementoAeropuerto elem, LocalDateTime ahora) {
+        if (elem instanceof Hangar) {
+            Hangar hangar = (Hangar) elem;
+            return hangar.estaOcupado();
+        } else if (elem instanceof ZonaAparcamiento) {
+            ZonaAparcamiento zona = (ZonaAparcamiento) elem;
+            return zona.plazasOcupadas() > 0;
+        } else if (elem instanceof Finger) {
+            Finger finger = (Finger) elem;
+            return finger.estaOcupado();
+        } else {
+
+            return elem.isOcupado(ahora, usos);
+        }
+    }
+
+    private boolean cumpleFiltro(int id, String tipo, boolean ocupado, Integer filtroID, String filtroTipo,
+            String filtroDisponibilidad) {
+        if (filtroID != null && id != filtroID)
+            return false;
+
+        if (filtroTipo != null && !tipo.toLowerCase().contains(filtroTipo.toLowerCase()))
+            return false;
+
+        if (filtroDisponibilidad != null) {
+            if (filtroDisponibilidad.equals("libre") && ocupado)
+                return false;
+            if (filtroDisponibilidad.equals("ocupado") && !ocupado)
+                return false;
+        }
+
+        return true;
     }
 }

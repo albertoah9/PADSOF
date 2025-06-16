@@ -1,13 +1,14 @@
 package modelo;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Finger extends ElementoAeropuerto {
     private double alturaMax;
     private List<PuertaEmbarque> puertasEmbarque;
+    private Vuelo vueloAsignado;
 
-    
-    public Finger (double alturaMax) {
+    public Finger(double alturaMax) {
         super();
         this.alturaMax = alturaMax;
         this.puertasEmbarque = new ArrayList<>();
@@ -15,6 +16,22 @@ public class Finger extends ElementoAeropuerto {
 
     public double getAlturaMax() {
         return alturaMax;
+    }
+
+    public boolean estaOcupado() {
+        return vueloAsignado != null;
+    }
+
+    public void asignarVuelo(Vuelo vuelo) {
+        this.vueloAsignado = vuelo;
+    }
+
+    public void ocupar(Vuelo vuelo) {
+        this.vueloAsignado = vuelo;
+    }
+
+    public void liberar() {
+        this.vueloAsignado = null;
     }
 
     public void setAlturaMax(double alturaMax) {
@@ -39,5 +56,4 @@ public class Finger extends ElementoAeropuerto {
         puertasEmbarque.remove(puerta);
     }
 
-    
 }

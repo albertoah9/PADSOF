@@ -4,11 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class ControladorAereo extends Usuario {
     private Terminal terminalAsignada;
     private Map<Vuelo.EstadoVuelo, Integer> vuelosPorEstado;
-
 
     public ControladorAereo(String nombre, String contraseña, Terminal terminalAsignada) {
         super(nombre, contraseña);
@@ -33,23 +31,24 @@ public class ControladorAereo extends Usuario {
             nuevaTerminal.agregarControlador(this); // Agrega a la nueva terminal
         }
     }
-    
+
     public void cambiarTerminal(Terminal nuevaTerminal) {
         this.terminalAsignada = nuevaTerminal;
     }
 
-    public void cambiarEstadoVuelo(Vuelo vuelo, Vuelo.EstadoVuelo nuevoEstado) { //notifica al cambiar estado
+    public void cambiarEstadoVuelo(Vuelo vuelo, Vuelo.EstadoVuelo nuevoEstado) { // notifica al cambiar estado
         if (vuelo != null) {
-            vuelo.setEstado(nuevoEstado); 
-            Notificacion notificacion = new Notificacion("El vuelo " + vuelo.getId() + " ha cambiado su estado a " + nuevoEstado,  List.of(this));
+            vuelo.setEstado(nuevoEstado);
+            Notificacion notificacion = new Notificacion(
+                    "El vuelo " + vuelo.getId() + " ha cambiado su estado a " + nuevoEstado, List.of(this));
         }
     }
 
     public void notificarCambioEstado(Vuelo vuelo) {
         Vuelo.EstadoVuelo estadoActual = vuelo.getEstado();
-        
+
         vuelosPorEstado.put(estadoActual, vuelosPorEstado.get(estadoActual) + 1);
-        
+
         switch (estadoActual) {
             case DESPEGADO:
                 System.out.println("El vuelo con ID " + vuelo.getId() + " ha despegado exitosamente.");
@@ -83,12 +82,23 @@ public class ControladorAereo extends Usuario {
         }
     }
 
-    public void setContrasena(String nuevaContrasena){
+    public void setContrasena(String nuevaContrasena) {
         super.setContraseña(nuevaContrasena);
     }
-    
+
+    public void addPista(Vuelo vuelo, Pista pista) {
+        vuelo.setPista(pista);
+        cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.ESPERANDO_DESPEGUE);
+    }
+
+    public void asignarHangar(Vuelo vuelo, Hangar hangar) {
+        vuelo.setHangar(hangar);
+        cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.EN_HANGAR);
+    }
+
     @Override
     public String toString() {
-        return super.toString() + ", Terminal asignada: " + (terminalAsignada != null ? terminalAsignada.getId() : "Ninguna");
+        return super.toString() + ", Terminal asignada: "
+                + (terminalAsignada != null ? terminalAsignada.getId() : "Ninguna");
     }
 }
