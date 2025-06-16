@@ -78,6 +78,10 @@ public class Factura {
         return descuentosAplicados;
     }
 
+    public void setEstado(EstadoFactura estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
         return "Factura{" +

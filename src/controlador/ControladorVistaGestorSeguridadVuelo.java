@@ -62,16 +62,14 @@ public class ControladorVistaGestorSeguridadVuelo {
         }
         
         try {
-            // Crear y añadir el incidente al gestor
             IncidenteSeguridad nuevoIncidente = new IncidenteSeguridad(
-                UUID.randomUUID().toString().substring(0, 8), // ID único
-                tipo,
+                UUID.randomUUID().toString().substring(0, 8),
                 vueloAfectado,
                 descripcion,
                 LocalDateTime.now(),
                 IncidenteSeguridad.EstadoIncidente.REPORTADO
             );
-            gestor.addIncidenteSeguridad(nuevoIncidente); // Necesitas este método en GestorAeropuerto
+            gestor.addIncidenteSeguridad(nuevoIncidente);
 
             JOptionPane.showMessageDialog(vista, "Incidente reportado con éxito: " + nuevoIncidente.getId(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
             vista.limpiarCamposReporte();

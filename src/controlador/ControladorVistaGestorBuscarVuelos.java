@@ -1,23 +1,23 @@
 package controlador;
 
-import modelo.Aeropuerto;
-import modelo.Vuelo;
-import vista.VistaSearchFlights;
+import modelo.*;
+import vista.*;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+
 import java.util.List;
 import java.util.stream.Collectors;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.*;
+import java.time.format.DateTimeParseException;
 
-public class ControladorSearchFlights {
+public class ControladorVistaGestorBuscarVuelos {
 
-    private final VistaSearchFlights vista;
+    private final VistaGestorBuscarVuelos vista;
     private final Aeropuerto aeropuerto;
     private final JFrame vistaAnterior; // Referencia a la vista de la que se lanzó (ej. VistaOperadorVuelos)
 
-    public ControladorSearchFlights(VistaSearchFlights vista, Aeropuerto aeropuerto, JFrame vistaAnterior) {
+    public ControladorVistaGestorBuscarVuelos(VistaGestorBuscarVuelos vista, Aeropuerto aeropuerto, JFrame vistaAnterior) {
         this.vista = vista;
         this.aeropuerto = aeropuerto;
         this.vistaAnterior = vistaAnterior;
@@ -104,7 +104,7 @@ public class ControladorSearchFlights {
                     if (!fechaStr.isEmpty() && !horaStr.isEmpty()) {
                         try {
                             LocalDateTime fechaHoraFiltro = LocalDateTime.parse(fechaStr + "T" + horaStr);
-                            LocalDateTime fechaHoraVuelo = vuelo.getFechaHoraSalida(); // O getFechaHoraLlegada() según lo que busques
+                            LocalDateTime fechaHoraVuelo = vuelo.getfechaHoraSalida(); // O getFechaHoraLlegada() según lo que busques
                             cumpleFiltro = cumpleFiltro && fechaHoraVuelo.equals(fechaHoraFiltro);
                         } catch (DateTimeParseException ex) {
                             JOptionPane.showMessageDialog(vista, "Formato de fecha u hora inválido. Usa AAAA-MM-DD y HH:MM", "Error de Formato", JOptionPane.ERROR_MESSAGE);
@@ -113,7 +113,7 @@ public class ControladorSearchFlights {
                     } else if (!fechaStr.isEmpty()) { // Solo fecha
                          try {
                             LocalDateTime fechaFiltro = LocalDateTime.parse(fechaStr + "T00:00:00"); // Hora arbitraria para comparación de solo fecha
-                            LocalDateTime fechaVuelo = vuelo.getFechaHoraSalida(); // O getFechaHoraLlegada()
+                            LocalDateTime fechaVuelo = vuelo.getfechaHoraSalida(); // O getFechaHoraLlegada()
                             cumpleFiltro = cumpleFiltro && fechaVuelo.toLocalDate().equals(fechaFiltro.toLocalDate());
                         } catch (DateTimeParseException ex) {
                             JOptionPane.showMessageDialog(vista, "Formato de fecha inválido. Usa AAAA-MM-DD", "Error de Formato", JOptionPane.ERROR_MESSAGE);
@@ -122,7 +122,7 @@ public class ControladorSearchFlights {
                     } else if (!horaStr.isEmpty()) { // Solo hora (esto podría ser un rango si la hora se usa para salidas/llegadas en un día específico)
                         try {
                             // Si solo se busca por hora, asumimos que se busca cualquier vuelo en esa hora en cualquier día
-                            String horaVueloStr = vuelo.getFechaHoraSalida().toLocalTime().toString(); // O getFechaHoraLlegada()
+                            String horaVueloStr = vuelo.getfechaHoraSalida().toLocalTime().toString(); // O getFechaHoraLlegada()
                             cumpleFiltro = cumpleFiltro && horaVueloStr.startsWith(horaStr); // Busca coincidencias de hora (ej: "10:30" coincide con "10:30:00")
                         } catch (Exception ex) {
                             JOptionPane.showMessageDialog(vista, "Formato de hora inválido. Usa HH:MM", "Error de Formato", JOptionPane.ERROR_MESSAGE);

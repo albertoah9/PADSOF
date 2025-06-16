@@ -116,7 +116,7 @@ public class GestorAeropuerto extends Usuario {
     }
     public IncidenteSeguridad buscarIncidenteSeguridadPorId(String id) {
         for (IncidenteSeguridad i : incidentesSeguridad) {
-            if (i.getId().equals(id)) {
+            if (String.valueOf(i.getId()).equals(id)) {
                 return i;
             }
         }

@@ -85,7 +85,7 @@ public class ControladorVistaGestorPagosFacturas {
             }
 
             // Crear y añadir la factura al gestor
-            Factura nuevaFactura = new Factura(monto);
+            Factura nuevaFactura = new Factura(monto, aerolinea);
             gestor.addFactura(nuevaFactura); // Necesitas este método en GestorAeropuerto
 
             JOptionPane.showMessageDialog(vista, "Factura generada con éxito: " + nuevaFactura.getId(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
