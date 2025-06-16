@@ -189,10 +189,9 @@ public class ControladorVistaControladorAsignarAlVuelo {
 
             controladorAereo.cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.ESPERANDO_ATERRIZAJE);
 
-            // String mensaje = "Se ha asignado pista de aterrizaje al vuelo " +
-            // vuelo.getId();
-            // Notificacion notificacion = new Notificacion();
-            // aeropuerto.getUsuarioActivo().recibirNotificacion(notificacion);
+            String mensaje = "Se ha asignado la pista " + pistaLibre.getId() +
+                    " para aterrizaje al vuelo " + vuelo.getId() + ".";
+            new Notificacion(mensaje, List.of(aeropuerto.getUsuarioActivo()));
 
             JOptionPane.showMessageDialog(vista,
                     "Pista de aterrizaje asignada y estado cambiado a ESPERANDO_ATERRIZAJE: vuelo " + vuelo.getId());
@@ -216,6 +215,11 @@ public class ControladorVistaControladorAsignarAlVuelo {
             pistaLibre.setOcupada(true);
 
             controladorAereo.cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.ESPERANDO_DESPEGUE);
+
+            String mensaje = "Se ha asignado la pista " + pistaLibre.getId() +
+                    " para despegue al vuelo " + vuelo.getId() + ".";
+            new Notificacion(mensaje, List.of(aeropuerto.getUsuarioActivo()));
+
             JOptionPane.showMessageDialog(vista,
                     "Pista de despegue asignada y estado cambiado a ESPERANDO_DESPEGUE: vuelo " + vuelo.getId());
             cargarPestañaDespegue();
@@ -232,12 +236,16 @@ public class ControladorVistaControladorAsignarAlVuelo {
         }
 
         Vuelo vuelo = vuelos.get(idx);
-        ZonaAparcamiento zonaLibre = aeropuerto.obtenerZonaAparcamientoLibre();
+        ZonaAparcamiento zonaLibre = aeropuerto.getZonasAparcamientoDisponibles().stream().findFirst().orElse(null);
 
         if (zonaLibre != null) {
             int idPlaza = zonaLibre.ocuparPlaza();
             if (idPlaza != -1) {
                 vuelo.setAparcamiento(zonaLibre);
+
+                String mensaje = "Se ha asignado aparcamiento en la plaza " + idPlaza +
+                        " para el vuelo " + vuelo.getId() + ".";
+                new Notificacion(mensaje, List.of(aeropuerto.getUsuarioActivo()));
 
                 JOptionPane.showMessageDialog(vista,
                         "Aparcamiento asignado al vuelo " + vuelo.getId() + ", plaza ID: " + idPlaza);
@@ -259,11 +267,16 @@ public class ControladorVistaControladorAsignarAlVuelo {
 
         Vuelo vuelo = vuelos.get(idx);
 
-        Hangar hangarLibre = aeropuerto.obtenerHangarLibre();
+        Hangar hangarLibre = aeropuerto.getHangaresDisponibles().stream().findFirst().orElse(null);
 
         if (hangarLibre != null) {
             vuelo.setHangar(hangarLibre);
             hangarLibre.ocupar(vuelo);
+
+            String mensaje = "Se ha asignado el hangar " + hangarLibre.getId() +
+                    " al vuelo " + vuelo.getId() + ".";
+            new Notificacion(mensaje, List.of(aeropuerto.getUsuarioActivo()));
+
             JOptionPane.showMessageDialog(vista, "Hangar asignado al vuelo " + vuelo.getId());
             cargarPestañaHangar();
         } else {
@@ -279,11 +292,16 @@ public class ControladorVistaControladorAsignarAlVuelo {
         }
 
         Vuelo vuelo = vuelos.get(idx);
-        Finger fingerLibre = aeropuerto.obtenerFingerLibre();
+        Finger fingerLibre = aeropuerto.getFingersDisponibles().stream().findFirst().orElse(null);
 
         if (fingerLibre != null) {
             vuelo.setFinger(fingerLibre);
             fingerLibre.ocupar(vuelo);
+
+            String mensaje = "Se ha asignado el finger " + fingerLibre.getId() +
+                    " al vuelo " + vuelo.getId() + ".";
+            new Notificacion(mensaje, List.of(aeropuerto.getUsuarioActivo()));
+
             JOptionPane.showMessageDialog(vista, "Finger asignado al vuelo " + vuelo.getId());
             cargarPestañaFinger();
         } else {

@@ -1,4 +1,5 @@
 package modelo;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -7,7 +8,7 @@ public class UsoElementoAeropuerto {
     private Aerolinea aerolinea;
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
-    
+
     private double costoVuelo;
     private double costeFingerPorHora;
     private double costeHangerPorHora;
@@ -15,7 +16,7 @@ public class UsoElementoAeropuerto {
     private double costeAparcamientoPorHora;
 
     public UsoElementoAeropuerto(ElementoAeropuerto elementoAeropuerto, Aerolinea aerolinea,
-                                  LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
+            LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
         this.elementoAeropuerto = elementoAeropuerto;
         this.aerolinea = aerolinea;
         this.fechaHoraInicio = fechaHoraInicio;
