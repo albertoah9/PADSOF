@@ -30,12 +30,12 @@ public class ControladorVistaControladorDisponibilidad {
 
         cargarElementos(null, null, null);
 
-        this.vista.btnVolver.addActionListener(e -> {
+        this.vista.btnVolver.addActionListener(_ -> {
             vista.dispose();
             vistaAnterior.setVisible(true);
         });
 
-        this.vista.btnFiltrar.addActionListener(e -> {
+        this.vista.btnFiltrar.addActionListener(_ -> {
             String idStr = vista.txtFiltroID.getText().trim();
             Integer idFiltro = null;
             try {
@@ -63,7 +63,6 @@ public class ControladorVistaControladorDisponibilidad {
         vista.limpiarTabla();
         LocalDateTime ahora = LocalDateTime.now();
 
-        // Elementos generales (Hangares, Fingers, ZonasAparcamiento, etc.)
         for (ElementoAeropuerto elem : elementosAeropuerto) {
             boolean ocupado = estaOcupado(elem, ahora);
 
@@ -78,7 +77,6 @@ public class ControladorVistaControladorDisponibilidad {
             }
         }
 
-        // Pistas (las tratamos aparte porque tienen isOcupada())
         for (Pista pista : pistas) {
             boolean ocupado = pista.isOcupada();
             if (cumpleFiltro(pista.getId(), pista.getClass().getSimpleName(), ocupado, idFiltro, tipoFiltro,
@@ -96,20 +94,18 @@ public class ControladorVistaControladorDisponibilidad {
         vista.tablaElementos.repaint();
     }
 
-    // Determina si un ElementoAeropuerto está ocupado según su tipo real
     private boolean estaOcupado(ElementoAeropuerto elem, LocalDateTime ahora) {
         if (elem instanceof Hangar) {
             Hangar hangar = (Hangar) elem;
-            return hangar.estaOcupado(); // Método en Hangar
+            return hangar.estaOcupado();
         } else if (elem instanceof ZonaAparcamiento) {
             ZonaAparcamiento zona = (ZonaAparcamiento) elem;
             return zona.plazasOcupadas() > 0;
         } else if (elem instanceof Finger) {
             Finger finger = (Finger) elem;
-            return finger.estaOcupado(); // Método en Finger
+            return finger.estaOcupado();
         } else {
-            // Para elementos generales o desconocidos, usa el sistema de usos (históricos o
-            // planificados)
+
             return elem.isOcupado(ahora, usos);
         }
     }

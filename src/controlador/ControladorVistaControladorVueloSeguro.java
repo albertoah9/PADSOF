@@ -25,7 +25,7 @@ public class ControladorVistaControladorVueloSeguro {
     }
 
     private void inicializar() {
-        vista.btnReportar.addActionListener(e -> {
+        vista.btnReportar.addActionListener(_ -> {
             String descripcion = vista.areaDescripcion.getText().trim();
             if (descripcion.isEmpty()) {
                 JOptionPane.showMessageDialog(vista, "Ingrese descripción del incidente");
@@ -46,7 +46,7 @@ public class ControladorVistaControladorVueloSeguro {
             JOptionPane.showMessageDialog(vista, "Incidente reportado correctamente");
         });
 
-        vista.btnVolver.addActionListener(e -> {
+        vista.btnVolver.addActionListener(_ -> {
             vista.dispose();
             if (vistaAnterior != null)
                 vistaAnterior.setVisible(true);

@@ -48,7 +48,7 @@ public class ControladorVistaControladorNotificaciones {
             }
         });
 
-        this.vista.btnVolver.addActionListener(e -> {
+        this.vista.btnVolver.addActionListener(_ -> {
             vista.dispose();
             vistaAnterior.setVisible(true);
         });

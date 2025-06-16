@@ -31,7 +31,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
     }
 
     private void inicializar() {
-        vista.btnVolver.addActionListener(e -> {
+        vista.btnVolver.addActionListener(_ -> {
             vista.dispose();
             if (vistaAnterior != null) {
                 vistaAnterior.setVisible(true);
@@ -60,7 +60,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.add(new JScrollPane(listaVuelos), BorderLayout.CENTER);
 
         JButton btnAsignar = new JButton("Asignar Pista de Aterrizaje");
-        btnAsignar.addActionListener(e -> asignarPistaAterrizaje(listaVuelos, vuelos));
+        btnAsignar.addActionListener(_ -> asignarPistaAterrizaje(listaVuelos, vuelos));
 
         JPanel panelBoton = new JPanel();
         panelBoton.add(btnAsignar);
@@ -86,7 +86,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.add(new JScrollPane(listaVuelos), BorderLayout.CENTER);
 
         JButton btnAsignar = new JButton("Asignar Pista de Despegue");
-        btnAsignar.addActionListener(e -> asignarPistaDespegue(listaVuelos, vuelos));
+        btnAsignar.addActionListener(_ -> asignarPistaDespegue(listaVuelos, vuelos));
 
         JPanel panelBoton = new JPanel();
         panelBoton.add(btnAsignar);
@@ -112,7 +112,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.add(new JScrollPane(listaVuelos), BorderLayout.CENTER);
 
         JButton btnAsignar = new JButton("Asignar Aparcamiento");
-        btnAsignar.addActionListener(e -> asignarAparcamiento(listaVuelos, vuelos));
+        btnAsignar.addActionListener(_ -> asignarAparcamiento(listaVuelos, vuelos));
 
         JPanel panelBoton = new JPanel();
         panelBoton.add(btnAsignar);
@@ -138,7 +138,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.add(new JScrollPane(listaVuelos), BorderLayout.CENTER);
 
         JButton btnAsignar = new JButton("Asignar Hangar");
-        btnAsignar.addActionListener(e -> asignarHangar(listaVuelos, vuelos));
+        btnAsignar.addActionListener(_ -> asignarHangar(listaVuelos, vuelos));
 
         JPanel panelBoton = new JPanel();
         panelBoton.add(btnAsignar);
@@ -164,7 +164,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.add(new JScrollPane(listaVuelos), BorderLayout.CENTER);
 
         JButton btnAsignar = new JButton("Asignar Finger");
-        btnAsignar.addActionListener(e -> asignarFinger(listaVuelos, vuelos));
+        btnAsignar.addActionListener(_ -> asignarFinger(listaVuelos, vuelos));
 
         JPanel panelBoton = new JPanel();
         panelBoton.add(btnAsignar);
