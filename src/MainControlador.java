@@ -49,6 +49,9 @@ public class MainControlador {
                 ZonaAparcamiento zona1 = new ZonaAparcamiento(5, 5, 20);
                 ZonaAparcamiento zona2 = new ZonaAparcamiento(4, 7, 90);
 
+                aeropuerto.addZonaAparcamiento(zona1);
+                aeropuerto.addZonaAparcamiento(zona2);
+
                 Finger finger1 = new Finger(4.0);
                 Finger finger2 = new Finger(3.5);
 

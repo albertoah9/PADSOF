@@ -243,6 +243,8 @@ public class ControladorVistaControladorAsignarAlVuelo {
             if (idPlaza != -1) {
                 vuelo.setAparcamiento(zonaLibre);
 
+                vuelo.setEstado(Vuelo.EstadoVuelo.APARCADO);
+
                 String mensaje = "Se ha asignado aparcamiento en la plaza " + idPlaza +
                         " para el vuelo " + vuelo.getId() + ".";
                 new Notificacion(mensaje, List.of(aeropuerto.getUsuarioActivo()));
@@ -273,6 +275,8 @@ public class ControladorVistaControladorAsignarAlVuelo {
             vuelo.setHangar(hangarLibre);
             hangarLibre.ocupar(vuelo);
 
+            vuelo.setEstado(Vuelo.EstadoVuelo.EN_HANGAR);
+
             String mensaje = "Se ha asignado el hangar " + hangarLibre.getId() +
                     " al vuelo " + vuelo.getId() + ".";
             new Notificacion(mensaje, List.of(aeropuerto.getUsuarioActivo()));
@@ -297,6 +301,8 @@ public class ControladorVistaControladorAsignarAlVuelo {
         if (fingerLibre != null) {
             vuelo.setFinger(fingerLibre);
             fingerLibre.ocupar(vuelo);
+
+            vuelo.setEstado(Vuelo.EstadoVuelo.EMBARCANDO);
 
             String mensaje = "Se ha asignado el finger " + fingerLibre.getId() +
                     " al vuelo " + vuelo.getId() + ".";
