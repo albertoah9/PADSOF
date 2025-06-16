@@ -69,9 +69,9 @@ public class MainGestor {
                 gestorAeropuerto.registrarEvento("AVION_AGREGADO", "Avión '" + avionPasajeros1.getMatricula() + "' a aerolínea " + aerolinea1.getNombre() + ".");
 
                 // --- Vuelos ---
-                AeropuertoDestino madrid = new AeropuertoDestino(1, "Madrid-Barajas", "Madrid", "España", AeropuertoDestino.UbiRelCiudad.ESTE);
-                AeropuertoDestino barcelona = new AeropuertoDestino(2, "Barcelona-El Prat", "Barcelona", "España", AeropuertoDestino.UbiRelCiudad.ESTE);
-                AeropuertoDestino londres = new AeropuertoDestino(3, "Heathrow", "Londres", "Reino Unido", AeropuertoDestino.UbiRelCiudad.NORTE);
+                AeropuertoDestino madrid = new AeropuertoDestino("Madrid-Barajas", "Madrid", "España", AeropuertoDestino.UbiRelCiudad.ESTE);
+                AeropuertoDestino barcelona = new AeropuertoDestino("Barcelona-El Prat", "Barcelona", "España", AeropuertoDestino.UbiRelCiudad.ESTE);
+                AeropuertoDestino londres = new AeropuertoDestino("Heathrow", "Londres", "Reino Unido", AeropuertoDestino.UbiRelCiudad.NORTE);
                 aeropuerto.addAeropuertoDestino(madrid);
                 aeropuerto.addAeropuertoDestino(barcelona);
                 aeropuerto.addAeropuertoDestino(londres);
@@ -90,14 +90,14 @@ public class MainGestor {
 
                 // --- Personal (Operadores y Controladores) ---
                 ControladorAereo cont1 = gestorAeropuerto.darDeAltaControladorAereo("Maria", "passC1", terminal1);
+                aeropuerto.addUsuario(cont1);
                 ControladorAereo cont2 = gestorAeropuerto.darDeAltaControladorAereo("Carlos", "passC2", terminal2);
-                aeropuerto.agregarControladorAereo(cont1);
-                aeropuerto.agregarControladorAereo(cont2);
+                aeropuerto.addUsuario(cont2);
 
                 OperadorAereo op1 = gestorAeropuerto.darDeAltaOperadorAereo("Juan", "passO1", aerolinea1);
+                aeropuerto.addUsuario(op1);
                 OperadorAereo op2 = gestorAeropuerto.darDeAltaOperadorAereo("Ana", "passO2", aerolinea2);
-                aeropuerto.agregarOperadorAereo(op1); 
-                aeropuerto.agregarOperadorAereo(op2);
+                aeropuerto.addUsuario(op2);
 
                 // --- Facturas y Pagos ---
                 Factura factura1 = new Factura(250.75, aerolinea1);

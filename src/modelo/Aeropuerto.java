@@ -201,6 +201,14 @@ public class Aeropuerto {
         }
     }
 
+    public void setGestor(GestorAeropuerto gestor) {
+        this.gestor = gestor;
+    }
+
+    public GestorAeropuerto getGestor() {
+        return this.gestor;
+    }
+
     public List<Usuario> getUsuarios() {
         return new ArrayList<>(usuarios);
     }

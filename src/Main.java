@@ -2,7 +2,6 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-
 import modelo.*;
 
 public class Main {
@@ -10,9 +9,9 @@ public class Main {
       Aeropuerto aeropuerto = new Aeropuerto("Adolfo Suarez", "Madrid", "España", Aeropuerto.UbiRelCiudad.ESTE);
       
       // Gestor
-      GestorAeropuerto gestor = new GestorAeropuerto("María", "1234");
+      GestorAeropuerto gestor = new GestorAeropuerto("María", "1234", aeropuerto);
       aeropuerto.setGestor(gestor);
-      aeropuerto.iniciarSesion(gestor.getNombre(), gestor.getContraseña());
+      aeropuerto.setUsuarioActivo(gestor);
 
       // Elementos del aeropuerto
       Terminal tPasajeros = new TerminalPasajeros(1250);
