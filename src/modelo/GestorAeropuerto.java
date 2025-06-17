@@ -332,7 +332,7 @@ public class GestorAeropuerto extends Usuario {
                 .orElse(null);
     }
 
-    public void addNotificacionAeropuerto(Notificacion notificacion) { // Nombre diferente
+    public void addNotificacionAeropuerto(Notificacion notificacion) { 
         aeropuerto.addNotificacion(notificacion);
         registrarEvento("NOTIFICACION_AEROPUERTO",
                 "Nueva notificación general en el aeropuerto: " + notificacion.getMensaje());
@@ -381,7 +381,6 @@ public class GestorAeropuerto extends Usuario {
         return aeropuerto.buscarTerminalPorId(idTerminal);
     }
 
-    // Pistas
     public List<Pista> getPistas() {
         return aeropuerto.getPistas();
     }
@@ -391,7 +390,6 @@ public class GestorAeropuerto extends Usuario {
         registrarEvento("PISTA_AGREGADA", "Pista " + pista.getId() + " agregada.");
     }
 
-    // Hangares
     public List<Hangar> getHangares() {
         return aeropuerto.getHangares();
     }
@@ -517,6 +515,10 @@ public class GestorAeropuerto extends Usuario {
 
         registrarEvento("ERROR_DESBLOQUEO", "No se encontró operador con nombre: " + nombreUsuario);
         return false;
+    }
+
+    public List<Descuento> getDescuentos() {
+        return aeropuerto.getDescuentos();
     }
 
 }

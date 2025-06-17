@@ -3,17 +3,20 @@ package modelo;
 import java.time.LocalDate;
 
 public class Descuento {
-    public enum CondicionAplicacion { IMPORTE_SUPERIOR, VUELOS_MINIMOS }
+    public enum CondicionAplicacion { 
+        IMPORTE_SUPERIOR, 
+        VUELOS_MINIMOS 
+    }
 
     private String descripcion;
     private LocalDate inicio;
     private LocalDate fin;
-    private int porcentaje; // entre 1 y 50
+    private int porcentaje;
     private CondicionAplicacion condicion;
     private double valorCondicion;
 
-    public Descuento(String descripcion, LocalDate inicio, LocalDate fin, int porcentaje,
-                     CondicionAplicacion condicion, double valorCondicion) {
+    public Descuento(String descripcion, LocalDate inicio, LocalDate fin, int porcentaje, 
+                                    CondicionAplicacion condicion, double valorCondicion) {
         if (porcentaje < 1 || porcentaje > 50)
             throw new IllegalArgumentException("Porcentaje fuera de rango (1-50)");
 
@@ -40,8 +43,25 @@ public class Descuento {
         return base * (1 - (porcentaje / 100.0));
     }
 
-    public String getDescripcion() { return descripcion; }
-    public int getPorcentaje() { return porcentaje; }
-    public CondicionAplicacion getCondicion() { return condicion; }
-    public double getValorCondicion() { return valorCondicion; }
+    public String getDescripcion() { 
+        return descripcion; 
+    }
+
+    public int getPorcentaje() { 
+        return porcentaje; 
+    }
+
+    public CondicionAplicacion getCondicion() { 
+        return condicion; 
+    }
+
+    public double getValorCondicion() { 
+        return valorCondicion; 
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s (%d%%, %s a %s, Condición: %s %.2f)", 
+            descripcion, porcentaje, inicio, fin, condicion, valorCondicion);
+    }
 }

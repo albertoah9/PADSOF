@@ -33,6 +33,8 @@ public class Aeropuerto {
     private Usuario usuarioActivo;
     private ArrayList<UsoElementoAeropuerto> usosElementosAeropuerto;
 
+    private ArrayList<Descuento> descuentos;
+
     private int diasAnticipacionMinima = 30;
 
     public Aeropuerto(String nombre, String ciudad, String pais, UbiRelCiudad ubiRelCiudad) {
@@ -51,10 +53,23 @@ public class Aeropuerto {
         this.aparcamientos = new ArrayList<>();
         this.usuarios = new ArrayList<>();
         this.usosElementosAeropuerto = new ArrayList<>();
+        this.descuentos = new ArrayList<>();
     }
 
     public int getDiasAnticipacionMinima() {
         return this.diasAnticipacionMinima;
+    }
+
+    public List<Descuento> getDescuentos() {
+        return descuentos;
+    }
+
+    public void addDescuento(Descuento descuento) {
+        if (descuento != null) {
+            if (!descuentos.contains(descuento)) {
+                descuentos.add(descuento);
+            }
+        }
     }
 
     public String getNombre() {

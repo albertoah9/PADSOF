@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.Aeropuerto;
 import modelo.GestorAeropuerto;
+import vista.VistaGestorFacturacion;
 import vista.VistaGestorNotificaciones;
 import vista.VistaGestorPrincipal;
 import vista.VistaGestorUsuarios;
@@ -46,8 +47,13 @@ public class ControladorVistaGestorPrincipal {
         });
 
         this.vista.btnFacturacion.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir facturación");
+                VistaGestorFacturacion vistaFacturacion = new VistaGestorFacturacion();
+                ControladorVistaGestorFacturacion controladorFacturacion =
+                        new ControladorVistaGestorFacturacion(vistaFacturacion, gestor, vista);
+                vista.setVisible(false);
+                controladorFacturacion.iniciar();
             }
         });
     }
