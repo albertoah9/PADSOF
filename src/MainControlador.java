@@ -18,7 +18,6 @@ public class MainControlador {
                 ControladorAereo controlador = new ControladorAereo("Robert", "123", t1);
                 aeropuerto.setUsuarioActivo(controlador);
 
-                // Aviones
                 AvionCarga avionCarga = new AvionCarga("Boeing", "737", "1234 JBDN", 3354, LocalDate.of(2027, 7, 23),
                                 LocalDate.of(2027, 7, 23), false, 3500, false, aerolinea);
                 aerolinea.añadirAvion(avionCarga);
@@ -29,7 +28,7 @@ public class MainControlador {
 
                 Vuelo vuelo1 = new Vuelo("Madrid", "Paris", LocalDateTime.of(2027, 7, 23, 12, 20),
                                 LocalDateTime.of(2027, 7, 23, 10, 0), null, avionPasajeros, null, null,
-                                Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA,
+                                Vuelo.EstadoVuelo.EN_HORA, aeropuerto, Vuelo.TipoVuelo.SALIDA,
                                 Vuelo.ClaseVuelo.PASAJEROS, aerolinea);
                 aeropuerto.addVuelo(vuelo1);
 
@@ -41,7 +40,7 @@ public class MainControlador {
 
                 Vuelo vuelo3 = new Vuelo("Madrid", "Barcelona", LocalDateTime.of(2027, 7, 23, 13, 0),
                                 LocalDateTime.of(2027, 7, 23, 14, 0), null, avionPasajeros, null, null,
-                                Vuelo.EstadoVuelo.ESPERANDO_PISTA, aeropuerto, Vuelo.TipoVuelo.SALIDA,
+                                Vuelo.EstadoVuelo.ESPERANDO_ATERRIZAJE, aeropuerto, Vuelo.TipoVuelo.SALIDA,
                                 Vuelo.ClaseVuelo.PASAJEROS, aerolinea);
                 aeropuerto.addVuelo(vuelo3);
 
@@ -86,7 +85,7 @@ public class MainControlador {
 
                 VistaControladorPrincipal vista = new VistaControladorPrincipal();
                 ControladorVistaControladorPrincipal controladorVista = new ControladorVistaControladorPrincipal(vista,
-                                aeropuerto, vista);
+                                aeropuerto, controlador, vista);
                 controladorVista.iniciar();
         }
 }

@@ -32,7 +32,11 @@ public class ControladorVistaControladorPrincipal {
     private ArrayList<UsoElementoAeropuerto> usos;
     private List<String> listaNotificaciones;
     private List<Pista> pista;
+    private ControladorAereo controladorAereo;
 
+<<<<<<< HEAD
+    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto, ControladorAereo controlador, JFrame vistaAnterior) {
+=======
     /**
      * Constructor que inicializa el controlador con la vista principal, el
      * aeropuerto
@@ -44,10 +48,12 @@ public class ControladorVistaControladorPrincipal {
      */
     public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto,
             JFrame vistaAnterior) {
+>>>>>>> 3671a262ba9ca5bb0c043d52f65f3a834ed3e952
 
         this.vista = vista;
         this.aeropuerto = aeropuerto;
         this.vistaAnterior = vistaAnterior;
+        this.controladorAereo = controlador;
 
         this.listaNotificaciones = new ArrayList<>();
         this.elementos = aeropuerto.getElementosAeropuerto();
@@ -59,7 +65,7 @@ public class ControladorVistaControladorPrincipal {
                 vista.setVisible(false);
                 VistaControladorVuelos vistaVuelos = new VistaControladorVuelos();
                 ControladorVistaControladorVuelos controladorVuelos = new ControladorVistaControladorVuelos(
-                        vistaVuelos, aeropuerto, vista, vista);
+                        vistaVuelos, aeropuerto, vista, controladorAereo, vista);
                 controladorVuelos.iniciar();
             }
         });

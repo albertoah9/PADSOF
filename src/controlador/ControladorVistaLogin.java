@@ -71,7 +71,7 @@ public class ControladorVistaLogin {
 
                     } else if (u instanceof ControladorAereo controlador) {
                         VistaControladorPrincipal vistaControlador = new VistaControladorPrincipal();
-                        ControladorVistaControladorPrincipal controladorVistaControlador = new ControladorVistaControladorPrincipal(vistaControlador, aeropuerto, vista);
+                        ControladorVistaControladorPrincipal controladorVistaControlador = new ControladorVistaControladorPrincipal(vistaControlador, aeropuerto, controlador, vista);
                         controladorVistaControlador.iniciar();
                     }
 

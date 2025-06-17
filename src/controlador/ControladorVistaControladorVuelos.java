@@ -2,17 +2,14 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-
 import javax.swing.*;
-import modelo.Aerolinea;
 import modelo.Aeropuerto;
 import modelo.ControladorAereo;
 import vista.VistaControladorAsignarAlVuelo;
 import vista.VistaControladorBuscarVuelo;
 import vista.VistaControladorModificarVuelo;
-import vista.VistaControladorVuelos;
 import vista.VistaControladorVerificaciones;
+import vista.VistaControladorVuelos;
 
 /**
  * Controlador que gestiona la lógica y eventos para la vista de gestión de
@@ -29,6 +26,9 @@ public class ControladorVistaControladorVuelos {
     private JFrame vistaAnterior;
     private ControladorAereo controladorAereo;
 
+<<<<<<< HEAD
+    public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, JFrame vistaPrincipal, ControladorAereo controlador, JFrame vistaAnterior) {
+=======
     /**
      * Constructor que inicializa el controlador con la vista, el aeropuerto,
      * y referencias para manejo de ventanas.
@@ -42,8 +42,10 @@ public class ControladorVistaControladorVuelos {
      */
     public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, JFrame vistaPrincipal,
             JFrame vistaAnterior) {
+>>>>>>> 3671a262ba9ca5bb0c043d52f65f3a834ed3e952
         this.vista = vista;
         this.aeropuerto = aeropuerto;
+        this.controladorAereo = controlador;
 
         this.vista.btnBuscarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
