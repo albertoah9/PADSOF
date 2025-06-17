@@ -494,23 +494,8 @@ public class GestorAeropuerto extends Usuario {
 
         operador.setBloqueado(false);
         operador.setIntentosFallidos(0);
-        registrarEvento("OPERADOR_DESBLOQUEADO", "Operador " + operador.getNombre() + " fue desbloqueado.");
-        return true;
-    }
-
-    public boolean forzarReseteoContrasena(OperadorAereo operador) {
-        if (operador == null) {
-            return false;
-        }
-
-        List<OperadorAereo> operadores = aeropuerto.getOperadores();
-        if (!operadores.contains(operador)) {
-            registrarEvento("ERROR_RESETEO", "Intento de resetear contraseña de operador no registrado: " + operador.getNombre());
-            return false;
-        }
-
         operador.setNecesitaResetear(true);
-        registrarEvento("RESETEO_FORZADO", "Se forzó el cambio de contraseña del operador " + operador.getNombre());
+        registrarEvento("OPERADOR_DESBLOQUEADO", "Operador " + operador.getNombre() + " fue desbloqueado.");
         return true;
     }
 

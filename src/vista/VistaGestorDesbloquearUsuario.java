@@ -7,6 +7,7 @@ import modelo.OperadorAereo;
 
 public class VistaGestorDesbloquearUsuario extends JFrame {
     public JComboBox<OperadorAereo> comboOperadores;
+    public JPasswordField campoNuevaContrasena;
     public JButton btnDesbloquear;
     public JButton btnCancelar;
 
@@ -15,16 +16,32 @@ public class VistaGestorDesbloquearUsuario extends JFrame {
         setSize(400, 200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10));
 
-        JLabel lblTitulo = new JLabel("Seleccione un operador bloqueado:", SwingConstants.CENTER);
+        JLabel lblTitulo = new JLabel("Desbloquear operador", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
         add(lblTitulo, BorderLayout.NORTH);
 
+        JPanel centerPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        JLabel lblOperador = new JLabel("Operador:");
+        lblOperador.setHorizontalAlignment(SwingConstants.RIGHT);
+        centerPanel.add(lblOperador);
+
         comboOperadores = new JComboBox<>(operadoresBloqueados.toArray(new OperadorAereo[0]));
         comboOperadores.setFont(new Font("Arial", Font.PLAIN, 14));
-        JPanel centerPanel = new JPanel();
         centerPanel.add(comboOperadores);
+
+        JLabel lblContrasena = new JLabel("Nueva contraseña:");
+        lblContrasena.setHorizontalAlignment(SwingConstants.RIGHT);
+        centerPanel.add(lblContrasena);
+
+        campoNuevaContrasena = new JPasswordField();
+        campoNuevaContrasena.setFont(new Font("Arial", Font.PLAIN, 14));
+        campoNuevaContrasena.setPreferredSize(new Dimension(200, 24));
+        centerPanel.add(campoNuevaContrasena);
+
         add(centerPanel, BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel();
@@ -37,6 +54,10 @@ public class VistaGestorDesbloquearUsuario extends JFrame {
 
     public OperadorAereo getOperadorSeleccionado() {
         return (OperadorAereo) comboOperadores.getSelectedItem();
+    }
+
+    public String getNuevaContrasena() {
+        return new String(campoNuevaContrasena.getPassword());
     }
 
     public void mostrarMensaje(String mensaje) {
