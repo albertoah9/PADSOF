@@ -12,16 +12,6 @@ import vista.VistaControladorPrincipal;
 import vista.VistaControladorVueloSeguro;
 import vista.VistaControladorVuelos;
 
-/**
- * Controlador principal que gestiona la ventana principal de la aplicación.
- * 
- * Se encarga de inicializar y manejar las acciones de los botones para navegar
- * entre las diferentes vistas del sistema, tales como vuelos, disponibilidad,
- * notificaciones y control de vuelo seguro.
- * 
- * Además, mantiene referencias a los elementos del aeropuerto, las pistas y
- * los usos de los elementos, así como una lista de notificaciones.
- */
 public class ControladorVistaControladorPrincipal {
 
     private VistaControladorPrincipal vista;
@@ -34,21 +24,7 @@ public class ControladorVistaControladorPrincipal {
     private List<Pista> pista;
     private ControladorAereo controladorAereo;
 
-<<<<<<< HEAD
     public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto, ControladorAereo controlador, JFrame vistaAnterior) {
-=======
-    /**
-     * Constructor que inicializa el controlador con la vista principal, el
-     * aeropuerto
-     * y la vista anterior para facilitar la navegación.
-     * 
-     * @param vista         instancia de la vista principal
-     * @param aeropuerto    aeropuerto que contiene los datos y elementos a manejar
-     * @param vistaAnterior ventana anterior para regresar al cerrar esta vista
-     */
-    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto,
-            JFrame vistaAnterior) {
->>>>>>> 3671a262ba9ca5bb0c043d52f65f3a834ed3e952
 
         this.vista = vista;
         this.aeropuerto = aeropuerto;
@@ -108,9 +84,6 @@ public class ControladorVistaControladorPrincipal {
 
     }
 
-    /**
-     * Muestra la vista principal.
-     */
     public void iniciar() {
         vista.setVisible(true);
     }
