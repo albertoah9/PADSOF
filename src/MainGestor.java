@@ -3,6 +3,7 @@ import controlador.ControladorVistaGestorPrincipal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import modelo.*;
 import vista.VistaGestorPrincipal;
 
@@ -59,6 +60,10 @@ public class MainGestor {
         Avion avion1 = new AvionPasajeros("Boeing", "737", "AA-123", 180, LocalDate.of(2025, 1, 26), LocalDate.of(2015, 3, 26), 120, aerolinea1);
         Vuelo vuelo1 = new Vuelo("Madrid", "New York", LocalDateTime.now(), LocalDateTime.now().plus(50, ChronoUnit.MINUTES), tPasajeros, avion1, pistaDespegue, puerta1, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA, Vuelo.ClaseVuelo.PASAJEROS, aerolinea1);
         aeropuerto.addVuelo(vuelo1);
+
+        controlador1.cambiarEstadoVuelo(vuelo1, Vuelo.EstadoVuelo.EN_HANGAR);
+
+        aeropuerto.addNotificacion(new Notificacion("Nuevas condiciones del aeropuerto de Túnez", List.of(gestor)));
 
         VistaGestorPrincipal vistaGestor = new VistaGestorPrincipal(gestor);
         ControladorVistaGestorPrincipal controlador = new ControladorVistaGestorPrincipal(vistaGestor, aeropuerto, gestor);

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.Aeropuerto;
 import modelo.GestorAeropuerto;
+import vista.VistaGestorNotificaciones;
 import vista.VistaGestorPrincipal;
 import vista.VistaGestorUsuarios;
 
@@ -36,7 +37,11 @@ public class ControladorVistaGestorPrincipal {
 
         this.vista.btnNotificaciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir notificaciones");
+                VistaGestorNotificaciones vistaNotis = new VistaGestorNotificaciones();
+                ControladorVistaGestorNotificaciones controladorNotis =
+                    new ControladorVistaGestorNotificaciones(vistaNotis, gestor, vista);
+                vista.setVisible(false);
+                controladorNotis.iniciar();
             }
         });
 

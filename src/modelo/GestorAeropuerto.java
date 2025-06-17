@@ -332,10 +332,6 @@ public class GestorAeropuerto extends Usuario {
                 .orElse(null);
     }
 
-    public List<Notificacion> getNotificacionesAeropuerto() {
-        return aeropuerto.getNotificaciones();
-    }
-
     public void addNotificacionAeropuerto(Notificacion notificacion) { // Nombre diferente
         aeropuerto.addNotificacion(notificacion);
         registrarEvento("NOTIFICACION_AEROPUERTO",

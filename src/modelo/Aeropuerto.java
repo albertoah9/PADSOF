@@ -135,10 +135,6 @@ public class Aeropuerto {
         this.notificaciones.add(notificacion);
     }
 
-    public List<Notificacion> getNotificaciones() {
-        return new ArrayList<>(notificaciones);
-    }
-
     public boolean eliminarControladorAereo(ControladorAereo controlador) {
         if (controlador == null) {
             throw new IllegalArgumentException("El controlador aéreo no puede ser nulo.");
