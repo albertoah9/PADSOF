@@ -7,12 +7,27 @@ import javax.swing.*;
 import modelo.*;
 import vista.VistaControladorAsignarAlVuelo;
 
+/**
+ * Controlador encargado de gestionar la asignación de recursos a vuelos,
+ * tales como pistas, hangares, zonas de aparcamiento y fingers.
+ * Permite al usuario realizar asignaciones según el estado del vuelo.
+ */
 public class ControladorVistaControladorAsignarAlVuelo {
     private VistaControladorAsignarAlVuelo vista;
     private ControladorAereo controladorAereo;
     private Aeropuerto aeropuerto;
     private JFrame vistaAnterior;
 
+    /**
+     * Constructor del controlador.
+     *
+     * @param vista            Vista de asignación
+     * @param controladorAereo Controlador aéreo responsable de cambiar estados de
+     *                         vuelos
+     * @param aeropuerto       Aeropuerto sobre el que se gestionan los vuelos y
+     *                         recursos
+     * @param vistaAnterior    Vista previa a esta, que se mostrará al volver
+     */
     public ControladorVistaControladorAsignarAlVuelo(VistaControladorAsignarAlVuelo vista,
             ControladorAereo controladorAereo,
             Aeropuerto aeropuerto, JFrame vistaAnterior) {
@@ -22,11 +37,17 @@ public class ControladorVistaControladorAsignarAlVuelo {
         this.vistaAnterior = vistaAnterior;
     }
 
+    /**
+     * Inicia la vista y carga las pestañas de asignación.
+     */
     public void iniciar() {
         inicializar();
         vista.setVisible(true);
     }
 
+    /**
+     * Configura los listeners de botones y carga las pestañas de la vista.
+     */
     private void inicializar() {
         vista.btnVolver.addActionListener(_ -> {
             vista.dispose();
@@ -41,6 +62,10 @@ public class ControladorVistaControladorAsignarAlVuelo {
         cargarPestañaFinger();
     }
 
+    /**
+     * Carga y muestra los vuelos en espera de aterrizaje, y permite asignar una
+     * pista.
+     */
     private void cargarPestañaAterrizaje() {
         JPanel panel = vista.panelAsignarPistaAterrizaje;
         panel.removeAll();
@@ -67,6 +92,10 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.repaint();
     }
 
+    /**
+     * Carga y muestra los vuelos en espera de despegue, y permite asignar una
+     * pista.
+     */
     private void cargarPestañaDespegue() {
         JPanel panel = vista.panelAsignarPistaDespegue;
         panel.removeAll();
@@ -93,6 +122,10 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.repaint();
     }
 
+    /**
+     * Carga y muestra los vuelos en preparación, y permite asignar una zona de
+     * aparcamiento.
+     */
     private void cargarPestañaAparcamiento() {
         JPanel panel = vista.panelAsignarAparcamiento;
         panel.removeAll();
@@ -119,6 +152,9 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.repaint();
     }
 
+    /**
+     * Carga y muestra los vuelos en preparación, y permite asignar un hangar.
+     */
     private void cargarPestañaHangar() {
         JPanel panel = vista.panelAsignarHangar;
         panel.removeAll();
@@ -145,6 +181,9 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.repaint();
     }
 
+    /**
+     * Carga y muestra los vuelos en preparación, y permite asignar un finger.
+     */
     private void cargarPestañaFinger() {
         JPanel panel = vista.panelAsignarFinger;
         panel.removeAll();
@@ -171,6 +210,12 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.repaint();
     }
 
+    /**
+     * Asigna una pista de aterrizaje a un vuelo seleccionado.
+     *
+     * @param listaVuelos Lista visual de vuelos
+     * @param vuelos      Lista lógica de vuelos filtrados
+     */
     private void asignarPistaAterrizaje(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
         if (idx < 0) {
@@ -198,6 +243,12 @@ public class ControladorVistaControladorAsignarAlVuelo {
         }
     }
 
+    /**
+     * Asigna una pista de despegue a un vuelo seleccionado.
+     *
+     * @param listaVuelos Lista visual de vuelos
+     * @param vuelos      Lista lógica de vuelos filtrados
+     */
     private void asignarPistaDespegue(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
         if (idx < 0) {
@@ -225,6 +276,12 @@ public class ControladorVistaControladorAsignarAlVuelo {
         }
     }
 
+    /**
+     * Asigna una plaza de aparcamiento disponible a un vuelo.
+     *
+     * @param listaVuelos Lista visual de vuelos
+     * @param vuelos      Lista lógica de vuelos filtrados
+     */
     private void asignarAparcamiento(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
         if (idx < 0) {
@@ -257,6 +314,12 @@ public class ControladorVistaControladorAsignarAlVuelo {
         }
     }
 
+    /**
+     * Asigna un hangar disponible a un vuelo.
+     *
+     * @param listaVuelos Lista visual de vuelos
+     * @param vuelos      Lista lógica de vuelos filtrados
+     */
     private void asignarHangar(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
         if (idx < 0) {
@@ -285,6 +348,12 @@ public class ControladorVistaControladorAsignarAlVuelo {
         }
     }
 
+    /**
+     * Asigna un finger disponible a un vuelo.
+     *
+     * @param listaVuelos Lista visual de vuelos
+     * @param vuelos      Lista lógica de vuelos filtrados
+     */
     private void asignarFinger(JList<String> listaVuelos, List<Vuelo> vuelos) {
         int idx = listaVuelos.getSelectedIndex();
         if (idx < 0) {

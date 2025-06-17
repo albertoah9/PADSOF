@@ -8,6 +8,14 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controlador para la vista de modificación de vuelos.
+ * 
+ * Permite mostrar una lista de vuelos del aeropuerto, cambiar su estado
+ * mediante un JComboBox,
+ * y confirmar los cambios aplicados, generando notificaciones para el usuario
+ * activo.
+ */
 public class ControladorVistaControladorModificarVuelo {
 
     private VistaControladorModificarVuelo vista;
@@ -16,11 +24,22 @@ public class ControladorVistaControladorModificarVuelo {
 
     private List<VueloEstadoPanel> vueloEstadoPanels;
 
+    /**
+     * Clase interna que agrupa un vuelo con su JComboBox de estado y el panel que
+     * lo contiene.
+     */
     private static class VueloEstadoPanel {
         Vuelo vuelo;
         JComboBox<String> comboEstado;
         JPanel panel;
 
+        /**
+         * Constructor para asociar un vuelo con su selector de estado y panel visual.
+         * 
+         * @param vuelo       Vuelo al que se asocia el panel
+         * @param comboEstado JComboBox con los estados posibles
+         * @param panel       JPanel que contiene la UI del vuelo
+         */
         VueloEstadoPanel(Vuelo vuelo, JComboBox<String> comboEstado, JPanel panel) {
             this.vuelo = vuelo;
             this.comboEstado = comboEstado;
@@ -28,6 +47,13 @@ public class ControladorVistaControladorModificarVuelo {
         }
     }
 
+    /**
+     * Constructor del controlador.
+     * 
+     * @param vista         Vista para modificar vuelos
+     * @param aeropuerto    Aeropuerto con los vuelos a gestionar
+     * @param vistaAnterior Vista anterior para regresar
+     */
     public ControladorVistaControladorModificarVuelo(VistaControladorModificarVuelo vista, Aeropuerto aeropuerto,
             JFrame vistaAnterior) {
         this.vista = vista;
@@ -47,6 +73,10 @@ public class ControladorVistaControladorModificarVuelo {
         cargarVuelos();
     }
 
+    /**
+     * Carga los vuelos desde el aeropuerto en la vista,
+     * mostrando cada vuelo con su estado actual editable.
+     */
     private void cargarVuelos() {
         vista.panelVuelos.removeAll();
         vueloEstadoPanels.clear();
@@ -84,6 +114,13 @@ public class ControladorVistaControladorModificarVuelo {
         vista.panelVuelos.repaint();
     }
 
+    /**
+     * Aplica los cambios en los estados de los vuelos según las selecciones del
+     * usuario.
+     * Si algún estado cambia, actualiza el vuelo y genera una notificación para el
+     * usuario activo.
+     * También informa al usuario mediante un mensaje.
+     */
     private void confirmarCambios() {
         boolean huboCambio = false;
 
@@ -113,6 +150,9 @@ public class ControladorVistaControladorModificarVuelo {
         }
     }
 
+    /**
+     * Muestra la ventana de modificación de vuelos.
+     */
     public void iniciar() {
         vista.setVisible(true);
     }
