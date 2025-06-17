@@ -44,8 +44,7 @@ public class MainOperador {
         Vuelo vuelo2 = new Vuelo("Rotterdam", "Madrid", LocalDateTime.of(2027, 7, 23, 12, 30), LocalDateTime.of(2027, 7, 23, 9, 20), null, avionCarga, null, null, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.LLEGADA, Vuelo.ClaseVuelo.MERCANCIAS, aerolinea);
         aeropuerto.addVuelo(vuelo2);
 
-        Notificacion noti1 = new Notificacion("El vuelo a París ha sido actualizado.", Arrays.asList(operador));
-
+        Notificacion noti1 = new Notificacion("Bienvenido a AirManager.", Arrays.asList(operador));
         Notificacion noti2 = new Notificacion("Nueva política de despegues de la UE.", Arrays.asList(operador));
 
         Factura factura1 = new Factura(3500.75, aerolinea);
