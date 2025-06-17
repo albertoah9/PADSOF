@@ -13,12 +13,10 @@ public abstract class ElementoAeropuerto {
         this.id = ++contador;
     }
 
-    /* Getters y Setters */
     public int getId() {
         return id;
     }
 
-    /* Métoos */
     public boolean isOcupado(LocalDateTime fechaHora, ArrayList<UsoElementoAeropuerto> usos) {
         for (UsoElementoAeropuerto uso : usos) {
             if (uso.getFechaHoraInicio().isBefore(fechaHora) && uso.getFechaHoraFin().isAfter(fechaHora)) {

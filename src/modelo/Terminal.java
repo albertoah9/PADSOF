@@ -3,23 +3,21 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.Notificacion;
-
 public class Terminal {
-    private static int contador = 1;
+    private static int contador = 0;
     private int id;
     private ArrayList<ControladorAereo> controladores;
     private boolean ocupada;
     private ArrayList<ControladorAereo> observadores;
 
     public Terminal() {
-        this.id = contador++;
+        this.id = ++contador;
         this.controladores = new ArrayList<>();
         this.observadores = new ArrayList<>();
     }
 
     public ArrayList<ControladorAereo> getControladores() {
-        return new ArrayList<>(controladores); // Evita modificaciones externas
+        return new ArrayList<>(controladores);
     }
 
     public void agregarControlador(ControladorAereo controlador) {
@@ -27,7 +25,7 @@ public class Terminal {
             return;
 
         if (controlador.getTerminalAsignada() != null) {
-            controlador.getTerminalAsignada().eliminarControlador(controlador); // Elimina de la anterior
+            controlador.getTerminalAsignada().eliminarControlador(controlador);
         }
 
         controladores.add(controlador);
@@ -75,7 +73,7 @@ public class Terminal {
             info.append(c.getNombre()).append(", ");
         }
         if (!controladores.isEmpty()) {
-            info.setLength(info.length() - 2); // Elimina la última coma
+            info.setLength(info.length() - 2);
         }
         info.append("]");
         return info.toString();

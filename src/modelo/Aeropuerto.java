@@ -80,6 +80,16 @@ public class Aeropuerto {
         return this.ciudad;
     }
 
+    public List<Finger> getFingers() {
+        List<Finger> fingers = new ArrayList<>();
+        for (Terminal terminal : terminales) {
+            if (terminal instanceof TerminalPasajeros) {
+                fingers.addAll(((TerminalPasajeros) terminal).getFingers());
+            }
+        }
+        return fingers;
+    }
+
     public void addVuelo(Vuelo vuelo) {
         if (vuelo == null)
             throw new IllegalArgumentException("El vuelo no puede ser nulo.");

@@ -5,15 +5,12 @@ import java.util.ArrayList;
 public class TerminalPasajeros extends Terminal{
     private int aforoMax;
     private ArrayList<Finger> fingers;
-    private ArrayList<PuertaEmbarque> puertasEmbarque;
 
     
     public TerminalPasajeros(int aforoMax) {
         super();
         this.aforoMax = aforoMax;
         this.fingers = new ArrayList<>();
-        this.puertasEmbarque = new ArrayList<>();
-
     }
 
     public int getAforoMax() {
@@ -30,23 +27,6 @@ public class TerminalPasajeros extends Terminal{
         this.fingers.add(finger);
     }
 
-
-
-    public ArrayList<PuertaEmbarque> getPuertasEmbarque() {
-        return new ArrayList<>(puertasEmbarque);
-    }
-
-    public void agregarPuertaEmbarque(PuertaEmbarque puerta) {
-        if (puerta != null && puerta.getTipoPuerta() == PuertaEmbarque.TipoPuerta.PASAJEROS
-                && !puertasEmbarque.contains(puerta)) {
-            puertasEmbarque.add(puerta);
-        }
-    }
-
-    public void eliminarPuertaEmbarque(PuertaEmbarque puerta) {
-        puertasEmbarque.remove(puerta);
-    }
-
     @Override
     public String toString() {
         StringBuilder info = new StringBuilder(super.toString());
@@ -56,9 +36,6 @@ public class TerminalPasajeros extends Terminal{
             info.append(" - Finger ID: ").append(f.getId()).append("\n");
         }
         info.append("Puertas de embarque:\n");
-        for (PuertaEmbarque p : puertasEmbarque) {
-            info.append(" - Puerta ID: ").append(p.getId()).append(", Aforo: ").append(p.getAforoMaximo()).append("\n");
-        }
         return info.toString();
     }
     

@@ -4,7 +4,6 @@ import java.util.*;
 
 public class ZonaAparcamiento extends ElementoAeropuerto {
 
-    /* Atributos */
     private double ancho;
     private double largo;
     private double costePorHora;
@@ -24,7 +23,6 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
         }
     }
 
-    // Clase interna
     public class PlazaAparcamiento {
         private int id;
         private double ancho;
@@ -119,7 +117,6 @@ public class ZonaAparcamiento extends ElementoAeropuerto {
         return plazas;
     }
 
-    // METODOS
     public void agregarPlaza(double ancho, double largo) {
         plazas.add(new PlazaAparcamiento(ancho, largo));
         numPlazas += 1;
