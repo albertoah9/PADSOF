@@ -11,6 +11,14 @@ import vista.VistaControladorModificarVuelo;
 import vista.VistaControladorVerificaciones;
 import vista.VistaControladorVuelos;
 
+/**
+ * Controlador que gestiona la lógica y eventos para la vista de gestión de
+ * vuelos.
+ * 
+ * Se encarga de enlazar las acciones de los botones en la interfaz gráfica con
+ * la apertura de las vistas correspondientes y su respectivo controlador,
+ * además de manejar la navegación entre ventanas.
+ */
 public class ControladorVistaControladorVuelos {
 
     private VistaControladorVuelos vista;
@@ -18,7 +26,23 @@ public class ControladorVistaControladorVuelos {
     private JFrame vistaAnterior;
     private ControladorAereo controladorAereo;
 
+<<<<<<< HEAD
     public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, JFrame vistaPrincipal, ControladorAereo controlador, JFrame vistaAnterior) {
+=======
+    /**
+     * Constructor que inicializa el controlador con la vista, el aeropuerto,
+     * y referencias para manejo de ventanas.
+     *
+     * @param vista          la vista principal de gestión de vuelos
+     * @param aeropuerto     la instancia del aeropuerto con los datos actuales
+     * @param vistaPrincipal ventana principal del sistema, a la que se retorna al
+     *                       cerrar esta vista
+     * @param vistaAnterior  ventana anterior (puede usarse para navegaciones
+     *                       internas)
+     */
+    public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, JFrame vistaPrincipal,
+            JFrame vistaAnterior) {
+>>>>>>> 3671a262ba9ca5bb0c043d52f65f3a834ed3e952
         this.vista = vista;
         this.aeropuerto = aeropuerto;
         this.controladorAereo = controlador;
@@ -74,6 +98,9 @@ public class ControladorVistaControladorVuelos {
         });
     }
 
+    /**
+     * Muestra la vista de gestión de vuelos.
+     */
     public void iniciar() {
         vista.setVisible(true);
     }

@@ -11,6 +11,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+/**
+ * Controlador para la gestión de notificaciones del usuario activo en el
+ * aeropuerto.
+ * 
+ * Permite mostrar las notificaciones, marcar como leídas al hacer doble clic y
+ * regresar a la vista principal.
+ */
 public class ControladorVistaControladorNotificaciones {
 
     private VistaControladorNotificaciones vista;
@@ -19,6 +26,14 @@ public class ControladorVistaControladorNotificaciones {
     private Usuario usuario;
     private List<Notificacion> notificaciones;
 
+    /**
+     * Constructor que inicializa el controlador con la vista de notificaciones,
+     * el aeropuerto y la vista anterior para regresar.
+     * 
+     * @param vista         vista de notificaciones a controlar
+     * @param aeropuerto    aeropuerto que contiene los datos y usuario activo
+     * @param vistaAnterior vista principal para regresar al cerrar esta vista
+     */
     public ControladorVistaControladorNotificaciones(
             VistaControladorNotificaciones vista,
             Aeropuerto aeropuerto,
@@ -54,6 +69,10 @@ public class ControladorVistaControladorNotificaciones {
         });
     }
 
+    /**
+     * Carga las notificaciones del usuario activo en la lista de la vista,
+     * mostrando el estado de cada una.
+     */
     private void cargarNotificaciones() {
         vista.limpiarLista();
         for (Notificacion n : notificaciones) {
@@ -63,6 +82,9 @@ public class ControladorVistaControladorNotificaciones {
         }
     }
 
+    /**
+     * Muestra la vista de notificaciones.
+     */
     public void iniciar() {
         vista.setVisible(true);
     }

@@ -3,17 +3,32 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vista para las verificaciones de vuelos.
+ * 
+ * Contiene pestañas para permitir y confirmar aterrizajes y despegues,
+ * con paneles separados para cada tipo de acción.
+ */
 public class VistaControladorVerificaciones extends JFrame {
+
+    /** Panel principal con pestañas */
     public JTabbedPane tabbedPanePrincipal;
-
+    /** Panel para permitir aterrizajes */
     public JPanel panelPermitirAterrizaje;
+    /** Panel para permitir despegues */
     public JPanel panelPermitirDespegue;
-
+    /** Panel para confirmar aterrizajes */
     public JPanel panelConfirmarAterrizaje;
+    /** Panel para confirmar despegues */
     public JPanel panelConfirmarDespegue;
+    /** Botón para volver a la pantalla anterior */
 
     public JButton btnVolver;
 
+    /**
+     * Constructor que configura la ventana de verificaciones,
+     * creando las pestañas y paneles correspondientes.
+     */
     public VistaControladorVerificaciones() {
         setTitle("Verificaciones de Vuelos");
         setSize(800, 600);
@@ -46,6 +61,14 @@ public class VistaControladorVerificaciones extends JFrame {
         getContentPane().add(panelBoton, BorderLayout.SOUTH);
     }
 
+    /**
+     * Método auxiliar para crear un JScrollPane con un JPanel interno
+     * y un título en el borde.
+     * 
+     * @param innerPanel panel que va dentro del JScrollPane
+     * @param titulo     título que aparece en el borde
+     * @return JScrollPane que contiene el panel con scroll y título
+     */
     private JScrollPane createScrollablePanel(JPanel innerPanel, String titulo) {
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
         JScrollPane scrollPane = new JScrollPane(innerPanel);
