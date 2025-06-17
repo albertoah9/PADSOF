@@ -28,12 +28,10 @@ public class ControladorVistaControladorPrincipal {
     private List<String> listaNotificaciones;
     private List<Pista> pista;
 
-    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto,
-            Aerolinea aerolinea, JFrame vistaAnterior) {
+    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto, JFrame vistaAnterior) {
 
         this.vista = vista;
         this.aeropuerto = aeropuerto;
-        this.aerolinea = aerolinea;
         this.vistaAnterior = vistaAnterior;
 
         this.listaNotificaciones = new ArrayList<>();

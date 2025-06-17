@@ -87,7 +87,7 @@ public class MainControlador {
 
                 VistaControladorPrincipal vista = new VistaControladorPrincipal();
                 ControladorVistaControladorPrincipal controladorVista = new ControladorVistaControladorPrincipal(vista,
-                                aeropuerto, aerolinea, vista);
+                                aeropuerto, vista);
                 controladorVista.iniciar();
         }
 }

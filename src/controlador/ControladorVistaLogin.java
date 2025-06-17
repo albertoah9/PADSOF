@@ -5,8 +5,10 @@ import vista.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class ControladorVistaLogin {
+
     private VistaLogin vista;
     private Aeropuerto aeropuerto;
 
@@ -37,7 +39,7 @@ public class ControladorVistaLogin {
 
                     if (operador.necesitaResetear()) {
                         vista.mostrarMensaje("Debe cambiar su contraseña. Introduzca nueva:");
-                        String nueva = javax.swing.JOptionPane.showInputDialog(vista, "Nueva contraseña:");
+                        String nueva = JOptionPane.showInputDialog(vista, "Nueva contraseña:");
                         if (nueva != null && !nueva.isBlank()) {
                             operador.setContraseña(nueva);
                             operador.setNecesitaResetear(false);
@@ -59,13 +61,18 @@ public class ControladorVistaLogin {
 
                     if (u instanceof GestorAeropuerto gestor) {
                         VistaGestorPrincipal vistaGestor = new VistaGestorPrincipal(gestor);
-                        vistaGestor.setVisible(true);
-                    } else if (u instanceof OperadorAereo) {
+                        ControladorVistaGestorPrincipal controladorGestor = new ControladorVistaGestorPrincipal(vistaGestor, aeropuerto, gestor);
+                        controladorGestor.iniciar();
+
+                    } else if (u instanceof OperadorAereo operador) {
                         VistaOperadorPrincipal vistaOperador = new VistaOperadorPrincipal();
-                        vistaOperador.setVisible(true);
-                    } else if (u instanceof ControladorAereo) {
+                        ControladorVistaOperadorPrincipal controladorOperador = new ControladorVistaOperadorPrincipal(vistaOperador, aeropuerto, operador.getAerolineaAsignada());
+                        controladorOperador.iniciar();
+
+                    } else if (u instanceof ControladorAereo controlador) {
                         VistaControladorPrincipal vistaControlador = new VistaControladorPrincipal();
-                        vistaControlador.setVisible(true);
+                        ControladorVistaControladorPrincipal controladorVistaControlador = new ControladorVistaControladorPrincipal(vistaControlador, aeropuerto, vista);
+                        controladorVistaControlador.iniciar();
                     }
 
                     return;
