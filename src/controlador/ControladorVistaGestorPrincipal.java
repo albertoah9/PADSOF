@@ -22,7 +22,7 @@ public class ControladorVistaGestorPrincipal {
             public void actionPerformed(ActionEvent e) {
                 VistaGestorUsuarios vistaUsuarios = new VistaGestorUsuarios();
                 ControladorVistaGestorUsuarios controladorUsuarios = new ControladorVistaGestorUsuarios(
-                    vistaUsuarios, aeropuerto, gestor, vista
+                    vistaUsuarios, gestor, vista
                 );
                 controladorUsuarios.iniciar();
             }

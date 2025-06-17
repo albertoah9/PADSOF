@@ -161,15 +161,20 @@ public class Aeropuerto {
         return controladores;
     }
 
-    public boolean eliminarOperadorAereo(OperadorAereo operador) {
+    public void eliminarOperadorAereo(OperadorAereo operador) {
         if (operador == null) {
-            throw new IllegalArgumentException("El operador aéreo no puede ser nulo.");
+            throw new IllegalArgumentException("El operador no puede ser nulo.");
         }
-        if (this.usuarios.contains(operador)) {
-            this.usuarios.remove(operador);
-            return true;
+
+        if (!usuarios.contains(operador)) {
+            throw new IllegalStateException("El operador no está registrado en el aeropuerto.");
         }
-        return false;
+
+        usuarios.remove(operador);
+
+        if (operador.getAerolineaAsignada() != null) {
+            operador.getAerolineaAsignada().eliminarOperador(operador);
+        }
     }
 
     public List<OperadorAereo> getOperadores() {

@@ -1,42 +1,42 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import javax.swing.*;
+import modelo.Usuario;
 
 public class VistaGestorEliminarUsuario extends JFrame {
-
-    public JComboBox<String> cmbUsuariosAEliminar;
+    public JComboBox<Usuario> comboUsuarios;
     public JButton btnEliminar;
+    public JButton btnCancelar;
 
-    public VistaGestorEliminarUsuario() {
+    public VistaGestorEliminarUsuario(List<Usuario> usuarios) {
         setTitle("Eliminar Usuario");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(350, 200);
+        setSize(400, 200);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
-
-        JLabel lblTitulo = new JLabel("Seleccione un usuario a eliminar:");
+        JLabel lblTitulo = new JLabel("Seleccione un usuario a eliminar:", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
-        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(lblTitulo);
+        add(lblTitulo, BorderLayout.NORTH);
 
-        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        comboUsuarios = new JComboBox<>(usuarios.toArray(new Usuario[0]));
+        comboUsuarios.setFont(new Font("Arial", Font.PLAIN, 14));
+        JPanel centerPanel = new JPanel();
+        centerPanel.add(comboUsuarios);
+        add(centerPanel, BorderLayout.CENTER);
 
-        cmbUsuariosAEliminar = new JComboBox<>();
-        cmbUsuariosAEliminar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-        panel.add(cmbUsuariosAEliminar);
-
-        panel.add(Box.createRigidArea(new Dimension(0, 20)));
-
+        JPanel bottomPanel = new JPanel();
         btnEliminar = new JButton("Eliminar");
-        btnEliminar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(btnEliminar);
+        btnCancelar = new JButton("Cancelar");
+        bottomPanel.add(btnEliminar);
+        bottomPanel.add(btnCancelar);
+        add(bottomPanel, BorderLayout.SOUTH);
+    }
 
-        add(panel, BorderLayout.CENTER);
+    public Usuario getUsuarioSeleccionado() {
+        return (Usuario) comboUsuarios.getSelectedItem();
     }
 
     public void mostrarMensaje(String mensaje) {

@@ -3,25 +3,29 @@ JAVA = java
 
 SRC_DIR = .
 BIN_DIR = bin
-MAIN_CLASS = Main
+MAIN_CLASS_1 = Main
+MAIN_CLASS_2 = MainGUI
 
 .PHONY: clean all run
 
-# Archivos fuente
-SOURCES = $(wildcard $(SRC_DIR)/*.java)
+# Encuentra todos los .java en SRC_DIR y subdirectorios
+SOURCES := $(shell find $(SRC_DIR) -name "*.java")
 
-# Archivos compilados
-CLASSES = $(SOURCES:$(SRC_DIR)/%.java=$(BIN_DIR)/%.class)
+# Crea la estructura de .class correspondientes en BIN_DIR
+CLASSES := $(SOURCES:$(SRC_DIR)/%.java=$(BIN_DIR)/%.class)
 
 all: $(CLASSES)
 
-# Regla para compilar archivos .java a .class
+# Compilar todos los .java en bin usando -d para rutas
 $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
-	@mkdir -p $(BIN_DIR)
+	@mkdir -p $(dir $@)
 	$(JAVAC) -d $(BIN_DIR) $<
 
-run: all
-	$(JAVA) -cp $(BIN_DIR) $(MAIN_CLASS)
+run1: all
+	$(JAVA) -cp $(BIN_DIR) $(MAIN_CLASS_1)
+
+run2: all
+	$(JAVA) -cp $(BIN_DIR) $(MAIN_CLASS_2)
 
 clean:
 	find . -name "*.class" -type f -delete

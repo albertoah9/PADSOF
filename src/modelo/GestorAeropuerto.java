@@ -218,20 +218,9 @@ public class GestorAeropuerto extends Usuario {
      * @param operador El operador aéreo a eliminar.
      * @return true si se eliminó, false en caso contrario.
      */
-    public boolean eliminarOperadorAereo(OperadorAereo operador) {
-        if (operador == null) {
-            throw new IllegalArgumentException("El operador aéreo no puede ser nulo.");
-        }
-        if (this.aeropuerto.eliminarOperadorAereo(operador)) {
-            if (operador.getAerolineaAsignada() != null) {
-                operador.getAerolineaAsignada().eliminarOperador(operador);
-            }
-            registrarEvento("BAJA_OPERADOR", "Operador Aéreo '" + operador.getNombre() + "' dado de baja.");
-            return true;
-        }
-        registrarEvento("ERROR_BAJA_OPERADOR",
-                "No se pudo dar de baja al operador aéreo '" + operador.getNombre() + "'.");
-        return false;
+    public void eliminarOperadorAereo(OperadorAereo operador) {
+        aeropuerto.eliminarOperadorAereo(operador);
+        registrarEvento("BAJA_OPERADOR", "Operador Aéreo '" + operador.getNombre() + "' dado de baja.");
     }
 
     /**

@@ -15,6 +15,7 @@ public class VistaGestorRegistrarUsuario extends JFrame {
     public JComboBox<Terminal> cmbTerminal;
     public JButton btnRegistrar;
     public JLabel lblMensaje;
+    public JButton btnCancelar;
 
     public VistaGestorRegistrarUsuario(List<Aerolinea> aerolineas, List<Terminal> terminales) {
         setTitle("Registrar Nuevo Usuario");
@@ -69,6 +70,12 @@ public class VistaGestorRegistrarUsuario extends JFrame {
         lblMensaje = new JLabel(" ", SwingConstants.CENTER);
         lblMensaje.setForeground(Color.RED);
         panel.add(lblMensaje);
+
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.setFont(new Font("Arial", Font.PLAIN, 16));
+        btnCancelar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        panel.add(btnCancelar);
 
         add(panel, BorderLayout.CENTER);
 

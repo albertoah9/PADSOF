@@ -1,42 +1,42 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import javax.swing.*;
+import modelo.OperadorAereo;
 
 public class VistaGestorDesbloquearUsuario extends JFrame {
-
-    public JComboBox<String> cmbUsuariosBloqueados;
+    public JComboBox<OperadorAereo> comboOperadores;
     public JButton btnDesbloquear;
+    public JButton btnCancelar;
 
-    public VistaGestorDesbloquearUsuario() {
-        setTitle("Desbloquear Usuario");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(350, 200);
+    public VistaGestorDesbloquearUsuario(List<OperadorAereo> operadoresBloqueados) {
+        setTitle("Desbloquear Operador");
+        setSize(400, 200);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
-
-        JLabel lblTitulo = new JLabel("Seleccione un usuario bloqueado:");
+        JLabel lblTitulo = new JLabel("Seleccione un operador bloqueado:", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
-        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(lblTitulo);
+        add(lblTitulo, BorderLayout.NORTH);
 
-        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        comboOperadores = new JComboBox<>(operadoresBloqueados.toArray(new OperadorAereo[0]));
+        comboOperadores.setFont(new Font("Arial", Font.PLAIN, 14));
+        JPanel centerPanel = new JPanel();
+        centerPanel.add(comboOperadores);
+        add(centerPanel, BorderLayout.CENTER);
 
-        cmbUsuariosBloqueados = new JComboBox<>();
-        cmbUsuariosBloqueados.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-        panel.add(cmbUsuariosBloqueados);
-
-        panel.add(Box.createRigidArea(new Dimension(0, 20)));
-
+        JPanel bottomPanel = new JPanel();
         btnDesbloquear = new JButton("Desbloquear");
-        btnDesbloquear.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(btnDesbloquear);
+        btnCancelar = new JButton("Cancelar");
+        bottomPanel.add(btnDesbloquear);
+        bottomPanel.add(btnCancelar);
+        add(bottomPanel, BorderLayout.SOUTH);
+    }
 
-        add(panel, BorderLayout.CENTER);
+    public OperadorAereo getOperadorSeleccionado() {
+        return (OperadorAereo) comboOperadores.getSelectedItem();
     }
 
     public void mostrarMensaje(String mensaje) {
