@@ -1,7 +1,7 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class VistaControladorVueloSeguro extends JFrame {
     public JButton btnVolver;
@@ -11,7 +11,7 @@ public class VistaControladorVueloSeguro extends JFrame {
     public JList<String> listaIncidentes;
 
     public VistaControladorVueloSeguro() {
-        setTitle("Control de Vuelos y Reporte de Incidentes");
+        setTitle("Reporte de Incidentes");
         setSize(600, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
