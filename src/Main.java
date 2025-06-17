@@ -8,12 +8,10 @@ public class Main {
    public static void main(String[] args) {
       Aeropuerto aeropuerto = new Aeropuerto("Adolfo Suarez", "Madrid", "España", Aeropuerto.UbiRelCiudad.ESTE);
       
-      // Gestor
       GestorAeropuerto gestor = new GestorAeropuerto("María", "1234", aeropuerto);
       aeropuerto.setGestor(gestor);
       aeropuerto.setUsuarioActivo(gestor);
 
-      // Elementos del aeropuerto
       Terminal tPasajeros = new TerminalPasajeros(1250);
       aeropuerto.addTerminal(tPasajeros);
       Terminal tCarga = new TerminalCarga();
@@ -29,19 +27,16 @@ public class Main {
       PuertaEmbarque puerta1 = new PuertaEmbarque(finger1, parking1, 1200, PuertaEmbarque.TipoPuerta.MERCANCIAS);
       finger1.agregarPuertaEmbarque(puerta1);
 
-      // Pistas
       Pista pistaAterrizaje = new PistaAterrizaje(3000.0, 45.0);
       Pista pistaDespegue = new PistaDespegue(3200.0, 50.0);
       aeropuerto.addPista(pistaAterrizaje);
       aeropuerto.addPista(pistaDespegue);
 
-      // Controladores
       ControladorAereo controlador1 = new ControladorAereo("Juan", "abcd", tPasajeros);
       aeropuerto.addUsuario(controlador1);
       ControladorAereo controlador2 = new ControladorAereo("Pedro", "abcd1234", tCarga);
       aeropuerto.addUsuario(controlador2);
 
-      // Aerolíneas y operadores
       Aerolinea aerolinea1 = new Aerolinea("American Airways","A1212459");
       Aerolinea aerolinea2 = new Aerolinea("Qatar Airways", "T276582");
 
@@ -52,7 +47,6 @@ public class Main {
       operador2.setAerolineaAsignada(aerolinea2);
       aeropuerto.addUsuario(operador2);
 
-      // Vuelos
       Avion avion1 = new AvionPasajeros("Boeing", "737", "AA-123", 180, LocalDate.of(2025, 1, 26), LocalDate.of(2015, 3, 26), 120, aerolinea1);
       Vuelo vuelo1 = new Vuelo("Madrid", "New York", LocalDateTime.now(), LocalDateTime.now().plus(50, ChronoUnit.MINUTES), tPasajeros, avion1, pistaDespegue, puerta1, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA, Vuelo.ClaseVuelo.PASAJEROS, aerolinea1);
       aeropuerto.addVuelo(vuelo1);

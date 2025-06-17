@@ -2,10 +2,15 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.Aerolinea;
 import modelo.Aeropuerto;
+import modelo.Factura;
+import modelo.GestorAeropuerto;
 import vista.VistaOperadorFacturas;
 import vista.VistaOperadorMostrarFacturas;
+import vista.VistaOperadorPagarFacturas;
 import vista.VistaOperadorPrincipal;
 
 public class ControladorVistaOperadorFacturas {
@@ -34,7 +39,20 @@ public class ControladorVistaOperadorFacturas {
 
         this.vista.btnPagarFacturas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Pagar facturas de la aerolínea " + aerolinea.getNombre());
+                List<Factura> pendientes = aerolinea.getFacturas().stream()
+                    .filter(f -> f.getEstado() == Factura.EstadoFactura.PENDIENTE_DE_PAGO)
+                    .toList();
+
+                if (pendientes.isEmpty()) {
+                    JOptionPane.showMessageDialog(vista, "No hay facturas pendientes.");
+                    return;
+                }
+
+                VistaOperadorPagarFacturas vistaPagar = new VistaOperadorPagarFacturas(pendientes);
+                ControladorVistaOperadorPagarFacturas controladorPagar = new ControladorVistaOperadorPagarFacturas(
+                        vistaPagar, aerolinea, (GestorAeropuerto) aeropuerto.getGestor(), vista, aeropuerto);
+                vista.setVisible(false);
+                controladorPagar.iniciar();
             }
         });
 
