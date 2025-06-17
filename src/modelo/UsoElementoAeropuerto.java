@@ -9,11 +9,11 @@ public class UsoElementoAeropuerto {
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
 
-    private double costoVuelo;
-    private double costeFingerPorHora;
-    private double costeHangerPorHora;
-    private double costeHangarCargaPorHora;
-    private double costeAparcamientoPorHora;
+    private static double costoVuelo = 500;
+    private double costeFingerPorHora = 100;
+    private double costeHangerPorHora = 250;
+    private double costeHangarCargaPorHora = 350;
+    private double costeAparcamientoPorHora = 200;
 
     public UsoElementoAeropuerto(ElementoAeropuerto elementoAeropuerto, Aerolinea aerolinea,
             LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin) {
@@ -55,7 +55,7 @@ public class UsoElementoAeropuerto {
         this.fechaHoraFin = fechaHoraFin;
     }
 
-    public double getCostoVuelo() {
+    public static double getCostoVuelo() {
         return costoVuelo;
     }
 

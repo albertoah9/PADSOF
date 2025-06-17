@@ -101,7 +101,6 @@ public class ControladorVistaOperadorCrearVuelo {
             LocalTime hora = LocalTime.parse(vista.txtHora.getText().trim());
             LocalDateTime fechaHora = LocalDateTime.of(fecha, hora);
 
-            // Validación de anticipación mínima
             int diasMinimos = aeropuerto.getDiasAnticipacionMinima();
             LocalDate fechaMinima = LocalDate.now().plusDays(diasMinimos);
             if (fecha.isBefore(fechaMinima)) {

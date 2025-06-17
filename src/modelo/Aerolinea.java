@@ -75,17 +75,17 @@ public class Aerolinea {
     }
     
     public void agregarOperador(OperadorAereo operador) {
-        if (operador == null || operadores.contains(operador)) return;  // Verifica si ya está en la lista
+        if (operador == null || operadores.contains(operador)) return;
         if (operador.getAerolineaAsignada() != null) {
-            operador.getAerolineaAsignada().eliminarOperador(operador); // Elimina de su aerolínea anterior
+            operador.getAerolineaAsignada().eliminarOperador(operador);
         }
         operadores.add(operador);
-        operador.setAerolineaAsignada(this); // Asigna la aerolínea al operador
+        operador.setAerolineaAsignada(this);
     }
 
     public void eliminarOperador(OperadorAereo operador) {
         if (operador != null && operadores.remove(operador)) {
-            operador.setAerolineaAsignada(null); // Elimina la asignación del operador
+            operador.setAerolineaAsignada(null); 
         }
     }
 
@@ -93,14 +93,19 @@ public class Aerolinea {
         double costoTotal = 0;
 
         for (UsoElementoAeropuerto uso : usos) {
-            if (uso.getFechaHoraInicio().isAfter(fechaInicio) && uso.getFechaHoraFin().isBefore(fechaFin)) {
-                costoTotal += uso.calcularCosteTotal();
+            if (uso.getAerolinea().equals(this)) {
+                if (uso.getFechaHoraInicio().isAfter(fechaInicio) && uso.getFechaHoraFin().isBefore(fechaFin)) {
+                    costoTotal += uso.calcularCosteTotal();
+                }
             }
+
         }
 
         for (Vuelo vuelo : vuelos) {
-            if (vuelo.getFechaHora().isAfter(fechaInicio) && vuelo.getFechaHora().isBefore(fechaFin)) {
-                costoTotal += costeVuelo;
+            if (vuelo.getAerolinea().equals(this)) {
+                if (vuelo.getFechaHora().isAfter(fechaInicio) && vuelo.getFechaHora().isBefore(fechaFin)) {
+                    costoTotal += costeVuelo;
+                }
             }
         }
 

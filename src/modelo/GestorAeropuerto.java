@@ -16,7 +16,6 @@ public class GestorAeropuerto extends Usuario {
     private int minutosDesocupacion = 30;
 
     private List<EventoHistorial> historialEventos;
-    private List<Pago> pagos;
     private List<IncidenteSeguridad> incidentesSeguridad;
 
     private List<OperadorAereo> operadores;
@@ -31,7 +30,6 @@ public class GestorAeropuerto extends Usuario {
 
         this.preferenciasNotificaciones = new HashSet<>();
         this.historialEventos = new ArrayList<>();
-        this.pagos = new ArrayList<>();
         this.incidentesSeguridad = new ArrayList<>();
         this.operadores = new ArrayList<>();
         this.controladores = new ArrayList<>();
@@ -45,6 +43,42 @@ public class GestorAeropuerto extends Usuario {
 
     public void registrarEvento(String tipo, String descripcion) {
         historialEventos.add(new EventoHistorial(LocalDateTime.now(), tipo, descripcion));
+    }
+
+
+
+    public Factura generarFacturaMensual(Aerolinea aerolinea, int año, int mes) {
+        if (aerolinea == null) {
+            throw new IllegalArgumentException("La aerolínea no puede ser nula.");
+        }
+
+        LocalDateTime inicioMes = LocalDateTime.of(año, mes, 1, 0, 0);
+        LocalDateTime finMes = inicioMes.withDayOfMonth(inicioMes.toLocalDate().lengthOfMonth()).withHour(23).withMinute(59);
+
+        List<UsoElementoAeropuerto> usos = aeropuerto.getUsosElementosAeropuerto();
+        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea);
+        int vuelosMes = (int) vuelos.stream()
+                                    .filter(v -> !v.getFechaHora().isBefore(inicioMes) && !v.getFechaHora().isAfter(finMes))
+                                    .count();
+
+        double costoVuelo = 500;
+
+        double costoTotal = aerolinea.calcularCostoTotal(inicioMes, finMes, new ArrayList<>(usos), new ArrayList<>(vuelos), costoVuelo);
+
+        Factura factura = new Factura(costoTotal, aerolinea);
+
+        factura.aplicarDescuentos(aeropuerto.getDescuentos(), aerolinea, inicioMes.toLocalDate(), vuelosMes);
+
+        this.addFactura(factura);
+
+        List<Usuario> destinatarios = new ArrayList<>();
+        destinatarios.add(this);
+        for (OperadorAereo oa : factura.getAerolinea().getOperadores()) {
+            destinatarios.add(oa);
+        }
+        aeropuerto.addNotificacion(new Notificacion("Nueva Factura -> Id: " + factura.getId(), destinatarios));
+
+        return factura;
     }
 
     public void addFactura(Factura factura) {
@@ -76,40 +110,6 @@ public class GestorAeropuerto extends Usuario {
         return null;
     }
 
-    public void addPago(Pago pago) {
-        if (pago == null)
-            throw new IllegalArgumentException("El pago no puede ser nulo.");
-        this.pagos.add(pago);
-        registrarEvento("PAGO_REGISTRADO",
-                "Pago de " + pago.getMonto() + "€ registrado para factura " + pago.getFacturaId() + ".");
-    }
-
-    public List<Pago> getPagos() {
-        return Collections.unmodifiableList(pagos);
-    }
-
-    public void registrarPagoParaFactura(int idFactura, double montoPago) {
-        Factura factura = buscarFacturaPorId(idFactura);
-        if (factura != null) {
-            if (factura.getMonto() >= montoPago && factura.getEstado() == Factura.EstadoFactura.PENDIENTE_DE_PAGO) {
-                LocalDateTime fechaPago = LocalDateTime.now();
-                Pago nuevoPago = new Pago(idFactura, montoPago, fechaPago);
-                addPago(nuevoPago);
-                if (factura.getMonto() == montoPago) {
-                    factura.marcarComoPagado();
-                    registrarEvento("FACTURA_PAGADA", "Factura " + idFactura + " pagada completamente.");
-                } else {
-                    registrarEvento("PAGO_PARCIAL_REGISTRADO",
-                            "Pago parcial de " + montoPago + "€ registrado para factura " + idFactura + ".");
-                }
-            } else {
-                registrarEvento("ERROR_PAGO",
-                        "Intento de registrar pago inválido (monto o estado) para factura " + idFactura);
-            }
-        } else {
-            registrarEvento("ERROR_PAGO", "Factura no encontrada para pago: " + idFactura);
-        }
-    }
 
     public void addIncidenteSeguridad(IncidenteSeguridad incidente) {
         if (incidente == null)
@@ -290,7 +290,6 @@ public class GestorAeropuerto extends Usuario {
         return eliminado;
     }
 
-    // Vuelos
     public void addVuelo(Vuelo vuelo) {
         aeropuerto.addVuelo(vuelo);
         registrarEvento("VUELO_AGREGADO", "Nuevo vuelo " + vuelo.getId() + " agregado al aeropuerto.");
@@ -315,7 +314,6 @@ public class GestorAeropuerto extends Usuario {
         return Status.ERROR;
     }
 
-    // Aerolineas
     public List<Aerolinea> getAerolineas() {
         return aeropuerto.getAerolineas();
     }
@@ -357,7 +355,6 @@ public class GestorAeropuerto extends Usuario {
                 "Usuario activo cambiado a: " + (usuarioActivo != null ? usuarioActivo.getNombre() : "N/A"));
     }
 
-    // Puertas de Embarque
     public List<PuertaEmbarque> getPuertasEmbarque() {
         return aeropuerto.getPuertasEmbarque();
     }
@@ -367,7 +364,6 @@ public class GestorAeropuerto extends Usuario {
         registrarEvento("PUERTA_EMBARQUE_AGREGADA", "Puerta de embarque " + puerta.getId() + " agregada.");
     }
 
-    // Terminales
     public List<Terminal> getTerminales() {
         return aeropuerto.getTerminales();
     }

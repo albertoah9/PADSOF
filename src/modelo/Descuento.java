@@ -35,7 +35,7 @@ public class Descuento {
     public boolean cumpleCondicion(Aerolinea aerolinea, double importeFactura, int vuelosDelMes) {
         return switch (condicion) {
             case IMPORTE_SUPERIOR -> importeFactura > valorCondicion;
-            case VUELOS_MINIMOS -> vuelosDelMes > valorCondicion;
+            case VUELOS_MINIMOS -> vuelosDelMes >= valorCondicion;
         };
     }
 
