@@ -2,6 +2,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import modelo.*;
 
 public class Main {
@@ -51,9 +52,33 @@ public class Main {
       Vuelo vuelo1 = new Vuelo("Madrid", "New York", LocalDateTime.now(), LocalDateTime.now().plus(50, ChronoUnit.MINUTES), tPasajeros, avion1, pistaDespegue, puerta1, Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA, Vuelo.ClaseVuelo.PASAJEROS, aerolinea1);
       aeropuerto.addVuelo(vuelo1);
 
-      // Simulación de operaciones
+      ControladorAereo controlador = aeropuerto.buscarControladorPorContrasena("abcd");
+      Vuelo vuelo = aeropuerto.getVuelos().get(0);
 
-      System.out.println("Hola");
-      
+      System.out.println("Estado inicial del vuelo: " + vuelo.getEstado());
+      controlador.cambiarEstadoVuelo(vuelo, Vuelo.EstadoVuelo.EMBARCANDO);
+      System.out.println("Estado actualizado del vuelo: " + vuelo.getEstado());
+
+      Pista pistaUsada = vuelo.getPista();
+      System.out.println("Pista usada por vuelo: " + pistaUsada.getId() + ", ocupada: " + pistaUsada.isOcupada());
+      pistaUsada.setOcupada(true);
+      System.out.println("Pista marcada como ocupada.");
+      pistaUsada.setOcupada(false);
+      System.out.println("Pista liberada.");
+
+      Notificacion noti = new Notificacion("Simulación: vuelo programado para revisión", List.of(controlador));
+      aeropuerto.addNotificacion(noti);
+      System.out.println("Notificación agregada: " + noti.getMensaje());
+
+      System.out.println("Vuelos de " + vuelo.getAerolinea().getNombre() + ":");
+      for (Vuelo v : aeropuerto.getVuelosAerolinea(vuelo.getAerolinea())) {
+         System.out.println("- Vuelo " + v.getId() + " a " + v.getDestino());
+      }
+
+      Factura factura = new Factura(2305.50, vuelo.getAerolinea());
+      System.out.println("Factura generada para " + factura.getAerolinea().getNombre() + ": Total = " + factura.getMonto());
+
+      System.out.println("Simulación completa.");
+            
    }
 }

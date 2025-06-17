@@ -2,17 +2,14 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-
 import javax.swing.*;
-import modelo.Aerolinea;
 import modelo.Aeropuerto;
 import modelo.ControladorAereo;
 import vista.VistaControladorAsignarAlVuelo;
 import vista.VistaControladorBuscarVuelo;
 import vista.VistaControladorModificarVuelo;
-import vista.VistaControladorVuelos;
 import vista.VistaControladorVerificaciones;
+import vista.VistaControladorVuelos;
 
 public class ControladorVistaControladorVuelos {
 
@@ -21,9 +18,10 @@ public class ControladorVistaControladorVuelos {
     private JFrame vistaAnterior;
     private ControladorAereo controladorAereo;
 
-    public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, JFrame vistaPrincipal, JFrame vistaAnterior) {
+    public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, JFrame vistaPrincipal, ControladorAereo controlador, JFrame vistaAnterior) {
         this.vista = vista;
         this.aeropuerto = aeropuerto;
+        this.controladorAereo = controlador;
 
         this.vista.btnBuscarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

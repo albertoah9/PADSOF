@@ -23,12 +23,14 @@ public class ControladorVistaControladorPrincipal {
     private ArrayList<UsoElementoAeropuerto> usos;
     private List<String> listaNotificaciones;
     private List<Pista> pista;
+    private ControladorAereo controladorAereo;
 
-    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto, JFrame vistaAnterior) {
+    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto, ControladorAereo controlador, JFrame vistaAnterior) {
 
         this.vista = vista;
         this.aeropuerto = aeropuerto;
         this.vistaAnterior = vistaAnterior;
+        this.controladorAereo = controlador;
 
         this.listaNotificaciones = new ArrayList<>();
         this.elementos = aeropuerto.getElementosAeropuerto();
@@ -40,7 +42,7 @@ public class ControladorVistaControladorPrincipal {
                 vista.setVisible(false);
                 VistaControladorVuelos vistaVuelos = new VistaControladorVuelos();
                 ControladorVistaControladorVuelos controladorVuelos = new ControladorVistaControladorVuelos(
-                        vistaVuelos, aeropuerto, vista, vista);
+                        vistaVuelos, aeropuerto, vista, controladorAereo, vista);
                 controladorVuelos.iniciar();
             }
         });
