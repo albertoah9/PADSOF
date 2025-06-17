@@ -66,8 +66,6 @@ public class ControladorVistaLogin {
                     } else if (u instanceof ControladorAereo) {
                         VistaControladorPrincipal vistaControlador = new VistaControladorPrincipal();
                         vistaControlador.setVisible(true);
-                    } else {
-                        vista.mostrarMensaje("Tipo de usuario desconocido.");
                     }
 
                     return;
