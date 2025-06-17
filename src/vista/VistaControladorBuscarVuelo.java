@@ -4,18 +4,34 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
+/**
+ * Ventana que muestra todos los vuelos registrados en una tabla.
+ * 
+ * Permite filtrar los vuelos por origen, destino, estado o clase,
+ * y también volver a la pantalla anterior.
+ */
 public class VistaControladorBuscarVuelo extends JFrame {
 
+    /** Tabla donde se muestran los vuelos */
     public JTable tablaVuelos;
+    /** Botón para volver atrás */
     public JButton btnVolver;
+    /** Botón para aplicar los filtros */
     public JButton btnFiltrar;
+    /** Campo para filtrar por origen */
     public JTextField txtFiltroOrigen;
+    /** Campo para filtrar por destino */
     public JTextField txtFiltroDestino;
+    /** Combo para elegir el estado del vuelo (ej: en hora, retrasado, etc.) */
     public JComboBox<String> comboFiltroEstado;
+    /** Combo para elegir la clase del vuelo (pasajeros o mercancías) */
     public JComboBox<String> comboFiltroClase;
-
+    /** Modelo de la tabla, usado para manejar los datos que se muestran */
     private DefaultTableModel modeloTabla;
 
+    /**
+     * Constructor que arma toda la interfaz gráfica para ver y filtrar vuelos.
+     */
     public VistaControladorBuscarVuelo() {
         setTitle("Listado de Vuelos");
         setSize(900, 500);
@@ -68,10 +84,20 @@ public class VistaControladorBuscarVuelo extends JFrame {
         add(panelBoton, BorderLayout.SOUTH);
     }
 
+    /**
+     * Agrega una fila nueva a la tabla con los datos de un vuelo.
+     *
+     * @param datosFila Array con los datos del vuelo
+     */
     public void agregarVuelo(Object[] datosFila) {
         modeloTabla.addRow(datosFila);
     }
 
+    /**
+     * Borra todos los vuelos que hay en la tabla.
+     * 
+     * Se usa cuando se quiere refrescar o limpiar los datos mostrados.
+     */
     public void limpiarTabla() {
         modeloTabla.setRowCount(0);
     }

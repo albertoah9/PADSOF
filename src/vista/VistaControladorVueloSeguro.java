@@ -3,13 +3,29 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Vista para el control de vuelos seguros y reporte de incidentes.
+ * 
+ * Esta ventana permite al controlador reportar nuevos incidentes
+ * y consultar la lista de incidentes ya reportados.
+ */
 public class VistaControladorVueloSeguro extends JFrame {
+
+    /** Botón para volver a la ventana anterior */
     public JButton btnVolver;
+    /** Área de texto para describir el incidente */
     public JTextArea areaDescripcion;
+    /** Botón para enviar el reporte del incidente */
     public JButton btnReportar;
+    /** Modelo que contiene la lista de incidentes reportados */
     public DefaultListModel<String> listaModelIncidentes;
+    /** Lista que muestra los incidentes reportados */
     public JList<String> listaIncidentes;
 
+    /**
+     * Constructor que crea y configura la ventana,
+     * con pestañas para reportar incidentes y ver la lista.
+     */
     public VistaControladorVueloSeguro() {
         setTitle("Control de Vuelos y Reporte de Incidentes");
         setSize(600, 500);

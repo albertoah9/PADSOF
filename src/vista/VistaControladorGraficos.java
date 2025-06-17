@@ -3,16 +3,32 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Ventana que muestra varios gráficos útiles para el controlador aéreo.
+ * 
+ * Muestra visualmente el estado de los vuelos, el tráfico por hora,
+ * los retrasos por aerolínea y el uso de las terminales.
+ */
 public class VistaControladorGraficos extends JFrame {
 
+    /** Título principal de la ventana */
     private JLabel lblTitulo;
+    /** Panel donde va el gráfico del estado de los vuelos */
     private JPanel panelEstadoVuelos;
+    /** Panel donde va el gráfico del tráfico aéreo por hora */
     private JPanel panelTraficoAereo;
+    /** Panel donde va el gráfico de retrasos por aerolínea */
     private JPanel panelRetrasosAerolinea;
+    /** Panel donde va el gráfico de uso de terminales */
     private JPanel panelUsoTerminales;
+    /** Etiqueta que muestra la hora actual */
     private JLabel lblHoraActual;
+    /** Botón para volver a la pantalla anterior */
     public JButton btnVolver;
 
+    /**
+     * Constructor que arma toda la interfaz con los paneles para los gráficos.
+     */
     public VistaControladorGraficos() {
         setTitle("Gráficos necesarios para el Controlador Aéreo");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -61,6 +77,13 @@ public class VistaControladorGraficos extends JFrame {
         add(panelInferior, BorderLayout.SOUTH);
     }
 
+    /**
+     * Método auxiliar para crear un panel con borde y título, donde se insertará un
+     * gráfico.
+     *
+     * @param titulo El título del gráfico que se mostrará en ese panel.
+     * @return El panel ya preparado para insertar el gráfico.
+     */
     private JPanel crearPanelGrafico(String titulo) {
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder(titulo));
@@ -68,22 +91,27 @@ public class VistaControladorGraficos extends JFrame {
         return panel;
     }
 
+    /** @return Panel donde se carga el gráfico del estado de los vuelos */
     public JPanel getPanelEstadoVuelos() {
         return panelEstadoVuelos;
     }
 
+    /** @return Panel para el gráfico del tráfico aéreo por hora */
     public JPanel getPanelTraficoAereo() {
         return panelTraficoAereo;
     }
 
+    /** @return Panel con el gráfico de retrasos por aerolínea */
     public JPanel getPanelRetrasosAerolinea() {
         return panelRetrasosAerolinea;
     }
 
+    /** @return Panel para el gráfico del uso de terminales */
     public JPanel getPanelUsoTerminales() {
         return panelUsoTerminales;
     }
 
+    /** @return Etiqueta que muestra la hora actual */
     public JLabel getLblHoraActual() {
         return lblHoraActual;
     }

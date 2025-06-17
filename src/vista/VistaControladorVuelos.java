@@ -3,14 +3,30 @@ package vista;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * Vista para la gestión de vuelos en la aerolínea.
+ * 
+ * Contiene botones para buscar vuelos, modificar estados,
+ * asignar recursos y realizar verificaciones, además de un botón para volver.
+ */
 public class VistaControladorVuelos extends JFrame {
+
+    /** Botón para modificar el estado del vuelo */
     public JButton btnModificarVuelo;
+    /** Botón para buscar un vuelo */
     public JButton btnBuscarVuelo;
+    /** Botón para volver a la pantalla anterior */
     public JButton btnVolver;
+    /** Botón para asignar recursos al vuelo */
     public JButton btnAsignacionesVuelo;
+    /** Botón para acceder a las verificaciones */
     public JButton btnVerificaciones;
+    /** Etiqueta del título principal */
     public JLabel lblTitulo;
 
+    /**
+     * Constructor que inicializa la ventana con todos los componentes visuales.
+     */
     public VistaControladorVuelos() {
         setTitle("Gestión de Vuelos");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -50,6 +66,12 @@ public class VistaControladorVuelos extends JFrame {
         add(panel, BorderLayout.CENTER);
     }
 
+    /**
+     * Método privado que crea un botón con formato consistente.
+     * 
+     * @param texto texto que aparecerá en el botón
+     * @return JButton configurado con estilo y tamaño estándar
+     */
     private JButton crearBoton(String texto) {
         JButton boton = new JButton(texto);
         boton.setFont(new Font("Arial", Font.PLAIN, 16));

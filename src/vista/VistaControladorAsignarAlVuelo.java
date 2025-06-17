@@ -3,15 +3,35 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Ventana que permite asignar distintos recursos a un vuelo,
+ * como pista, hangar, finger, etc.
+ * 
+ * Es una interfaz con varias pestañas para organizar mejor cada asignación.
+ */
 public class VistaControladorAsignarAlVuelo extends JFrame {
+
+    /** Panel con pestañas donde se agrupan las diferentes asignaciones */
     public JTabbedPane tabbedPane;
+    /** Panel para asignar la pista de aterrizaje */
     public JPanel panelAsignarPistaAterrizaje;
+    /** Panel para asignar la pista de despegue */
     public JPanel panelAsignarPistaDespegue;
+    /** Panel para asignar el aparcamiento del avión */
     public JPanel panelAsignarAparcamiento;
+    /** Panel para asignar el hangar al vuelo */
     public JPanel panelAsignarHangar;
+    /** Panel para asignar un finger (pasarela de embarque) */
     public JPanel panelAsignarFinger;
+    /** Botón para volver a la pantalla anterior */
     public JButton btnVolver;
 
+    /**
+     * Constructor que arma toda la interfaz.
+     * 
+     * Se crean las pestañas y el botón de volver,
+     * y se organiza todo con layouts.
+     */
     public VistaControladorAsignarAlVuelo() {
         setTitle("Asignar Elementos a Vuelos");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

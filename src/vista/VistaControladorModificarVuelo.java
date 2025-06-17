@@ -3,14 +3,31 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Ventana para que el controlador aéreo modifique el estado de los vuelos.
+ * 
+ * Muestra una lista de vuelos (o sus componentes), permite actualizarla
+ * y confirmar cambios en su estado.
+ */
 public class VistaControladorModificarVuelo extends JFrame {
+
+    /** Panel donde se mostrarán los vuelos disponibles para modificar */
     public JPanel panelVuelos;
+    /** Botón para confirmar el cambio de estado de un vuelo */
     public JButton btnConfirmar;
+    /** Botón para actualizar la lista de vuelos en pantalla */
     public JButton btnActualizar;
+    /** Botón para volver a la pantalla anterior */
     public JButton btnVolver;
+    /** Etiqueta con el título de la ventana */
     public JLabel lblTitulo;
+    /** Etiqueta que muestra la hora actual */
     private JLabel lblHoraActual;
 
+    /**
+     * Constructor que inicializa y arma toda la interfaz gráfica
+     * para la modificación de estados de vuelos.
+     */
     public VistaControladorModificarVuelo() {
         setTitle("Modificar el estado del Vuelo");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
