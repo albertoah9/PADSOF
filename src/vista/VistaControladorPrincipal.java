@@ -14,13 +14,9 @@ public class VistaControladorPrincipal extends JFrame {
     public JButton btnVuelos;
     /** Botón para ver la disponibilidad de elementos */
     public JButton btnDisponibilidad;
-    /** Botón para mostrar gráficos */
-    public JButton btnGraficos;
     /** Botón para ver notificaciones */
-
     public JButton btnNotificaciones;
     /** Etiqueta con el título de la ventana */
-
     public JLabel lblTitulo;
     /** Botón para la función de vuelo seguro */
     public JButton btnVueloSeguro;
@@ -52,10 +48,6 @@ public class VistaControladorPrincipal extends JFrame {
 
         btnDisponibilidad = crearBoton("Disponibilidad de elementos");
         panel.add(btnDisponibilidad);
-        panel.add(Box.createRigidArea(new Dimension(0, 15)));
-
-        btnGraficos = crearBoton("Gráficos");
-        panel.add(btnGraficos);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         btnNotificaciones = crearBoton("Ver Notificaciones");

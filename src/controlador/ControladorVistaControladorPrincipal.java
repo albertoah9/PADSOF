@@ -7,12 +7,21 @@ import java.util.List;
 import javax.swing.*;
 import modelo.*;
 import vista.VistaControladorDisponibilidad;
-import vista.VistaControladorGraficos;
 import vista.VistaControladorNotificaciones;
 import vista.VistaControladorPrincipal;
 import vista.VistaControladorVueloSeguro;
 import vista.VistaControladorVuelos;
 
+/**
+ * Controlador principal que gestiona la ventana principal de la aplicación.
+ * 
+ * Se encarga de inicializar y manejar las acciones de los botones para navegar
+ * entre las diferentes vistas del sistema, tales como vuelos, disponibilidad,
+ * notificaciones y control de vuelo seguro.
+ * 
+ * Además, mantiene referencias a los elementos del aeropuerto, las pistas y
+ * los usos de los elementos, así como una lista de notificaciones.
+ */
 public class ControladorVistaControladorPrincipal {
 
     private VistaControladorPrincipal vista;
@@ -24,7 +33,17 @@ public class ControladorVistaControladorPrincipal {
     private List<String> listaNotificaciones;
     private List<Pista> pista;
 
-    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto, JFrame vistaAnterior) {
+    /**
+     * Constructor que inicializa el controlador con la vista principal, el
+     * aeropuerto
+     * y la vista anterior para facilitar la navegación.
+     * 
+     * @param vista         instancia de la vista principal
+     * @param aeropuerto    aeropuerto que contiene los datos y elementos a manejar
+     * @param vistaAnterior ventana anterior para regresar al cerrar esta vista
+     */
+    public ControladorVistaControladorPrincipal(VistaControladorPrincipal vista, Aeropuerto aeropuerto,
+            JFrame vistaAnterior) {
 
         this.vista = vista;
         this.aeropuerto = aeropuerto;
@@ -61,24 +80,6 @@ public class ControladorVistaControladorPrincipal {
             }
         });
 
-        this.vista.btnGraficos.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                VistaControladorGraficos vistaGraficos = new VistaControladorGraficos();
-
-                Estadisticas estadisticas = new Estadisticas(
-                        aeropuerto.getHangares(),
-                        aeropuerto.getAparcamientos(),
-                        aeropuerto.getPuertasEmbarque(),
-                        List.of(vuelo.getFinger()),
-                        aeropuerto.getVuelos());
-
-                ControladorVistaControladorGraficos controladorGraficos = new ControladorVistaControladorGraficos(
-                        vistaGraficos, vista, estadisticas);
-                controladorGraficos.iniciar();
-                vista.setVisible(false);
-            }
-        });
-
         this.vista.btnNotificaciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorNotificaciones vistaNotificaciones = new VistaControladorNotificaciones();
@@ -101,6 +102,9 @@ public class ControladorVistaControladorPrincipal {
 
     }
 
+    /**
+     * Muestra la vista principal.
+     */
     public void iniciar() {
         vista.setVisible(true);
     }
