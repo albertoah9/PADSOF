@@ -27,7 +27,6 @@ public class MainControlador {
                                 LocalDate.of(2027, 7, 23), LocalDate.of(2027, 7, 23), 12, aerolinea);
                 aerolinea.añadirAvion(avionPasajeros);
 
-                // Vuelos (menos y con el mismo estado para probar)
                 Vuelo vuelo1 = new Vuelo("Madrid", "Paris", LocalDateTime.of(2027, 7, 23, 12, 20),
                                 LocalDateTime.of(2027, 7, 23, 10, 0), null, avionPasajeros, null, null,
                                 Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA,
