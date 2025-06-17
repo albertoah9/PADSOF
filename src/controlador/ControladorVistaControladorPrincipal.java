@@ -4,24 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.*;
-
 import modelo.*;
-import vista.VistaControladorPrincipal;
-import vista.VistaControladorVueloSeguro;
-import vista.VistaControladorVuelos;
 import vista.VistaControladorDisponibilidad;
 import vista.VistaControladorGraficos;
 import vista.VistaControladorNotificaciones;
+import vista.VistaControladorPrincipal;
 import vista.VistaControladorVueloSeguro;
+import vista.VistaControladorVuelos;
 
 public class ControladorVistaControladorPrincipal {
 
     private VistaControladorPrincipal vista;
     private Aeropuerto aeropuerto;
     private Vuelo vuelo;
-    private Aerolinea aerolinea;
     private JFrame vistaAnterior;
     private List<ElementoAeropuerto> elementos;
     private ArrayList<UsoElementoAeropuerto> usos;
@@ -44,7 +40,7 @@ public class ControladorVistaControladorPrincipal {
                 vista.setVisible(false);
                 VistaControladorVuelos vistaVuelos = new VistaControladorVuelos();
                 ControladorVistaControladorVuelos controladorVuelos = new ControladorVistaControladorVuelos(
-                        vistaVuelos, aeropuerto, aerolinea, vista, vista);
+                        vistaVuelos, aeropuerto, vista, vista);
                 controladorVuelos.iniciar();
             }
         });

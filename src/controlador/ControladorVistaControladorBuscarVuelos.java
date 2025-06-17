@@ -1,26 +1,21 @@
 package controlador;
 
-import modelo.Aerolinea;
+import java.util.List;
+import javax.swing.*;
 import modelo.Aeropuerto;
 import modelo.Vuelo;
 import vista.VistaControladorBuscarVuelo;
-
-import javax.swing.*;
-import java.util.List;
 
 public class ControladorVistaControladorBuscarVuelos {
 
     private VistaControladorBuscarVuelo vista;
     private Aeropuerto aeropuerto;
-    private Aerolinea aerolinea;
     private JFrame vistaAnterior;
 
-    public ControladorVistaControladorBuscarVuelos(VistaControladorBuscarVuelo vista, Aeropuerto aeropuerto,
-            Aerolinea aerolinea, JFrame vistaAnterior) {
+    public ControladorVistaControladorBuscarVuelos(VistaControladorBuscarVuelo vista, Aeropuerto aeropuerto, JFrame vistaAnterior) {
         this.vista = vista;
         this.aeropuerto = aeropuerto;
         this.vistaAnterior = vistaAnterior;
-        this.aerolinea = aerolinea;
 
         cargarVuelos(null, null, null, null);
 
@@ -54,7 +49,7 @@ public class ControladorVistaControladorBuscarVuelos {
     private void cargarVuelos(String filtroOrigen, String filtroDestino, String filtroEstado, String filtroClase) {
         vista.limpiarTabla();
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea);
+        List<Vuelo> vuelos = aeropuerto.getVuelos();
 
         for (Vuelo v : vuelos) {
             if (cumpleFiltro(v, filtroOrigen, filtroDestino, filtroEstado, filtroClase)) {

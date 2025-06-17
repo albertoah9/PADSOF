@@ -18,21 +18,18 @@ public class ControladorVistaControladorVuelos {
 
     private VistaControladorVuelos vista;
     private Aeropuerto aeropuerto;
-    private Aerolinea aerolinea;
     private JFrame vistaAnterior;
     private ControladorAereo controladorAereo;
 
-    public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, Aerolinea aerolinea,
-            JFrame vistaPrincipal, JFrame vistaAnterior) {
+    public ControladorVistaControladorVuelos(VistaControladorVuelos vista, Aeropuerto aeropuerto, JFrame vistaPrincipal, JFrame vistaAnterior) {
         this.vista = vista;
         this.aeropuerto = aeropuerto;
-        this.aerolinea = aerolinea;
 
         this.vista.btnBuscarVuelo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorBuscarVuelo vistaBuscarVuelo = new VistaControladorBuscarVuelo();
                 ControladorVistaControladorBuscarVuelos controladorBuscarVuelo = new ControladorVistaControladorBuscarVuelos(
-                        vistaBuscarVuelo, aeropuerto, aerolinea, vista);
+                        vistaBuscarVuelo, aeropuerto, vista);
                 controladorBuscarVuelo.iniciar();
                 vista.setVisible(false);
             }
@@ -53,7 +50,7 @@ public class ControladorVistaControladorVuelos {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorAsignarAlVuelo vistaAsignarAlVuelo = new VistaControladorAsignarAlVuelo();
                 ControladorVistaControladorAsignarAlVuelo controladorAsignarAlVuelo = new ControladorVistaControladorAsignarAlVuelo(
-                        vistaAsignarAlVuelo, controladorAereo, aeropuerto, aerolinea, vista);
+                        vistaAsignarAlVuelo, controladorAereo, aeropuerto, vista);
                 controladorAsignarAlVuelo.iniciar();
                 vista.setVisible(false);
 
@@ -64,7 +61,7 @@ public class ControladorVistaControladorVuelos {
             public void actionPerformed(ActionEvent e) {
                 VistaControladorVerificaciones vistaVerificaciones = new VistaControladorVerificaciones();
                 ControladorVistaControladorVerificaciones controladorVerificaciones = new ControladorVistaControladorVerificaciones(
-                        vistaVerificaciones, aeropuerto, aerolinea, vista);
+                        vistaVerificaciones, aeropuerto, vista);
                 controladorVerificaciones.iniciar();
                 vista.setVisible(false);
 

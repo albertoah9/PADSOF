@@ -1,27 +1,24 @@
 package controlador;
 
-import modelo.*;
-import vista.VistaControladorAsignarAlVuelo;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.*;
+import modelo.*;
+import vista.VistaControladorAsignarAlVuelo;
 
 public class ControladorVistaControladorAsignarAlVuelo {
     private VistaControladorAsignarAlVuelo vista;
     private ControladorAereo controladorAereo;
     private Aeropuerto aeropuerto;
-    private Aerolinea aerolinea;
     private JFrame vistaAnterior;
 
     public ControladorVistaControladorAsignarAlVuelo(VistaControladorAsignarAlVuelo vista,
             ControladorAereo controladorAereo,
-            Aeropuerto aeropuerto, Aerolinea aerolinea, JFrame vistaAnterior) {
+            Aeropuerto aeropuerto, JFrame vistaAnterior) {
         this.vista = vista;
         this.controladorAereo = controladorAereo;
         this.aeropuerto = aeropuerto;
-        this.aerolinea = aerolinea;
         this.vistaAnterior = vistaAnterior;
     }
 
@@ -49,7 +46,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.removeAll();
         panel.setLayout(new BorderLayout());
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea).stream()
+        List<Vuelo> vuelos = aeropuerto.getVuelos().stream()
                 .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.ESPERANDO_ATERRIZAJE)
                 .collect(Collectors.toList());
 
@@ -75,7 +72,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.removeAll();
         panel.setLayout(new BorderLayout());
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea).stream()
+        List<Vuelo> vuelos = aeropuerto.getVuelos().stream()
                 .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.ESPERANDO_DESPEGUE)
                 .collect(Collectors.toList());
 
@@ -101,7 +98,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.removeAll();
         panel.setLayout(new BorderLayout());
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea).stream()
+        List<Vuelo> vuelos = aeropuerto.getVuelos().stream()
                 .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.EN_PREPARACION)
                 .collect(Collectors.toList());
 
@@ -127,7 +124,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.removeAll();
         panel.setLayout(new BorderLayout());
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea).stream()
+        List<Vuelo> vuelos = aeropuerto.getVuelos().stream()
                 .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.EN_PREPARACION)
                 .collect(Collectors.toList());
 
@@ -153,7 +150,7 @@ public class ControladorVistaControladorAsignarAlVuelo {
         panel.removeAll();
         panel.setLayout(new BorderLayout());
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea).stream()
+        List<Vuelo> vuelos = aeropuerto.getVuelos().stream()
                 .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.EN_PREPARACION)
                 .collect(Collectors.toList());
 

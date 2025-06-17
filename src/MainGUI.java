@@ -67,6 +67,7 @@ public class MainGUI {
         OperadorAereo operador1 = new OperadorAereo("Mike", "ggg222", aerolinea1);
         aeropuerto.addUsuario(operador1);
         OperadorAereo operador2 = new OperadorAereo("Aron", "fgfgfg", aerolinea2);
+        operador2.setNecesitaResetear(true);
         aeropuerto.addUsuario(operador2);
         OperadorAereo operador3 = new OperadorAereo("Marcos", "fgf564", aerolinea2);
         operador3.setBloqueado(true);

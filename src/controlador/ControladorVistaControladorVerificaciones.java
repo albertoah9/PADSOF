@@ -1,25 +1,21 @@
 package controlador;
 
-import modelo.*;
-import vista.VistaControladorVerificaciones;
-
-import javax.swing.*;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.*;
+import modelo.*;
+import vista.VistaControladorVerificaciones;
 
 public class ControladorVistaControladorVerificaciones {
     private VistaControladorVerificaciones vista;
     private Aeropuerto aeropuerto;
-    private Aerolinea aerolinea;
     private JFrame vistaAnterior;
 
     public ControladorVistaControladorVerificaciones(VistaControladorVerificaciones vista,
-            Aeropuerto aeropuerto,
-            Aerolinea aerolinea, JFrame vistaAnterior) {
+            Aeropuerto aeropuerto, JFrame vistaAnterior) {
         this.vista = vista;
         this.vistaAnterior = vistaAnterior;
         this.aeropuerto = aeropuerto;
-        this.aerolinea = aerolinea;
         inicializar();
     }
 
@@ -41,7 +37,7 @@ public class ControladorVistaControladorVerificaciones {
         JPanel panel = vista.panelPermitirAterrizaje;
         panel.removeAll();
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea).stream()
+        List<Vuelo> vuelos = aeropuerto.getVuelos().stream()
                 .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.ESPERANDO_PISTA)
                 .collect(Collectors.toList());
 
@@ -70,7 +66,7 @@ public class ControladorVistaControladorVerificaciones {
         JPanel panel = vista.panelPermitirDespegue;
         panel.removeAll();
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea).stream()
+        List<Vuelo> vuelos = aeropuerto.getVuelos().stream()
                 .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.ESPERANDO_DESPEGUE)
                 .collect(Collectors.toList());
 
@@ -99,7 +95,7 @@ public class ControladorVistaControladorVerificaciones {
         JPanel panel = vista.panelConfirmarAterrizaje;
         panel.removeAll();
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea).stream()
+        List<Vuelo> vuelos = aeropuerto.getVuelos().stream()
                 .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.ESPERANDO_ATERRIZAJE)
                 .collect(Collectors.toList());
 
@@ -128,7 +124,7 @@ public class ControladorVistaControladorVerificaciones {
         JPanel panel = vista.panelConfirmarDespegue;
         panel.removeAll();
 
-        List<Vuelo> vuelos = aeropuerto.getVuelosAerolinea(aerolinea).stream()
+        List<Vuelo> vuelos = aeropuerto.getVuelos().stream()
                 .filter(v -> v.getEstado() == Vuelo.EstadoVuelo.DESPEGADO)
                 .collect(Collectors.toList());
 

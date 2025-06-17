@@ -62,7 +62,7 @@ public class VistaControladorPrincipal extends JFrame {
         panel.add(btnNotificaciones);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        btnVueloSeguro = crearBoton("Vuelo Seguro");
+        btnVueloSeguro = crearBoton("Incidencias");
         panel.add(btnVueloSeguro);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
 

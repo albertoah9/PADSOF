@@ -27,7 +27,6 @@ public class MainControlador {
                                 LocalDate.of(2027, 7, 23), LocalDate.of(2027, 7, 23), 12, aerolinea);
                 aerolinea.añadirAvion(avionPasajeros);
 
-                // Vuelos (menos y con el mismo estado para probar)
                 Vuelo vuelo1 = new Vuelo("Madrid", "Paris", LocalDateTime.of(2027, 7, 23, 12, 20),
                                 LocalDateTime.of(2027, 7, 23, 10, 0), null, avionPasajeros, null, null,
                                 Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA,
@@ -36,13 +35,13 @@ public class MainControlador {
 
                 Vuelo vuelo2 = new Vuelo("Rotterdam", "Madrid", LocalDateTime.of(2027, 7, 23, 12, 30),
                                 LocalDateTime.of(2027, 7, 23, 9, 20), null, avionCarga, null, null,
-                                Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.LLEGADA,
+                                Vuelo.EstadoVuelo.ESPERANDO_DESPEGUE, aeropuerto, Vuelo.TipoVuelo.LLEGADA,
                                 Vuelo.ClaseVuelo.MERCANCIAS, aerolinea);
                 aeropuerto.addVuelo(vuelo2);
 
                 Vuelo vuelo3 = new Vuelo("Madrid", "Barcelona", LocalDateTime.of(2027, 7, 23, 13, 0),
                                 LocalDateTime.of(2027, 7, 23, 14, 0), null, avionPasajeros, null, null,
-                                Vuelo.EstadoVuelo.EN_PREPARACION, aeropuerto, Vuelo.TipoVuelo.SALIDA,
+                                Vuelo.EstadoVuelo.ESPERANDO_PISTA, aeropuerto, Vuelo.TipoVuelo.SALIDA,
                                 Vuelo.ClaseVuelo.PASAJEROS, aerolinea);
                 aeropuerto.addVuelo(vuelo3);
 

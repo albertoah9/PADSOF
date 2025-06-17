@@ -1,7 +1,7 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 /**
  * Vista para el control de vuelos seguros y reporte de incidentes.
@@ -27,7 +27,7 @@ public class VistaControladorVueloSeguro extends JFrame {
      * con pestañas para reportar incidentes y ver la lista.
      */
     public VistaControladorVueloSeguro() {
-        setTitle("Control de Vuelos y Reporte de Incidentes");
+        setTitle("Reporte de Incidentes");
         setSize(600, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
